@@ -8,6 +8,9 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
 sia = SIA()
 import re
 import json 
+import spacy
+nlp = spacy.load('en_core_web_sm', disable=["parser", "ner"])
+
 # from textblob import TextBlob
 # import spacy
 # nlp = spacy.load('en_core_web_sm', disable=["parser", "ner"])
@@ -57,12 +60,12 @@ def polarize(text):
     res = json.dumps(data)
     return res
 
-def tokenize(headline):
-    parsed = parse(headline)
+def tokenize(text, author):
     #tokenization from spacy and remove punctuations, convert to set to remove duplicates
-    words = set([str(token) for token in nlp(parsed) if not token.is_punct])
+    words = set([str(token) for token in nlp(text) if not token.is_punct])
     print("Below is length upon tokenization")
     print(len(words))
+
     # remove digits and other symbols except "@"--used to remove email
     words = list(words)
     words = [re.sub(r"[^A-Za-z@]", "", word) for word in words]
@@ -72,7 +75,19 @@ def tokenize(headline):
     words = [re.sub(r'\S+@\S+', "", word) for word in words]
     #remove empty spaces 
     words = [word for word in words if word!=""]
+
+    # remove words containing embed
+    print(words, "before1")
+    for word in words.copy():
+        if "Embed" in word:
+            words.remove(word)
+        if author in word:
+            if word in words:
+                words.remove(word)
     
+    # convert all to lowercase
+    words = [word.lower() for word in words]
+                
     print("Below is length before stopwords")
     print(len(words))
     #import lists of stopwords from NLTK
@@ -83,10 +98,12 @@ def tokenize(headline):
     print(len(words))
 
     # lemmization from spacy. doesn't appear to be doing anything. fix this
-    words = [token.lemma_ for token in nlp(str(words)) if not token.is_punct]
-    print("Below is length after Lemmatization")
-    print(len(words))
+    # words = [token.lemma_ for token in nlp(str(words)) if not token.is_punct]
+    # print("Below is length after Lemmatization")
+    # print(len(words))
 
+ 
+    # remove "words" that don't contain vowels
     vowels = ['a','e','i','o','u']
     words = [word for word in words if any(v in word for v in vowels)]
     print("Below is length after words with no vowels removed")
