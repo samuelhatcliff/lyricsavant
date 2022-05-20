@@ -23,12 +23,22 @@ class Math:
         negs_avg = round((sum(negs) / len(negs)), 2)
         neus_avg = round((sum(neus) / len(neus)), 2)
 
-        data = { "data": {"coms_avg": coms_avg,
+        obj = {"coms_avg": coms_avg,
         "poss_avg": poss_avg, "negs_avg": negs_avg, "neus_avg": neus_avg}
-            }
+
+        # if json == True:
+        #     data = { "data": obj
+        #         }
+        #     pol_score = json.dumps(data)
+        #     print("got json score", pol_score)
+        #     return pol_score
+        data = { "data": obj }
         pol_score = json.dumps(data)
         print("got json score", pol_score)
         return pol_score
+  
+
+
 
     def percent_dif(self, item1, item2):
         result = ((item2 - item1) / item1) * 100 
