@@ -5,18 +5,17 @@ from lyricsgenius import Genius
 from types import SimpleNamespace
 
 """Web Scraping"""
-import requests
-from bs4 import BeautifulSoup
-URL = "https://www.songkick.com/leaderboards/popular_artists?page=5"
-page = requests.get(URL)
-soup = BeautifulSoup(page.content, "html.parser")
-results = soup.find_all("td", class_="name")
-artist_list = []
-for td in results:
-    a= td.find("a")
-    artist_list.append(a.text)
+# import requests
+# from bs4 import BeautifulSoup
+# URL = "https://www.songkick.com/leaderboards/popular_artists?page=5"
+# page = requests.get(URL)
+# soup = BeautifulSoup(page.content, "html.parser")
+# results = soup.find_all("td", class_="name")
+# artist_list = []
+# for td in results:
+#     a= td.find("a")
+#     artist_list.append(a.text)
 
-print(artist_list, "artlist5,", len(artist_list))
 
 data = ['Rihanna', 'Drake', 'Coldplay', 'Eminem', 'Maroon 5', 'Ed Sheeran', 'Bruno Mars', 'Kanye West', 'Adele', 'The Weeknd', 'U2', 'Beyoncé', 'Justin Bieber', 'Katy Perry', 'Taylor Swift', 'Kendrick Lamar', 'Red Hot Chili Peppers', 'Lil Wayne', 'Nicki Minaj', 'Calvin Harris', 'Imagine Dragons', 'Chris Brown', 'Lady Gaga', 'David Guetta', 'Ariana Grande', 'Justin Timberlake', 'The Killers', 'Lana Del Rey', 'Wiz Khalifa', 'Queen', 'Usher', 'Radiohead', 'Kings of Leon', 'Arctic Monkeys', 'Ellie Goulding', 'Pitbull', 'Green Day', 'Post Malone', 'Muse', 'Mumford & Sons', 
 'J. Cole', 'Black Eyed Peas', 'Jason Derulo', 'Miley Cyrus', 'Sia', 'The Rolling Stones', 'Flo Rida', 'A$AP Rocky', 'Alicia Keys', 'Sam Smith', 'Metallica', 'Big Sean', 'Foo Fighters', 'Fleetwood Mac', 'OneRepublic', 'Future', 'Fall Out Boy', 'Britney Spears', 'Snoop Dogg', 'Elton John', 'John Legend', 'Shakira', 'Frank Ocean', 'Twenty One Pilots', 'Kid Cudi', 'Lorde', 'Paramore', 'Gorillaz', 'Travis Scott', 'John Mayer', 'Khalid', 'Demi Lovato', 'Childish Gambino', 'Skrillex', 'MGMT', 'The Chainsmokers', 'Billie Eilish', 'The Black Keys', 'Panic! At the Disco', "Guns N' Roses", 'Kesha', 'Shawn Mendes', 'AC/DC', 
@@ -167,193 +166,193 @@ def save_lyrics(artist):
 for artist in data:
     download_artist(artist)
 
-def get_wordcloud(text):
-    image = wc.generate(text).to_image()
-    img = io.BytesIO()
-    image.save(img, "PNG")
-    img.seek(0)
-    img_b64 = base64.b64encode(img.getvalue()).decode()
-    # source: https://www.codementor.io/@garethdwyer/building-news-word-clouds-using-python-and-repl-it-sy7l88roq
-    return img_b64
+# def get_wordcloud(text):
+#     image = wc.generate(text).to_image()
+#     img = io.BytesIO()
+#     image.save(img, "PNG")
+#     img.seek(0)
+#     img_b64 = base64.b64encode(img.getvalue()).decode()
+#     # source: https://www.codementor.io/@garethdwyer/building-news-word-clouds-using-python-and-repl-it-sy7l88roq
+#     return img_b64
 
-def save_plt_png(plt):
-    img = io.BytesIO()
-    plt.savefig(img, format='png')
-    img.seek(0)
-    image = base64.b64encode(img.getvalue()).decode()
-    plt.clf()
-    return image
+# def save_plt_png(plt):
+#     img = io.BytesIO()
+#     plt.savefig(img, format='png')
+#     img.seek(0)
+#     image = base64.b64encode(img.getvalue()).decode()
+#     plt.clf()
+#     return image
 
-def get_unique_words_bar(artist_id1, artist_id2):
-    # reference https://www.youtube.com/watch?v=nKxLfUrkLE8&t=42s
-    artist1 = Artist.query.get(artist_id1)
-    artist2 = Artist.query.get(artist_id2)
+# def get_unique_words_bar(artist_id1, artist_id2):
+#     # reference https://www.youtube.com/watch?v=nKxLfUrkLE8&t=42s
+#     artist1 = Artist.query.get(artist_id1)
+#     artist2 = Artist.query.get(artist_id2)
    
-    lyrics1 = generate_composite(artist_id1)
-    lyrics2 = generate_composite(artist_id2)
+#     lyrics1 = generate_composite(artist_id1)
+#     lyrics2 = generate_composite(artist_id2)
 
-    tokenized1 = tokenize(lyrics1, artist1.name)
-    tokenized2 = tokenize(lyrics2, artist2.name)
+#     tokenized1 = tokenize(lyrics1, artist1.name)
+#     tokenized2 = tokenize(lyrics2, artist2.name)
 
-    length1 = len(tokenized1) # number of unique words
-    length2 = len(tokenized2) 
+#     length1 = len(tokenized1) # number of unique words
+#     length2 = len(tokenized2) 
 
-    artists_x = [artist1.name, artist2.name]
-    words_y = [length1, length2]
-    plt.bar(artists_x, words_y)
+#     artists_x = [artist1.name, artist2.name]
+#     words_y = [length1, length2]
+#     plt.bar(artists_x, words_y)
   
-    plt.title("Which artist has a larger vocabulary?")
-    plt.xlabel("Artists")
-    plt.ylabel("Unique words")
-    plt.tight_layout() #tutorial said helps with padding, may want to use later
+#     plt.title("Which artist has a larger vocabulary?")
+#     plt.xlabel("Artists")
+#     plt.ylabel("Unique words")
+#     plt.tight_layout() #tutorial said helps with padding, may want to use later
 
-    image = save_plt_png(plt)
-    return image
+#     image = save_plt_png(plt)
+#     return image
 
-def get_pol_bar(artist_id1, artist_id2):
-    artist1 = Artist.query.get(artist_id1)
-    artist2 = Artist.query.get(artist_id2)
+# def get_pol_bar(artist_id1, artist_id2):
+#     artist1 = Artist.query.get(artist_id1)
+#     artist2 = Artist.query.get(artist_id2)
    
-    pol1 = artist1.pol_score
-    pol2 = artist2.pol_score
+#     pol1 = artist1.pol_score
+#     pol2 = artist2.pol_score
 
-    data1 = json.loads(pol1, object_hook=lambda d: SimpleNamespace(**d))
-    data2 = json.loads(pol2, object_hook=lambda d: SimpleNamespace(**d))
+#     data1 = json.loads(pol1, object_hook=lambda d: SimpleNamespace(**d))
+#     data2 = json.loads(pol2, object_hook=lambda d: SimpleNamespace(**d))
 
-    simplified1 = data1.data
-    simplified2 = data2.data
+#     simplified1 = data1.data
+#     simplified2 = data2.data
 
-    pos1 = simplified1.poss_avg
-    neg1 = simplified1.negs_avg
-    neu1 = simplified1.neus_avg
-    pol1_list = [pos1, neg1, neu1]
+#     pos1 = simplified1.poss_avg
+#     neg1 = simplified1.negs_avg
+#     neu1 = simplified1.neus_avg
+#     pol1_list = [pos1, neg1, neu1]
 
-    pos2 = simplified2.poss_avg
-    neg2 = simplified2.negs_avg
-    neu2 = simplified2.neus_avg
-    pol2_list = [pos2, neg2, neu2]
+#     pos2 = simplified2.poss_avg
+#     neg2 = simplified2.negs_avg
+#     neu2 = simplified2.neus_avg
+#     pol2_list = [pos2, neg2, neu2]
 
-    pols_x = ["Positive", "Neutral", "Negative"]
-    x_indexes = np.arange(len(pols_x))
-    width = 0.1
+#     pols_x = ["Positive", "Neutral", "Negative"]
+#     x_indexes = np.arange(len(pols_x))
+#     width = 0.1
 
-    plt.bar(x_indexes, pol1_list, width = width, label = artist1.name)
-    plt.bar(x_indexes + width, pol2_list, width = width, label = artist2.name)
-    plt.legend()
-    plt.xticks(ticks = x_indexes, labels = pols_x)
-    plt.title("Polarity Data")
-    plt.xlabel("Polarity")
-    plt.ylabel("Scores")
-    plt.tight_layout() 
+#     plt.bar(x_indexes, pol1_list, width = width, label = artist1.name)
+#     plt.bar(x_indexes + width, pol2_list, width = width, label = artist2.name)
+#     plt.legend()
+#     plt.xticks(ticks = x_indexes, labels = pols_x)
+#     plt.title("Polarity Data")
+#     plt.xlabel("Polarity")
+#     plt.ylabel("Scores")
+#     plt.tight_layout() 
 
-    image = save_plt_png(plt)
-    return image
+#     image = save_plt_png(plt)
+#     return image
 
-def get_pie(artist_id):
-    labels = ["Positive", "Neutral", "Negative"]
-    colors = ['#6d904f', '#e5ae37', '#fc4f30']   # green, yellow, red
-    artist = Artist.query.get(artist_id)
-    pol = artist.pol_score
-    data = json.loads(pol, object_hook=lambda d: SimpleNamespace(**d))
-    simplified = data.data
-    pos = simplified.poss_avg
-    neg = simplified.negs_avg
-    neu = simplified.neus_avg
-    values = [pos, neg, neu]
-    plt.pie(values, labels = labels, wedgeprops={'edgecolor':'black'}, colors = colors)
-    plt.title("Polarity")
-    plt.tight_layout()
+# def get_pie(artist_id):
+#     labels = ["Positive", "Neutral", "Negative"]
+#     colors = ['#6d904f', '#e5ae37', '#fc4f30']   # green, yellow, red
+#     artist = Artist.query.get(artist_id)
+#     pol = artist.pol_score
+#     data = json.loads(pol, object_hook=lambda d: SimpleNamespace(**d))
+#     simplified = data.data
+#     pos = simplified.poss_avg
+#     neg = simplified.negs_avg
+#     neu = simplified.neus_avg
+#     values = [pos, neg, neu]
+#     plt.pie(values, labels = labels, wedgeprops={'edgecolor':'black'}, colors = colors)
+#     plt.title("Polarity")
+#     plt.tight_layout()
 
-    img = io.BytesIO()
-    plt.savefig(img, format='png')
-    img.seek(0)
-    image = base64.b64encode(img.getvalue()).decode()
-    plt.clf()
-    return image
+#     img = io.BytesIO()
+#     plt.savefig(img, format='png')
+#     img.seek(0)
+#     image = base64.b64encode(img.getvalue()).decode()
+#     plt.clf()
+#     return image
 
 
-def generate_composite(artist_id):
-    """Sums the entirety of an artist's lyrics to a single string to be used to generate data"""
-    # This functionality is neccesary because visual data libraries in python tend to accept a single input of text
-    # rather than saving every single song's lyrics to our artist object in our db, we'd prefer to generate this text 
-    # in a single calculation in the moment we call it. This saves memory and lets us add and remove songs/lyrics from 
-    # an artist without having to update a composite string saved to the artist sqalchemy object each time
+# def generate_composite(artist_id):
+#     """Sums the entirety of an artist's lyrics to a single string to be used to generate data"""
+#     # This functionality is neccesary because visual data libraries in python tend to accept a single input of text
+#     # rather than saving every single song's lyrics to our artist object in our db, we'd prefer to generate this text 
+#     # in a single calculation in the moment we call it. This saves memory and lets us add and remove songs/lyrics from 
+#     # an artist without having to update a composite string saved to the artist sqalchemy object each time
 
-    artist = Artist.query.get(artist_id)
-    comp = ""
-    for song in artist.songs:
-        comp += song.lyrics
+#     artist = Artist.query.get(artist_id)
+#     comp = ""
+#     for song in artist.songs:
+#         comp += song.lyrics
 
-    return comp
+#     return comp
 
-@app.route("/")
-def home():
-    """WordCloud"""
-    artist1 = Artist.query.get(604).id
-    artist2 = Artist.query.get(9534).id
-    lyrics = generate_composite(artist1)
-    wc_img = get_wordcloud(lyrics)
+# @app.route("/")
+# def home():
+#     """WordCloud"""
+#     artist1 = Artist.query.get(604).id
+#     artist2 = Artist.query.get(9534).id
+#     lyrics = generate_composite(artist1)
+#     wc_img = get_wordcloud(lyrics)
 
-    """Pie Chart"""
-    pie_img = get_pie(artist1)
+#     """Pie Chart"""
+#     pie_img = get_pie(artist1)
 
-    """Unique Words Bar Chart"""
-    bar_img = get_unique_words_bar(artist1, artist2)
+#     """Unique Words Bar Chart"""
+#     bar_img = get_unique_words_bar(artist1, artist2)
   
-    """Polarity Bar Chart"""
-    pol_img = get_pol_bar(artist1, artist2)
+#     """Polarity Bar Chart"""
+#     pol_img = get_pol_bar(artist1, artist2)
 
-    artist1 = Artist.query.get(artist1)
-    artist2 = Artist.query.get(artist2)
+#     artist1 = Artist.query.get(artist1)
+#     artist2 = Artist.query.get(artist2)
 
 
-    songs1 = artist1.songs
-    songs2 = artist2.songs
+#     songs1 = artist1.songs
+#     songs2 = artist2.songs
 
-    for song in songs1:
-        print(song.lyrics)
+#     for song in songs1:
+#         print(song.lyrics)
     
-    for song in songs2:
-        print(song.lyrics)
+#     for song in songs2:
+#         print(song.lyrics)
 
 
-    return render_template('home.html', wc_img = wc_img, pie_img = pie_img, bar_img = bar_img, pol_img = pol_img)
+#     return render_template('home.html', wc_img = wc_img, pie_img = pie_img, bar_img = bar_img, pol_img = pol_img)
 
-@app.route("/api/artists/")
-def get_all_artists():
-    """Return JSON for all artists in database"""
-    artists = Artist.query.all()
-    serialized = [serialize_artist(a) for a in artists]
-    return jsonify(artists=serialized)
+# @app.route("/api/artists/")
+# def get_all_artists():
+#     """Return JSON for all artists in database"""
+#     artists = Artist.query.all()
+#     serialized = [serialize_artist(a) for a in artists]
+#     return jsonify(artists=serialized)
 
-@app.route("/api/artists/<int:id>")
-def get_artist(id):
-    """Return JSON for a specific artist in database"""
-    artist = Artist.query.get(id)
-    serialized = serialize_artist(artist)
-    return jsonify(artists=serialized)
+# @app.route("/api/artists/<int:id>")
+# def get_artist(id):
+#     """Return JSON for a specific artist in database"""
+#     artist = Artist.query.get(id)
+#     serialized = serialize_artist(artist)
+#     return jsonify(artists=serialized)
 
-@app.route("/api/artists/<int:id>/songs")
-def get_songs_by_artist(id):
-    artist = Artist.query.get(id)
-    serialized = [serialize_artist(song) for song in artist.songs]
-    return jsonify(songs=serialized)
+# @app.route("/api/artists/<int:id>/songs")
+# def get_songs_by_artist(id):
+#     artist = Artist.query.get(id)
+#     serialized = [serialize_artist(song) for song in artist.songs]
+#     return jsonify(songs=serialized)
 
-@app.route("/api/artists/<int:artist_id>/<int:song_id>")
-def get_song_by_artist(artist_id, song_id):
-    artist = Artist.query.get(artist_id)
-    print(artist)
-    song = Song.query.get(song_id)
-    serialized = serialize_song(song)
-    return jsonify(songs=serialized)
+# @app.route("/api/artists/<int:artist_id>/<int:song_id>")
+# def get_song_by_artist(artist_id, song_id):
+#     artist = Artist.query.get(artist_id)
+#     print(artist)
+#     song = Song.query.get(song_id)
+#     serialized = serialize_song(song)
+#     return jsonify(songs=serialized)
 
-@app.route("/api/artists/", methods=["POST"])
-def add_artist():
-    name = request.json["name"]
-    quantity = request.json["quantity"]
-    our_artist = download_artist(name, quantity)
-    response = jsonify(serialize_artist(our_artist))
-    return (response, 201)
+# @app.route("/api/artists/", methods=["POST"])
+# def add_artist():
+#     name = request.json["name"]
+#     quantity = request.json["quantity"]
+#     our_artist = download_artist(name, quantity)
+#     response = jsonify(serialize_artist(our_artist))
+#     return (response, 201)
 
 
 #https://lyricsgenius.readthedocs.io/en/master/reference/genius.html
