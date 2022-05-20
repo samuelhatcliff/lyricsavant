@@ -1,30 +1,16 @@
-# from re import L
-# from flask import Flask, request, render_template, flash, redirect, render_template, jsonify, session, g
-
-# from forms import RegisterForm, LoginForm, SearchForm
-# from api_calls import api_call, cat_calls
-from sent_analysis import polarize
-
-# import psycopg2
-# import datetime as dt
-# import requests
-# from dateutil import parser
-
-# # from flask_debugtoolbar import DebugToolbarExtension 
-# from flask_bcrypt import Bcrypt
-
-# bcrypt = Bcrypt()
+"""General imports"""
 from flask import Flask, jsonify, request, render_template
 import json
 from lyricsgenius import Genius
 from types import SimpleNamespace
+# from flask_debugtoolbar import DebugToolbarExtension 
 
 """Imports from our own costum modules"""
+from sent_analysis import polarize
 from models import connect_db, db, Song, Artist
 from api import serialize_artist, serialize_song
 from math_helpers import Math
 math = Math()
-
 
 """Data imports"""
 from wordcloud import WordCloud, STOPWORDS
@@ -33,14 +19,11 @@ wc= WordCloud(stopwords=stopwords, background_color="white")
 from matplotlib import pyplot as plt
 plt.switch_backend('Agg')
 plt.style.use("fivethirtyeight")
-
-
 import numpy as np
 import io
 import sys, os
 os.chdir(sys.path[0])
 import base64
-
 
 app = Flask(__name__)
 
@@ -51,27 +34,18 @@ app.config['SECRET_KEY'] = "topsecret1"
 # app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 # debug = DebugToolbarExtension(app)
 
-
-
 connect_db(app)
 
 db.create_all()
 
-
-
-
-
 genius = Genius('aPt0Y03tHHx7XAVyDWcJUzgaR7qBN5_D1-Dg_s-BBgTO8ifIJUB0toLzQ0P2YKCF')
-#modify our genius object with params to narrow down search results
+#modifies our genius object with params to narrow down search results
 genius.excluded_terms = ["(Remix)", "(Live)"]
 genius.skip_non_songs = True
 genius.remove_section_headers = True
 
 # db.drop_all()
 # db.create_all()
-
-
-
 
 def download_artist(name, quantity = 0):
     # quantity refers to number of songs returned with artist in artist.songs
@@ -93,12 +67,10 @@ def download_artist(name, quantity = 0):
     artist_name = data['name']
     bio = data['description']['plain']
     image = data['image_url']
-    print('artistdata', data)
     # our Artist sqlalchemy object is assigned the same ID given to us by lyricsgenius api for convenience
     our_artist = Artist(id = artist.id, name = artist_name, bio = bio, image = image)
     db.session.add(our_artist)
     db.session.commit()
-
 
     if artist.songs:
         # our lyricsgenius artist object may or may not return songs depending on the second arg of our find_artist function
@@ -109,16 +81,11 @@ def download_artist(name, quantity = 0):
         our_artist.pol_score = pol_score
         db.session.commit()
     
-    
-
-
     return artist.id
-
 
 def save_lyrics(artist):
     """Retrieves lyrics, runs SA on each song, saves song to database along with SA scores"""
     songs = []
-    
     for song in artist.songs:
         try:
             res = genius.song(song.id)
@@ -142,10 +109,8 @@ def save_lyrics(artist):
         finally:
             pass
     
-   
     return songs
     
-
 def get_wordcloud(text):
     image = wc.generate(text).to_image()
     img = io.BytesIO()
@@ -163,12 +128,16 @@ def save_plt_png(plt):
     plt.clf()
     return image
 
-def get_bar(artist_id1, artist_id2):
+def get_unique_words_bar(artist_id1, artist_id2):
+    # reference https://www.youtube.com/watch?v=nKxLfUrkLE8&t=42s
     artist1 = Artist.query.get(artist_id1)
     artist2 = Artist.query.get(artist_id2)
    
-    dummy1 = 456 # number of unique words
-    dummy2 = 400 
+    lyrics1 = set(generate_composite(artist_id1).split())
+    lyrics2 = set(generate_composite(artist_id2).split())
+    print('hmmmm', lyrics1)
+    dummy1 = len(lyrics1) # number of unique words
+    dummy2 = len(lyrics2) 
 
     artists_x = [artist1.name, artist2.name]
     words_y = [dummy1, dummy2]
@@ -182,7 +151,7 @@ def get_bar(artist_id1, artist_id2):
     image = save_plt_png(plt)
     return image
 
-def get_bar_pol(artist_id1, artist_id2):
+def get_pol_bar(artist_id1, artist_id2):
     artist1 = Artist.query.get(artist_id1)
     artist2 = Artist.query.get(artist_id2)
    
@@ -218,16 +187,8 @@ def get_bar_pol(artist_id1, artist_id2):
     plt.ylabel("Scores")
     plt.tight_layout() 
 
-    img = io.BytesIO()
-    plt.savefig(img, format='png')
-    img.seek(0)
-    image = base64.b64encode(img.getvalue()).decode()
-    plt.clf()
+    image = save_plt_png(plt)
     return image
-
-
-
-
 
 def get_pie(artist_id):
     labels = ["Positive", "Neutral", "Negative"]
@@ -263,7 +224,7 @@ def generate_composite(artist_id):
     comp = ""
     for song in artist.songs:
         comp += song.lyrics
-    
+
     return comp
 
 @app.route("/")
@@ -278,15 +239,12 @@ def home():
     pie_img = get_pie(artist1)
 
     """Unique Words Bar Chart"""
-    bar_img = get_bar(artist1, artist2)
+    bar_img = get_unique_words_bar(artist1, artist2)
   
     """Polarity Bar Chart"""
-    pol_img = get_bar_pol(artist1, artist2)
-
+    pol_img = get_pol_bar(artist1, artist2)
 
     return render_template('home.html', wc_img = wc_img, pie_img = pie_img, bar_img = bar_img, pol_img = pol_img)
-
-
 
 @app.route("/api/artists/")
 def get_all_artists():
@@ -302,7 +260,6 @@ def get_artist(id):
     serialized = serialize_artist(artist)
     return jsonify(artists=serialized)
 
-
 @app.route("/api/artists/<int:id>/songs")
 def get_songs_by_artist(id):
     artist = Artist.query.get(id)
@@ -317,8 +274,6 @@ def get_song_by_artist(artist_id, song_id):
     serialized = serialize_song(song)
     return jsonify(songs=serialized)
 
-
-
 @app.route("/api/artists/", methods=["POST"])
 def add_artist():
     name = request.json["name"]
@@ -327,41 +282,6 @@ def add_artist():
     response = jsonify(serialize_artist(our_artist))
     return (response, 201)
 
-
-
-
-
-
-# artist = genius.search_artist('Eminem', max_songs=1)
-# page = 1
-# songs = []
-# while page:
-#     request = genius.artist_songs(artist.id,
-#                                   sort='popularity',
-#                                   per_page=50,
-#                                   page=page,
-#                                   )
-#     songs.extend(request['songs'])
-#     page = request['next_page']
-# song= genius.search_song(songs[0]['title'], artist.name)
-# values = song.to_dict()
-# print(values['stats'])
-
-
-# Genius.artist_songs(artist_id, per_page=None, page=None, sort='title')
-# Gets artist’s songs.
-
-# Parameters
-# artist_id (int) – Genius artist ID
-
-# sort (str, optional) – Sorting preference. Either based on ‘title’, ‘popularity’ or ‘release_date’.
-
-# per_page (int, optional) – Number of results to return per request. It can’t be more than 50.
-
-# page (int, optional) – Paginated offset (number of the page).
-
-# Returns
-# dict
 
 #https://lyricsgenius.readthedocs.io/en/master/reference/genius.html
 # https://lyricsgenius.readthedocs.io/en/master/reference/types.html

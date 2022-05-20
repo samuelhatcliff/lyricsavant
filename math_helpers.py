@@ -37,9 +37,6 @@ class Math:
         print("got json score", pol_score)
         return pol_score
   
-
-
-
     def percent_dif(self, item1, item2):
         result = ((item2 - item1) / item1) * 100 
         return result

@@ -12,9 +12,6 @@ import json
 # import spacy
 # nlp = spacy.load('en_core_web_sm', disable=["parser", "ner"])
 
-
-
-
 def polarize(text):
     #function returns an object of two sepearate polarity scores; one based off the text of the article and the other
     #from just the headline alone. Each of these are represented in their own respective objects. 
