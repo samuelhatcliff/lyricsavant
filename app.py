@@ -51,11 +51,11 @@ genius.retries = 1
 completed = []
 failed = []
 
-@app.route("/")
+@app.route("/test")
 def home():
     artists = Artist.query.all()
     print("Available Artists:", artists)
-    return render_template('home.html')
+    return {"members": ["mem1", "mem2"]}
 
 @app.route("/results")
 def results():
