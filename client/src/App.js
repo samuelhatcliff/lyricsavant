@@ -39,7 +39,7 @@ function App() {
   const [initialData, setData] = useState([{}])
 
   useEffect(() => {
-    fetch("/test").then(
+    fetch("/api/artists/20710").then(
       res => res.json()
     ).then(
       initialData => {

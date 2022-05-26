@@ -23,6 +23,7 @@ from types import SimpleNamespace
 from models import connect_db, db, Song, Artist
 from api import serialize_artist, serialize_song
 from math_helpers import Math
+from sent_analysis import polarize, tokenize
 from python_data_visuals import Python_Data_Visuals
 from lyrics_api import download_artist
 pd = Python_Data_Visuals()
@@ -53,8 +54,9 @@ failed = []
 
 @app.route("/test")
 def home():
-    artists = Artist.query.all()
-    print("Available Artists:", artists)
+    artist1 = Artist.query.get(20710) #a7x
+    artist2 = Artist.query.get(17912) #evanescence
+    print("Available Artists:", artist1, artist2)
     return {"members": ["mem1", "mem2"]}
 
 @app.route("/results")
@@ -92,8 +94,15 @@ def get_all_artists():
 def get_artist(id):
     """Return JSON for a specific artist in database"""
     artist = Artist.query.get(id)
-    serialized = serialize_artist(artist)
-    return jsonify(artists=serialized)
+    pol_score = math.avg_pol(artist)
+    unique_words = math.get_num_unique_words(id)
+    artist_dict = artist.__dict__
+    artist_dict['pol_score'] = pol_score
+    artist_dict['vocab_score'] = unique_words
+    serialized = serialize_artist(artist_dict)
+    return serialized
+
+
 
 @app.route("/api/artists/<int:id>/songs")
 def get_songs_by_artist(id):

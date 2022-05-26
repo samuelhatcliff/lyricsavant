@@ -1,9 +1,17 @@
 import json
 from types import SimpleNamespace
 from models import Artist
+from sent_analysis import polarize, tokenize
 
 class Math:
-    def avg_pol(self, scores):
+    def avg_pol(self, artist):
+        # first create a list of score objects for each songs 
+        scores = []
+        for song in artist.songs:
+            lyric = song.lyrics
+            scores.append(polarize(lyric))
+
+        # then separate specific scores for coms, pos, negs, and neus
         coms = []
         poss = []
         negs = []
@@ -19,20 +27,21 @@ class Math:
         except: 
             pass
 
-        print(coms, poss, negs, neus, "arrays1")
         
+        # get average for each category by averaging list
         coms_avg = round((sum(coms) / len(coms)), 2)
         poss_avg = round((sum(poss) / len(poss)), 2)
         negs_avg = round((sum(negs) / len(negs)), 2)
         neus_avg = round((sum(neus) / len(neus)), 2)
 
+        # creates an object with these averagesx
         obj = {"coms_avg": coms_avg,
         "poss_avg": poss_avg, "negs_avg": negs_avg, "neus_avg": neus_avg}
 
         data = { "data": obj }
-        pol_score = json.dumps(data)
-        print("got1 json score", pol_score)
-        return pol_score
+        # pol_score = json.dumps(data)
+        # print("got1 json score", pol_score)
+        return data
   
     def percent_dif(self, item1, item2):
         result = ((item2 - item1) / item1) * 100 
@@ -59,6 +68,13 @@ class Math:
             comp += song.lyrics
 
         return comp
+
+    def get_num_unique_words(self, artist_id):
+        artist = Artist.query.get(artist_id)
+        lyrics = self.generate_composite(artist_id)
+        tokenized = tokenize(lyrics, artist.name)
+        num_unique = len(tokenized) 
+        return num_unique
 
     def clean_up(self, text, author, song_title):
         print(text, "ogtext")
