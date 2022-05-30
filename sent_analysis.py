@@ -4,6 +4,7 @@ import nltk
 nltk.download('stopwords')
 nltk.download('punkt')
 from nltk.corpus import stopwords
+
 from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
 sia = SIA()
 import re
@@ -11,6 +12,7 @@ import json
 import spacy
 nlp = spacy.load('en_core_web_sm', disable=["parser", "ner"])
 
+my_stopwords = ["tell", "now", "got", "back", "come", "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "her", "hers", "herself", "it", "its", "itself", "they", "them", "their", "theirs", "themselves", "what", "which", "who", "whom", "this", "that", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "against", "between", "into", "through", "during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "on", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "should", "now"]
 # from textblob import TextBlob
 # import spacy
 # nlp = spacy.load('en_core_web_sm', disable=["parser", "ner"])
@@ -19,7 +21,6 @@ def polarize(text):
     #function returns an object of two sepearate polarity scores; one based off the text of the article and the other
     #from just the headline alone. Each of these are represented in their own respective objects. 
     pol_obj = {}
-
     """Logic for polarity from article text"""
   
     sentenced = nltk.tokenize.sent_tokenize(text)
@@ -55,16 +56,17 @@ def polarize(text):
 
   #TRY TO USE ROUNDED VERSIONS IN message
     pol_obj["message"] = f"compound: {avg_com}. {avg_neg *100}% Negative, {avg_neu *100}% Neutral, and {avg_pos *100}% Positive"
-    data = { "data": pol_obj
-    }
-    res = json.dumps(data)
-    return res
+    # data = { "data": pol_obj
+    # }
+    # res = json.dumps(data)
+    test = []
+    test.append(pol_obj['avg_com'])
+    return pol_obj
 
 def tokenize(text, author):
     #tokenization from spacy and remove punctuations, convert to set to remove duplicates
     words = set([str(token) for token in nlp(text) if not token.is_punct])
-    print("Below is length upon tokenization")
-    print(len(words))
+
 
     # remove digits and other symbols except "@"--used to remove email
     words = list(words)
@@ -77,7 +79,6 @@ def tokenize(text, author):
     words = [word for word in words if word!=""]
 
     # remove words containing embed
-    print(words, "before1")
     for word in words.copy():
         if "Embed" in word:
             words.remove(word)
@@ -87,15 +88,10 @@ def tokenize(text, author):
     
     # convert all to lowercase
     words = [word.lower() for word in words]
-                
-    print("Below is length before stopwords")
-    print(len(words))
+
     #import lists of stopwords from NLTK
     stop_words = set(stopwords.words('english'))
     words = [w for w in words if not w.lower() in stop_words]
-
-    print("Below is length after stopwords filtered")
-    print(len(words))
 
     # lemmization from spacy. doesn't appear to be doing anything. fix this
     # words = [token.lemma_ for token in nlp(str(words)) if not token.is_punct]
@@ -106,13 +102,9 @@ def tokenize(text, author):
     # remove "words" that don't contain vowels
     vowels = ['a','e','i','o','u']
     words = [word for word in words if any(v in word for v in vowels)]
-    print("Below is length after words with no vowels removed")
-    print(len(words))  
-    
+
     #eliminate duplicate words by turning list into a set
     words_set = set(words)
-    print("Below is length after converted to set")
-    print(len(words_set)) 
 
     return words_set
     # sources: https://towardsdatascience.com/a-step-by-step-tutorial-for-conducting-sentiment-analysis-a7190a444366
