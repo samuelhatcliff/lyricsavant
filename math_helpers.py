@@ -167,7 +167,7 @@ class Math:
         return string 
 
     def get_stopwords(self):
-        return ["i'll", "and", "be", "yet", "so", "~", "-", "_", "/", ".", ",", "[", "]", "*", "lyrics", "na", "say", "want", "need", "naa", "nah", "ha", "yes", "Hey", "u", "make", "mi", "ooh", "around", "oh", "still", "see", "after", "afterwards", "ag", "again", "well", "one", "em", "let", "go",
+        return ["i'll", "let's", "and", "be", "yet", "so", "~", "-", "_", "/", ".", ",", "[", "]", "*", "lyrics", "na", "say", "want", "need", "naa", "nah", "ha", "yes", "Hey", "u", "make", "mi", "ooh", "around", "oh", "still", "see", "after", "afterwards", "ag", "again", "well", "one", "em", "let", "go",
 "ah", "ain", "ain't", "aj", "al", "all","almost",  "already", "also", "although", 
 "am","an", "and","another", "any", "are", "aren", "arent", "as", "a's", "right", "wanna", "ya ya", "I'ma", "ya", "til",
 "did", "didn", "didn't", "do", "does", "doesn", "doesn't","either", "else", "for", 

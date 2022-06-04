@@ -3,13 +3,6 @@ import WordCloud from 'react-d3-cloud';
 import { scaleOrdinal } from 'd3-scale';
 import { schemeCategory10 } from 'd3-scale-chromatic';
 
-// const data = [
-//     { text: 'Hey', value: 1000 },
-//     { text: 'lol', value: 200 },
-//     { text: 'first impression', value: 800 },
-//     { text: 'very cool', value: 1000000 },
-//     { text: 'duck', value: 10 },
-// ];
 
 function freqCount(arr) {
     const freqs = {};
@@ -30,27 +23,44 @@ function toArr(obj) {
     }
     return arr;
 }
+
+function filterArray(arr) {
+    const length = arr.length;
+    let sum = 0;
+    for (let eachObj of arr) {
+        sum += eachObj["value"];
+    }
+    const average = sum / length
+    const reducedArr = [];
+    for (let eachObj of arr) {
+        if (eachObj["value"] > average) {
+            reducedArr.push(eachObj)
+        }
+    }
+    return reducedArr;
+}
 const WordCloudFunc = ({ artist }) => {
     const data = freqCount(artist.words)
-    const newData = toArr(data)
-    console.log(newData)
-    console.log(newData[0])
-    return <div><WordCloud data={newData}
-        width={800}
-        height={800}
-        font="Times"
-        // fontStyle="italic"
-        fontWeight="bold"
-        fontSize={(word) => Math.log2(word.value) * 20}
-        spiral="rectangular"
-        rotate={(word) => word.value % 360}
-        padding={5}
-        random={Math.random}
-        onWordClick={(event, d) => {
-            console.log(`onWordClick: ${d.text}, length: ${d.text.length}`);
-        }}
+    const arrData = toArr(data)
+    const reducedData = filterArray(arrData)
 
-    /></div>
+    return <div>
+        <WordCloud data={reducedData}
+            width={1200}
+            height={800}
+            font="Times"
+            // fontStyle="italic"
+            fontWeight="bold"
+            fontSize={(word) => Math.log2(word.value) * 25}
+            spiral="rectangular"
+            rotate={(word) => word.value % 360}
+            padding={5}
+            random={Math.random}
+            onWordClick={(event, d) => {
+                console.log(`onWordClick: ${d.text}, length: ${d.text.length}`);
+            }}
+
+        /></div>
 }
 
 export default WordCloudFunc

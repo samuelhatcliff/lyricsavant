@@ -55,7 +55,6 @@ const BarChart = ({ artist1, artist2 }) => {
         <div>
             <Bar data={state}
                 options={options} />
-
         </div>
     )
 }

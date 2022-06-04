@@ -5,6 +5,16 @@ import { Chart } from 'react-chartjs-2';
 
 
 const PieChart = ({ artist }) => {
+    const data = artist.pol_score.data;
+    function insightMsg() {
+        if (data.poss_avg > data.negs_avg) {
+            return `The artist ${artist.name} uses lyrics that tend to be more positive than negative, with an average polarity score of
+            ${data.poss_avg} for positive lyrics, and ${data.negs_avg} for negative lyrics. `
+        } else {
+            return `The artist ${artist.name} uses lyrics that tend to be more negative than positive, with an average polarity score of
+            ${data.negs_avg} for negative lyrics, and ${data.poss_avg} for positive lyrics. `
+        }
+    }
     const state = {
         labels: [
             "Positive", "Negative", "Nuetral"
@@ -16,9 +26,9 @@ const PieChart = ({ artist }) => {
                 borderColor: "rgba(0, 0, 0, 1)",
                 borderWideth: "2",
                 data: [
-                    artist.pol_score.data.poss_avg,
-                    artist.pol_score.data.negs_avg,
-                    artist.pol_score.data.neus_avg
+                    data.poss_avg,
+                    data.negs_avg,
+                    data.neus_avg
                 ]
             }
         ]
@@ -41,7 +51,7 @@ const PieChart = ({ artist }) => {
         <div>
             <Pie data={state}
                 options={options} />
-
+            {insightMsg()}
         </div>
     )
 }
