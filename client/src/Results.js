@@ -5,13 +5,12 @@ import { Circles } from 'react-loader-spinner';
 
 
 
-const Results = ({ artistId, artistId2 }) => {
-    // let [process, setProcess] = useState([{ "id": artistId, "isLoading": true }])
-    // const [compare, setCompare] = useState(false);
-    let [artist, setArtist] = useState(null)
-    let [artist2, setArtist2] = useState(null)
-    let [isLoading, setLoading] = useState(true)
-
+const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
+    const [artist, setArtist] = useState(null)
+    const [artist2, setArtist2] = useState(null)
+    // setLoading(true)
+    // const [isLoading, setLoading] = useState(true)
+    console.log("current artist query id:", artistId)
     useEffect(() => {
         console.log("inside use effect")
         if (artistId2) {
@@ -49,7 +48,7 @@ const Results = ({ artistId, artistId2 }) => {
 
             })
         }
-    }, [])
+    }, [artistId, artistId2])
 
     return (
         <div>

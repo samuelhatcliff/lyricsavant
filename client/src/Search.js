@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 
 
-function Search({ allArtists, setSearchQ, setLoading }) {
+function Search({ allArtists, setSearchQ }) {
     const items = allArtists;
 
     // const handleOnSearch = () => {
