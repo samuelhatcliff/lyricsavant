@@ -6,17 +6,6 @@ import React, { useState } from 'react';
 function Search({ allArtists, setSearchQ }) {
     const items = allArtists;
 
-    // const handleOnSearch = () => {
-    //     console.log(searchQ["id"], "on search")
-    //     if (searchQ) {
-    //         if (setArtistId2) {
-    //             setArtistId2(searchQ["id"])
-    //         } else {
-    //             setArtistId(searchQ["id"])
-    //             setLoading(true)
-    //         }
-    //     }
-    // }
     const handleOnHover = (result) => {
         // the item hovered
         // console.log(result, "on hover")
