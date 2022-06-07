@@ -1,21 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import BarChart from "./BarChart.js";
-import PieChart from './PieChart';
-import WordsChart from './WordsChart';
-import WordCloudFunc from './WordCloud';
+import PieChart from './charts/PieChart';
+import WordCloudFunc from './charts/WordCloud';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import React from 'react';
+
+
 
 function Artist({ artist }) {
     console.log("Rendering artist:", artist)
+
+
     return (
-        <div>
-            <div>
-                <img src={artist.image} />
-                Bio: {artist.bio}
-                <p>{artist.name} uses {artist.vocab_score} unique words!</p>
-                <WordCloudFunc artist={artist} />,
-                <PieChart artist={artist} />
-            </div>
-        </div>
+        <React.Fragment>
+            <Grid item spacing={3}>
+                <div>
+                    <img width="300px;" src={artist.image} />
+                    <p>Bio: {artist.bio.slice(0, 300)} + more</p>
+                </div>
+            </Grid>
+            <Grid item spacing={3}>
+                <div>
+                    <p>{artist.name} uses {artist.vocab_score} unique words!</p>
+                    {/* <WordCloudFunc width="300px;" artist={artist} />, */}
+                </div>
+            </Grid>
+            <Grid item spacing={3}>
+                <div>
+                    <PieChart artist={artist} />
+                </div>
+            </Grid>
+        </React.Fragment >
+
     )
 }
 

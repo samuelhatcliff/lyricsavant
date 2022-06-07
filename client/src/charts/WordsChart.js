@@ -5,6 +5,24 @@ import { Chart } from 'react-chartjs-2';
 
 const WordsChart = ({ artist1, artist2 }) => {
     // UNIQUE WORDS
+    console.log(`inside words chart, artist1 ${artist1}, artist2 ${artist2}`)
+    function insightMsg() {
+        let winner;
+        let loser;
+        //rewrite as tertiary operator 
+        if (artist1.vocab_score > artist2.vocab_score) {
+            winner = artist1;
+            loser = artist2;
+        } else {
+            winner = artist2;
+            loser = artist1;
+        }
+        const subtraction = winner.vocab_score - loser.vocab_score;
+        return `The artist ${winner.name} has a larger vocabulary than ${loser.name}
+            by ${subtraction} words. ${winner.name} uses ${winner.vocab_score} unique words, 
+            while ${loser.name} uses ${loser.vocab_score} unique words.`
+    }
+
     const state = {
         labels: [
             artist1.name, artist2.name
@@ -16,10 +34,7 @@ const WordsChart = ({ artist1, artist2 }) => {
                 borderColor: "rgba(0, 0, 0, 1)",
                 borderWideth: "2",
                 data: [artist1.vocab_score, artist2.vocab_score]
-
             },
-
-
         ]
     }
     const options = {
@@ -40,8 +55,12 @@ const WordsChart = ({ artist1, artist2 }) => {
         <div>
             <Bar data={state}
                 options={options} />
+            {insightMsg()}
         </div>
     )
 }
 
 export default WordsChart
+
+
+

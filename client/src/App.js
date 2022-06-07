@@ -1,12 +1,9 @@
-import './App.css';
 import React, { useState, useEffect } from 'react';
-
-// External components/libraries
-import axios from "axios";
-
 // Our own components 
 import SearchModule from './SearchModule';
 import Results from "./Results";
+import BasicGrid from './charts/GridDemo';
+import Contribute from "./Contribute";
 
 function App() {
   const [allArtists, setAllArtists] = useState([{}]);
@@ -16,7 +13,7 @@ function App() {
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    console.log("get all artist effect ran. Current Artists:", artistId, artistId2)
+    // console.log("get all artist effect ran. Current Artists:", artistId, artistId2)
     const p3 = fetch("/api/artists/").then( // gets all artist names
       res => res.json()
     ).then(
@@ -25,13 +22,15 @@ function App() {
           { "name": name, "id": id }
         ))
         setAllArtists(names)
-        console.log("Retrieved Artists:", allArtists)
       },
     )
   }, []);
 
   return (
     <div className="App">
+      {/* <BasicGrid></BasicGrid> */}
+      {/* <Contribute allArtists={allArtists} /> */}
+
       <SearchModule setSubmit={setSubmit}
         setLoading={setLoading}
         allArtists={allArtists}

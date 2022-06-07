@@ -31,7 +31,8 @@ def download_artist(name, quantity = 40, allow_name_change = False):
         # timeout error to ensure that a timeout for a single song doesn't halt the entire search. It seems like this simply lets said song 
         # be skipped in favor of the next one (due to the request taking too much time)
         # make sure this is working like i think it is
-
+        if artist == None:
+            return None
         #save artist to our database extracting the information that we want from lyricsgenius API
         res = genius.artist(artist.id)
         data = res['artist']
@@ -58,7 +59,7 @@ def download_artist(name, quantity = 40, allow_name_change = False):
             save_lyrics(artist)
         completed.append(name)
         print(f"completed seeding data for {name}")
-        return "done"
+        return f"completed seeding data for {name}"
     except:
         failed.append(name)
         print(f"failed seeding data for {name}")

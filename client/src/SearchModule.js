@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Search from "./Search";
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import Backdrop from '@mui/material/Backdrop';
+
 
 const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArtists }) => {
-    const [searchQ1, setSearchQ1] = useState([{}]);
-    const [searchQ2, setSearchQ2] = useState([{}]);
+    const [open, setOpen] = React.useState(false);
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleToggle = () => {
+        setOpen(!open);
+    };
+
+    const [searchQ1, setSearchQ1] = useState([]);
+    const [searchQ2, setSearchQ2] = useState([]);
     const [checked, setChecked] = useState(false);
 
     const handleChecked = () => {
@@ -19,6 +32,7 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
             }
             setSubmit(true)
             setLoading(true)
+            handleToggle()
         }
     }
 
@@ -26,29 +40,43 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
         <div>
             {checked ? (
                 <div>
-                    <Search allArtists={allArtists} setSearchQ={setSearchQ1} />
-                    <span>Selected Artist : {searchQ1["name"]}</span>,
-                    <Search allArtists={allArtists} setSearchQ={setSearchQ2} />
-                    <span>Selected Artist : {searchQ2["name"]}</span>
+                    <Typography variant="subtitle1" component="div" gutterBottom>
+                        <Search allArtists={allArtists} setSearchQ={setSearchQ1} />
+                        <span>Selected Artist: {searchQ1["name"]}</span>
+                        <Search allArtists={allArtists} setSearchQ={setSearchQ2} />
+                        <span>Selected Artist: {searchQ2["name"]}</span>
+                    </Typography>
                 </div>
             )
                 : (
                     <div>
-                        <Search allArtists={allArtists} setSearchQ={setSearchQ1} />
-                        <span>Selected Artist : {searchQ1["name"]}</span>
+                        <Typography variant="subtitle1" component="div" gutterBottom>
+                            <Search allArtists={allArtists} setSearchQ={setSearchQ1} />
+                            <span>Selected Artist: {searchQ1["name"]}</span>
+                        </Typography>
                     </div>
                 )}
 
-            <label>
-                <input type="checkbox"
-                    checked={checked}
-                    onChange={handleChecked} />
-                Compare two separate artists?
+            <label  >
+                <Typography variant="body2" component="div" gutterBottom style={{ display: 'inline' }}>
+                    <Checkbox onChange={handleChecked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} />
+                    Compare two separate artists?
+                </Typography>
             </label>
-
-            <button type="submit" value="Submit" onClick={handleOnSearch}>Submit</button>
-        </div>
+            <Button variant="contained" color="success" onClick={handleOnSearch}
+                style={{ display: 'block' }}>
+                Get Insights
+            </Button>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={open}
+                onClick={handleClose}
+            >
+            </Backdrop>
+        </div >
     )
 }
 
 export default SearchModule
+
+//write conditional for Select Artist span so that it defaults to "None" if !searchQ

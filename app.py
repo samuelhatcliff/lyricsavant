@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request, render_template
 import json
 from lyricsgenius import Genius
 from types import SimpleNamespace
+from lyrics_api import download_artist
 
 """Web Scraping"""
 # import requests
@@ -56,6 +57,8 @@ failed = []
 def home():
     artist1 = Artist.query.get(20710) #a7x
     artist2 = Artist.query.get(17912) #evanescence
+    test = download_artist("fasdfasdfasdfasdfa", 1)
+    print(test)
     return {"members": ["mem1", "mem2"]}
 
 @app.route("/results")
@@ -104,6 +107,15 @@ def get_artist(id):
     artist_dict['words'] = words_filtered_stopwords
     serialized = serialize_artist_data(artist_dict)
     return serialized
+
+@app.route("/api/artists/<name>")
+def post_artist(name):
+    """Attempt to add a new Artist to our database"""
+    result = download_artist(name)
+    if result == None:
+        return "Could not find artist on lyrics genius. Please check or revise your spelling"
+    return "Artist {result} added successfully. Head to the home page to generate insights!"
+
 
 
 

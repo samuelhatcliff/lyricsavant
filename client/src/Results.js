@@ -1,6 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Artist from "./Artist";
+import Compare from "./Compare";
 import { Circles } from 'react-loader-spinner';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
+
 
 const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
     const [artist, setArtist] = useState(null)
@@ -43,29 +59,70 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
 
     return (
         <div>
-            {!isLoading ? (
-                <div>
-                    {artist ? (
-                        <Artist artist={artist} />) : (
-                        console.log("results rendered without rendering child component: Artist1", artist)
-                    )}
+            <Typography variant="body2" component="div" gutterBottom>
+                {!isLoading ? (
+                    <div>
+                        {/* <Box sx={{ flexGrow: 1 }}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={8}>
+                                    <Artist artist={artist} />
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <Item>xs=4</Item>
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <Item>xs=4</Item>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Item>xs=8</Item>
+                                </Grid>
+                            </Grid>
+                        </Box> */}
+                        {/* {!artist2 ? (
+                            <Artist artist={artist} />) : (
+                            console.log("not artist 1", artist)
+                        )} */}
 
-                    {artist2 ? (
-                        <Artist artist={artist2} />) : (
-                        console.log("results rendered without rendering child component: Artist2", artist2)
-                    )}
-                </div>
+                        {artist2 ? (
+                            <div>
+                                <Box sx={{ flexGrow: 1, backgroundColor: 'primary.dark', }}>
+                                    <Grid
+                                        container
+                                        direction="row"
+                                        justifyContent="space-between"
+                                        spacing={30}
 
-            ) : (
-                <div className="App">
-                    Loading...
-                    <Circles color="#00BFFF" height={80} width={80} />
-                </div>
-            )}
+                                    // justifyContent="center"
+                                    // alignItems="center"
+                                    >
+                                        <Grid container direction="column" item xs={4}  >
+                                            <Artist artist={artist} />
+                                        </Grid>
+                                        <Grid container direction="column" item xs={4}  >
+                                            <Compare artist1={artist} artist2={artist2} />
+                                        </Grid>
+                                        <Grid container direction="column" item xs={4}  >
+                                            <Artist artist={artist2} />
+                                        </Grid>
+                                    </Grid>
+                                </Box>
 
-            {/* <WordsChart artist1={artist1} artist2={artist2} />
-      <BarChart artist1={artist1} artist2={artist2} />
-      <PieChart artist={artist2} /> */}
+                            </div>) : (
+                            console.log("not artist 2", artist2)
+                        )}
+
+
+                    </div>
+
+                ) : (
+
+                    <div className="App">
+                        Loading...
+                        <Circles color="#00BFFF" height={80} width={80} />
+                    </div>
+
+                )}
+            </Typography>
         </div>
     )
 }
