@@ -93,7 +93,7 @@ def get_all_artists():
     serialized = [serialize_artist_names(a) for a in dix]
     return jsonify(artists=serialized)
 
-@app.route("/api/artists/<int:id>")
+@app.route("/api/artists/<int:id>", methods = ["GET"])
 def get_artist(id):
     """Return JSON for a specific artist in database"""
     artist = Artist.query.get(id)
@@ -108,12 +108,18 @@ def get_artist(id):
     serialized = serialize_artist_data(artist_dict)
     return serialized
 
-@app.route("/api/artists/<name>")
+@app.route("/api/artists/add/<name>", methods = ["POST"])
 def post_artist(name):
     """Attempt to add a new Artist to our database"""
+    msg = {"message": "Could not find artist on lyrics genius. Please check or revise your spelling."}
+    print("Post Route Hit")
+    if name == "null":
+        print("name was null")
+        return jsonify(data = msg)
     result = download_artist(name)
     if result == None:
-        return "Could not find artist on lyrics genius. Please check or revise your spelling"
+        print("result was none")
+        return jsonify(data = msg)
     return "Artist {result} added successfully. Head to the home page to generate insights!"
 
 

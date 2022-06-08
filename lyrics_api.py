@@ -18,7 +18,7 @@ from python_data_visuals import Python_Data_Visuals
 pd = Python_Data_Visuals()
 math = Math()
 
-def download_artist(name, quantity = 40, allow_name_change = False):
+def download_artist(name, quantity = 40):
     # quantity refers to number of songs returned with artist in artist.songs
 
     # if searching an artist tends to be problematic, it might be worth trying to change the  "allow_name_change" 
@@ -26,12 +26,13 @@ def download_artist(name, quantity = 40, allow_name_change = False):
     # to intended artist name.
     # Edit: This might already be set to true? When searching Santana, automatically changes artist name to 'Juelz Santana'
     try:
-        artist = genius.search_artist(name, max_songs=quantity, sort="popularity")
+        artist = genius.search_artist(name, max_songs=quantity, sort="popularity", allow_name_change = False)
         # in /Desktop/repos-git/lyrics_savant/venv/lib/python3.9/site-packages/lyricsgenius/api/base.py:84, I've set a 'break' before the 
         # timeout error to ensure that a timeout for a single song doesn't halt the entire search. It seems like this simply lets said song 
         # be skipped in favor of the next one (due to the request taking too much time)
         # make sure this is working like i think it is
         if artist == None:
+            print("artist was none")
             return None
         #save artist to our database extracting the information that we want from lyricsgenius API
         res = genius.artist(artist.id)

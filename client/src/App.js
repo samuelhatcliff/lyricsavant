@@ -4,17 +4,19 @@ import SearchModule from './SearchModule';
 import Results from "./Results";
 import BasicGrid from './charts/GridDemo';
 import Contribute from "./Contribute";
+import Explanation from "./Explanation";
 
 function App() {
   const [allArtists, setAllArtists] = useState([{}]);
   const [artistId, setArtistId] = useState(null);
   const [artistId2, setArtistId2] = useState(null)
   const [submit, setSubmit] = useState(false);
-  const [isLoading, setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(false)
+  const [clear, setClear] = useState(true)
+
 
   useEffect(() => {
-    // console.log("get all artist effect ran. Current Artists:", artistId, artistId2)
-    const p3 = fetch("/api/artists/").then( // gets all artist names
+    fetch("/api/artists/").then( // gets all artist names
       res => res.json()
     ).then(
       artists => {
@@ -26,6 +28,7 @@ function App() {
     )
   }, []);
 
+  console.log("Loeading?", isLoading)
   return (
     <div className="App">
       {/* <BasicGrid></BasicGrid> */}
@@ -35,8 +38,10 @@ function App() {
         setLoading={setLoading}
         allArtists={allArtists}
         setArtistId={setArtistId}
-        setArtistId2={setArtistId2} />
-      {submit ? (
+        setArtistId2={setArtistId2}
+        clear={clear}
+        setClear={setClear} />
+      {submit && !clear ? (
         <Results artistId={artistId}
           artistId2={artistId2}
           setLoading={setLoading}
@@ -44,6 +49,8 @@ function App() {
       ) : (
         <></>
       )}
+      {!isLoading && clear ? (
+        <Explanation />) : <></>}
     </div>
   );
 }

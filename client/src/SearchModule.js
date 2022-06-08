@@ -4,9 +4,11 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import Backdrop from '@mui/material/Backdrop';
+import ClearButton from "./ClearButton";
 
+//To-Do: "Clear" state might be serving the same exact function as "submit". Review this and try to combine both into one state if possible
 
-const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArtists }) => {
+const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArtists, clear, setClear }) => {
     const [open, setOpen] = React.useState(false);
     const handleClose = () => {
         setOpen(false);
@@ -31,6 +33,7 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                 setArtistId2(searchQ2["id"])
             }
             setSubmit(true)
+            setClear(false)
             setLoading(true)
             handleToggle()
         }
@@ -38,13 +41,14 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
 
     return (
         <div>
-            {checked ? (
+            {checked && !clear ? (
                 <div>
                     <Typography variant="subtitle1" component="div" gutterBottom>
                         <Search allArtists={allArtists} setSearchQ={setSearchQ1} />
                         <span>Selected Artist: {searchQ1["name"]}</span>
                         <Search allArtists={allArtists} setSearchQ={setSearchQ2} />
                         <span>Selected Artist: {searchQ2["name"]}</span>
+                        <ClearButton setClear={setClear} />
                     </Typography>
                 </div>
             )
@@ -53,6 +57,7 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                         <Typography variant="subtitle1" component="div" gutterBottom>
                             <Search allArtists={allArtists} setSearchQ={setSearchQ1} />
                             <span>Selected Artist: {searchQ1["name"]}</span>
+                            <ClearButton setClear={setClear} />
                         </Typography>
                     </div>
                 )}
