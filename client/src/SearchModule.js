@@ -8,7 +8,7 @@ import ClearButton from "./ClearButton";
 
 
 
-const SearchModule = ({ setSubmit, submit, setLoading, setArtistId, setArtistId2, allArtists, }) => {
+const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArtists, }) => {
     const [searchQ1, setSearchQ1] = useState([]);
     const [searchQ2, setSearchQ2] = useState([]);
     const [checked, setChecked] = useState(false);
@@ -39,27 +39,30 @@ const SearchModule = ({ setSubmit, submit, setLoading, setArtistId, setArtistId2
 
     return (
         <div>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={open}
+                onClick={handleClose}
+            >
+            </Backdrop>
             {checked ? (
                 <div>
                     <Typography variant="subtitle1" component="div" gutterBottom>
-                        <Search allArtists={allArtists} setSearchQ={setSearchQ1} />
                         <span>Selected Artist: {searchQ1["name"]}</span>
-                        <Search allArtists={allArtists} setSearchQ={setSearchQ2} />
+                        <Search allArtists={allArtists} setSearchQ={setSearchQ1} />
                         <span>Selected Artist: {searchQ2["name"]}</span>
-                        <ClearButton />
+                        <Search allArtists={allArtists} setSearchQ={setSearchQ2} />
                     </Typography>
                 </div>
             )
                 : (
                     <div>
                         <Typography variant="subtitle1" component="div" gutterBottom>
-                            <Search allArtists={allArtists} setSearchQ={setSearchQ1} />
                             <span>Selected Artist: {searchQ1["name"]}</span>
-                            <ClearButton />
+                            <Search allArtists={allArtists} setSearchQ={setSearchQ1} />
                         </Typography>
                     </div>
                 )}
-
             <label  >
                 <Typography variant="body2" component="div" gutterBottom style={{ display: 'inline' }}>
                     <Checkbox onChange={handleChecked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} />
@@ -70,12 +73,8 @@ const SearchModule = ({ setSubmit, submit, setLoading, setArtistId, setArtistId2
                 style={{ display: 'block' }}>
                 Get Insights
             </Button>
-            <Backdrop
-                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                open={open}
-                onClick={handleClose}
-            >
-            </Backdrop>
+            <ClearButton />
+            <hr></hr>
         </div >
     )
 }
