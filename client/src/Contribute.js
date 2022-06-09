@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Circles } from 'react-loader-spinner';
 
-
 // ToDo: check database to see how many artists were added accidentally while writing this and remove each
 
 const Contribute = (({ allArtists }) => {
@@ -13,14 +12,17 @@ const Contribute = (({ allArtists }) => {
     const [msg, setMsg] = useState("Enter an Artist that hasn't been added to our database yet. Check to see if artist has been added by typing there name into the drop down. If they appear as a suggestion, the artist has already been added.");
     const [loading, setLoading] = useState(false)
 
+    console.log("All artists in contribute", allArtists)
     useEffect(() => {
-        if (allArtists.length > 1) {
+        if (allArtists.length > 1 && searchQ1 !== null) {
             for (let obj of allArtists) {
+                console.log("obj", obj)
                 if (obj['name'] === searchQ1['name'] || obj['name'].toLowerCase() === searchQ1.toLowerCase()) {
                     setValid(false);
                     console.log("MATCH", "obj['name'] = ", obj['name'], "searchq1['name']", searchQ1['name'])
                     break;
                 } else {
+                    console.log("elese")
                     setValid(true);
                 }
             }

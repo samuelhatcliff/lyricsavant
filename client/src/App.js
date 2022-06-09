@@ -1,18 +1,11 @@
+import { BrowserRouter, Route, Link, NavLink } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 // Our own components 
-import SearchModule from './SearchModule';
-import Results from "./Results";
+import Home from "./Home";
 import BasicGrid from './charts/GridDemo';
 import Contribute from "./Contribute";
-import Explanation from "./Explanation";
-
 function App() {
   const [allArtists, setAllArtists] = useState([{}]);
-  const [artistId, setArtistId] = useState(null);
-  const [artistId2, setArtistId2] = useState(null)
-  const [submit, setSubmit] = useState(false);
-  const [isLoading, setLoading] = useState(false)
-
   useEffect(() => {
     fetch("/api/artists/").then( // gets all artist names
       res => res.json()
@@ -25,31 +18,25 @@ function App() {
       },
     )
   }, []);
+  console.log("All artists:", allArtists)
 
   return (
-    <div className="App">
-      {/* <BasicGrid></BasicGrid> */}
-      {/* <Contribute allArtists={allArtists} /> */}
-      <SearchModule setSubmit={setSubmit}
-        setLoading={setLoading}
-        allArtists={allArtists}
-        setArtistId={setArtistId}
-        setArtistId2={setArtistId2}
-        submit={submit}
-
-      />
-      {submit ? (
-        <Results artistId={artistId}
-          artistId2={artistId2}
-          setLoading={setLoading}
-          isLoading={isLoading}
-        />
-      ) : (
-        <></>
-      )}
-      {!isLoading && submit === false ? (
-        <Explanation />) : <></>}
-    </div>
+    <main className="App">
+      <BrowserRouter>
+        <Link to="/">Home</Link>
+        <Link to="/contribute">Contribute</Link>
+        {/* <Link to="/grid">Grid</Link> */}
+        <Route exact path="/">
+          <Home allArtists={allArtists} />
+        </Route>
+        <Route exact path="/contribute">
+          <Contribute allArtists={allArtists} />
+        </Route>
+        {/* <Route exact path="/grid">
+          <BasicGrid />
+        </Route> */}
+      </BrowserRouter>
+    </main>
   );
 }
 
