@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Artist from "./Artist";
 import Compare from "./Compare";
 import { Circles } from 'react-loader-spinner';
@@ -7,6 +7,8 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
+import ClearContext from "./Context"
+
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -51,6 +53,8 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
         if (artistId2) {
             Promise.all([p1, p2]).then(resolved => {
                 setLoading(false)
+
+
                 console.log("resolved p for Rromise.all", resolved)
 
             })
@@ -91,9 +95,6 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
                                         direction="row"
                                         justifyContent="space-between"
                                         spacing={30}
-
-                                    // justifyContent="center"
-                                    // alignItems="center"
                                     >
                                         <Grid container direction="column" item xs={4}  >
                                             <Artist artist={artist} />
@@ -110,17 +111,12 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
                             </div>) : (
                             console.log("not artist 2", artist2)
                         )}
-
-
                     </div>
-
                 ) : (
-
                     <div className="App">
                         Loading...
                         <Circles color="#00BFFF" height={80} width={80} />
                     </div>
-
                 )}
             </Typography>
         </div>

@@ -4,8 +4,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Circles } from 'react-loader-spinner';
 
-import Backdrop from '@mui/material/Backdrop';
-import axios from 'axios';
 
 // ToDo: check database to see how many artists were added accidentally while writing this and remove each
 
@@ -14,8 +12,6 @@ const Contribute = (({ allArtists }) => {
     const [valid, setValid] = useState(true);
     const [msg, setMsg] = useState("Enter an Artist that hasn't been added to our database yet. Check to see if artist has been added by typing there name into the drop down. If they appear as a suggestion, the artist has already been added.");
     const [loading, setLoading] = useState(false)
-
-
 
     useEffect(() => {
         if (allArtists.length > 1) {
@@ -75,10 +71,7 @@ const Contribute = (({ allArtists }) => {
                 </div> :
                     console.log("notloading")}
             </Typography>
-
         </>
-
-
     )
 })
 

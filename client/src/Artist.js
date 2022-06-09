@@ -8,8 +8,6 @@ import React from 'react';
 
 function Artist({ artist }) {
     console.log("Rendering artist:", artist)
-
-
     return (
         <React.Fragment>
             <Grid item spacing={3}>

@@ -12,8 +12,6 @@ function App() {
   const [artistId2, setArtistId2] = useState(null)
   const [submit, setSubmit] = useState(false);
   const [isLoading, setLoading] = useState(false)
-  const [clear, setClear] = useState(true)
-
 
   useEffect(() => {
     fetch("/api/artists/").then( // gets all artist names
@@ -28,28 +26,28 @@ function App() {
     )
   }, []);
 
-  console.log("Loeading?", isLoading)
   return (
     <div className="App">
       {/* <BasicGrid></BasicGrid> */}
       {/* <Contribute allArtists={allArtists} /> */}
-
       <SearchModule setSubmit={setSubmit}
         setLoading={setLoading}
         allArtists={allArtists}
         setArtistId={setArtistId}
         setArtistId2={setArtistId2}
-        clear={clear}
-        setClear={setClear} />
-      {submit && !clear ? (
+        submit={submit}
+
+      />
+      {submit ? (
         <Results artistId={artistId}
           artistId2={artistId2}
           setLoading={setLoading}
-          isLoading={isLoading} />
+          isLoading={isLoading}
+        />
       ) : (
         <></>
       )}
-      {!isLoading && clear ? (
+      {!isLoading && submit === false ? (
         <Explanation />) : <></>}
     </div>
   );

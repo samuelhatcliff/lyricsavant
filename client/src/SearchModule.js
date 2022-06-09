@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import Search from "./Search";
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -6,21 +6,20 @@ import Checkbox from '@mui/material/Checkbox';
 import Backdrop from '@mui/material/Backdrop';
 import ClearButton from "./ClearButton";
 
-//To-Do: "Clear" state might be serving the same exact function as "submit". Review this and try to combine both into one state if possible
 
-const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArtists, clear, setClear }) => {
-    const [open, setOpen] = React.useState(false);
+
+const SearchModule = ({ setSubmit, submit, setLoading, setArtistId, setArtistId2, allArtists, }) => {
+    const [searchQ1, setSearchQ1] = useState([]);
+    const [searchQ2, setSearchQ2] = useState([]);
+    const [checked, setChecked] = useState(false);
+    const [open, setOpen] = useState(false);
+
     const handleClose = () => {
         setOpen(false);
     };
     const handleToggle = () => {
         setOpen(!open);
     };
-
-    const [searchQ1, setSearchQ1] = useState([]);
-    const [searchQ2, setSearchQ2] = useState([]);
-    const [checked, setChecked] = useState(false);
-
     const handleChecked = () => {
         setChecked(!checked);
     };
@@ -33,7 +32,6 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                 setArtistId2(searchQ2["id"])
             }
             setSubmit(true)
-            setClear(false)
             setLoading(true)
             handleToggle()
         }
@@ -41,14 +39,14 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
 
     return (
         <div>
-            {checked && !clear ? (
+            {checked ? (
                 <div>
                     <Typography variant="subtitle1" component="div" gutterBottom>
                         <Search allArtists={allArtists} setSearchQ={setSearchQ1} />
                         <span>Selected Artist: {searchQ1["name"]}</span>
                         <Search allArtists={allArtists} setSearchQ={setSearchQ2} />
                         <span>Selected Artist: {searchQ2["name"]}</span>
-                        <ClearButton setClear={setClear} />
+                        <ClearButton />
                     </Typography>
                 </div>
             )
@@ -57,7 +55,7 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                         <Typography variant="subtitle1" component="div" gutterBottom>
                             <Search allArtists={allArtists} setSearchQ={setSearchQ1} />
                             <span>Selected Artist: {searchQ1["name"]}</span>
-                            <ClearButton setClear={setClear} />
+                            <ClearButton />
                         </Typography>
                     </div>
                 )}

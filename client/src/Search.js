@@ -17,14 +17,6 @@ function Search({ allArtists, setSearchQ, type = "search" }) {
         }
     }
 
-
-    // const showString = (string) => {
-    //     if (type === "contribute") {
-    //         setSearchQ(string)
-    //         console.log("type = contriubte")
-    //     }
-    // }
-
     const handleOnHover = (result) => {
         // the item hovered
         // console.log(result, "on hover")
