@@ -1,10 +1,11 @@
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import React, { useState } from 'react';
+import './App.css'
 
 
 // To-do: change format result so name is the only thing that returns
 
-function Search({ allArtists, setSearchQ, type = "search" }) {
+function Search({ allArtists, setSearchQ, classs, type = "search" }) {
     const items = allArtists;
     const errorMsg = `The artist you have searched for is not in our database. If you'd like to add this artist, you can click on the "Contribute" tab in the navbar.`
     const handleOnSearch = (string) => {
@@ -34,26 +35,23 @@ function Search({ allArtists, setSearchQ, type = "search" }) {
     const formatResult = (item) => {
         return (
             <>
-                <span style={{ display: 'block', textAlign: 'left' }}>{item.name}</span>
+                <span className={classs} style={{ display: 'block', textAlign: 'left' }}>{item.name}</span>
             </>
         )
     }
     return (
-        <div className="App">
-            <header className="App-header">
-                <div style={{ width: 400 }}>
-                    <ReactSearchAutocomplete
-                        items={items}
-                        onSearch={handleOnSearch}
-                        onHover={handleOnHover}
-                        onSelect={handleOnSelect}
-                        onFocus={handleOnFocus}
-                        // onChange={showString}
-                        autoFocus
-                        formatResult={formatResult}
-                    />
-                </div>
-            </header>
+
+        <div style={{ width: 400 }} >
+            <ReactSearchAutocomplete
+                items={items}
+                onSearch={handleOnSearch}
+                onHover={handleOnHover}
+                onSelect={handleOnSelect}
+                onFocus={handleOnFocus}
+                // onChange={showString}
+                autoFocus
+                formatResult={formatResult}
+            />
         </div>
     )
 }

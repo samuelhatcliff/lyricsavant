@@ -22,7 +22,7 @@ const Explanation = () => {
                         <Grid item xs={12} sm={4}>
                             <Paper sx={{
                                 ':hover': {
-                                    boxShadow: 6, // theme.shadows[20]
+                                    boxShadow: 6,
                                 },
                                 backgroundColor: 'primary.main',
                                 borderRadius: 3,
@@ -38,7 +38,7 @@ const Explanation = () => {
                         <Grid item xs={12} sm={4}>
                             <Paper sx={{
                                 ':hover': {
-                                    boxShadow: 6, // theme.shadows[20]
+                                    boxShadow: 6,
                                 },
                                 backgroundColor: 'primary.main',
                                 borderRadius: 3,
@@ -55,7 +55,7 @@ const Explanation = () => {
                         <Grid item xs={12} sm={4}>
                             <Paper sx={{
                                 ':hover': {
-                                    boxShadow: 6, // theme.shadows[20]
+                                    boxShadow: 6,
                                 },
                                 borderRadius: 3,
                                 backgroundColor: 'primary.main',

@@ -1,7 +1,9 @@
 import { BrowserRouter, Route, Link, NavLink } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import './App.css'
 // Our own components 
 import Home from "./Home";
+import NavBar from "./NavBar";
 import BasicGrid from './charts/GridDemo';
 import Contribute from "./Contribute";
 function App() {
@@ -21,20 +23,18 @@ function App() {
   console.log("All artists:", allArtists)
 
   return (
-    <main className="App">
+    <main >
       <BrowserRouter>
-        <Link to="/">Home</Link>
-        <Link to="/contribute">Contribute</Link>
-        {/* <Link to="/grid">Grid</Link> */}
+        <NavBar />
         <Route exact path="/">
           <Home allArtists={allArtists} />
         </Route>
         <Route exact path="/contribute">
           <Contribute allArtists={allArtists} />
         </Route>
-        {/* <Route exact path="/grid">
+        <Route exact path="/grid">
           <BasicGrid />
-        </Route> */}
+        </Route>
       </BrowserRouter>
     </main>
   );

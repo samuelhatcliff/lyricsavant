@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 
 const ClearButton = ({ }) => {
     return (
-        <Button variant="contained" color="secondary"
+        <Button className="button" variant="contained" color="secondary"
             onClick={() => window.location.reload(false)}
             style={{ display: 'block' }}>
             Clear        </Button>

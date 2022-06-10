@@ -1,23 +1,26 @@
 import React, { useState, useEffect, useContext } from 'react';
+
 import Artist from "./Artist";
 import Compare from "./Compare";
 import { Circles } from 'react-loader-spinner';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
-import ClearContext from "./Context"
 
 
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-}));
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
 
 const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
@@ -53,73 +56,51 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
         if (artistId2) {
             Promise.all([p1, p2]).then(resolved => {
                 setLoading(false)
-
-
                 console.log("resolved p for Rromise.all", resolved)
-
             })
         }
     }, [artistId, artistId2])
 
     return (
-        <div>
-            <Typography variant="body2" component="div" gutterBottom>
-                {!isLoading ? (
-                    <div>
-                        {/* <Box sx={{ flexGrow: 1 }}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={8}>
+        <Typography variant="body2" component="div" gutterBottom>
+            {!isLoading ? (
+                <div>
+                    {!artist2 ? (
+                        <Artist artist={artist} />) : (
+                        console.log("not artist 1", artist)
+                    )}
+
+                    {artist2 ? (
+                        <Box sx={{ flexGrow: 1, backgroundColor: 'primary.dark', }}>
+                            <Grid
+                                container
+                                direction="row"
+                                justifyContent="space-between"
+                                spacing={30}
+                            >
+                                <Grid container direction="column" item xs={4}  >
                                     <Artist artist={artist} />
                                 </Grid>
-                                <Grid item xs={4}>
-                                    <Item>xs=4</Item>
+                                <Grid container direction="column" item xs={4}  >
+                                    <Compare artist1={artist} artist2={artist2} />
                                 </Grid>
-                                <Grid item xs={4}>
-                                    <Item>xs=4</Item>
-                                </Grid>
-                                <Grid item xs={8}>
-                                    <Item>xs=8</Item>
+                                <Grid container direction="column" item xs={4}  >
+                                    <Artist artist={artist2} />
                                 </Grid>
                             </Grid>
-                        </Box> */}
-                        {/* {!artist2 ? (
-                            <Artist artist={artist} />) : (
-                            console.log("not artist 1", artist)
-                        )} */}
+                        </Box>
+                    ) : (
+                        console.log("not artist 2", artist2)
+                    )}
+                </div>
+            ) : (
+                <div >
+                    Loading...
+                    <Circles color="#00BFFF" height={80} width={80} />
+                </div>
+            )}
+        </Typography>
 
-                        {artist2 ? (
-                            <div>
-                                <Box sx={{ flexGrow: 1, backgroundColor: 'primary.dark', }}>
-                                    <Grid
-                                        container
-                                        direction="row"
-                                        justifyContent="space-between"
-                                        spacing={30}
-                                    >
-                                        <Grid container direction="column" item xs={4}  >
-                                            <Artist artist={artist} />
-                                        </Grid>
-                                        <Grid container direction="column" item xs={4}  >
-                                            <Compare artist1={artist} artist2={artist2} />
-                                        </Grid>
-                                        <Grid container direction="column" item xs={4}  >
-                                            <Artist artist={artist2} />
-                                        </Grid>
-                                    </Grid>
-                                </Box>
-
-                            </div>) : (
-                            console.log("not artist 2", artist2)
-                        )}
-                    </div>
-                ) : (
-                    <div className="App">
-                        Loading...
-                        <Circles color="#00BFFF" height={80} width={80} />
-                    </div>
-                )}
-            </Typography>
-        </div>
     )
 }
 

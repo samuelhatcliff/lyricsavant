@@ -1,0 +1,41 @@
+
+nav a {
+    color:black;
+    text-decoration: none;
+}
+
+nav a:hover {
+    font-weight: bold;
+}
+
+
+nav a.active {
+    text-decoration: underline;
+}
+
+.navigation {
+    display:flex;
+    justify-content: space-evenly;
+    align-items:center;
+    background-color:#FEFEFE;
+    position: fixed;
+}
+
+nav{
+    /* background-color:#FEFEFE; */
+    margin-bottom: 5rem;
+}
+
+
+
+.button{
+    z-index: 1;
+    padding: 20px;
+}
+.search1{
+    z-index:2;
+}
+
+.search2{
+    z-index:-3;
+}
