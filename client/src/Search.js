@@ -1,5 +1,4 @@
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
-import React, { useState } from 'react';
 import './App.css'
 
 

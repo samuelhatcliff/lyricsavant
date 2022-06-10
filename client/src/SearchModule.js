@@ -1,5 +1,7 @@
 import React, { useState, useContext } from 'react';
+//Our Components
 import Search from "./Search";
+//MUI Components
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';

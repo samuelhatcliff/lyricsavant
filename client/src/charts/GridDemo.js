@@ -1,39 +1,38 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import * as React from "react";
+import { styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: "center",
+    color: theme.palette.text.secondary
+}));
 
-export default function BasicModal() {
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
+export default function BasicGrid() {
     return (
-        <div>
-            <Button onClick={handleOpen}>Open modal</Button>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
+        <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={3} direction="row" alignItems="center">
+                <Grid item xs={4} container direction="column">
+                    <Item>Artist Info</Item>
+                    <Item>WordCloud</Item>
+                    <Item>PieChart</Item>
+                </Grid>
+                <Grid item xs={4} container direction="column">
+                    <Item>Compare</Item>
+                    <Item>Vocab</Item>
+                    <Item>Polarity</Item>
+                </Grid>
+                <Grid item xs={4} container direction="column">
+                    <Item>ArtistInfo</Item>
+                    <Item>WordCloud</Item>
+                    <Item>PieChart</Item>
+                </Grid>
 
-                </Box>
-            </Modal>
-        </div>
+            </Grid>
+        </Box>
     );
 }

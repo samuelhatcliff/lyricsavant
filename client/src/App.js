@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Link, NavLink } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import './App.css'
+import Typography from '@mui/material/Typography';
+
 // Our own components 
 import Home from "./Home";
 import NavBar from "./NavBar";
@@ -25,16 +27,19 @@ function App() {
   return (
     <main >
       <BrowserRouter>
-        <NavBar />
-        <Route exact path="/">
-          <Home allArtists={allArtists} />
-        </Route>
-        <Route exact path="/contribute">
-          <Contribute allArtists={allArtists} />
-        </Route>
-        <Route exact path="/grid">
-          <BasicGrid />
-        </Route>
+        <Typography variant="body2" component="div" gutterBottom>
+
+          <NavBar />
+          <Route exact path="/">
+            <Home allArtists={allArtists} />
+          </Route>
+          <Route exact path="/contribute">
+            <Contribute allArtists={allArtists} />
+          </Route>
+          <Route exact path="/grid">
+            <BasicGrid />
+          </Route>
+        </Typography>
       </BrowserRouter>
     </main>
   );

@@ -39,3 +39,16 @@ nav{
 .search2{
     z-index:-3;
 }
+
+/* .box{
+    position: 'absolute';
+    top: '50%';
+    left: '50%';
+    transform: 'translate(-50%, -50%)';
+    width: '70vw';
+    height: '40vw';
+    border: '2px solid #000';
+    box-sizing: 24;
+    flex-shrink: 5;
+    background-color: coral;
+} */

@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
-
+import React, { useState, useEffect } from 'react';
+//Our Components
 import Artist from "./Artist";
 import Compare from "./Compare";
+//Styling Components
 import { Circles } from 'react-loader-spinner';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-
-
+import './App.css'
 
 
 const style = {
@@ -15,13 +14,16 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: '70vw',
+    height: '40vw',
     bgcolor: 'background.paper',
     border: '2px solid #000',
+    backgroundColor: 'primary.dark',
     boxShadow: 24,
     p: 4,
+    margin: 0,
+    padding: 1
 };
-
 
 const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
     const [artist, setArtist] = useState(null)
@@ -62,21 +64,19 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
     }, [artistId, artistId2])
 
     return (
-        <Typography variant="body2" component="div" gutterBottom>
+        <>
             {!isLoading ? (
                 <div>
                     {!artist2 ? (
                         <Artist artist={artist} />) : (
                         console.log("not artist 1", artist)
                     )}
-
                     {artist2 ? (
-                        <Box sx={{ flexGrow: 1, backgroundColor: 'primary.dark', }}>
+                        <Box className="box" sx={{ backgroundColor: 'primary.dark' }, style}>
                             <Grid
                                 container
                                 direction="row"
-                                justifyContent="space-between"
-                                spacing={30}
+                            // spacing={30}
                             >
                                 <Grid container direction="column" item xs={4}  >
                                     <Artist artist={artist} />
@@ -99,7 +99,7 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
                     <Circles color="#00BFFF" height={80} width={80} />
                 </div>
             )}
-        </Typography>
+        </>
 
     )
 }

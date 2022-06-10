@@ -5,11 +5,9 @@ import Results from "./Results";
 import Explanation from "./Explanation";
 //MUI Components
 import Modal from '@mui/material/Modal';
-import Backdrop from '@mui/material/Backdrop';
-import Fade from '@mui/material/Fade';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+
+
 
 
 
@@ -18,11 +16,13 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: '70vw',
+    height: '40vw',
     bgcolor: 'background.paper',
     border: '2px solid #000',
-    boxShadow: 24,
+    boxShadow: 23,
     p: 4,
+
 };
 
 function Home({ allArtists }) {
@@ -31,22 +31,12 @@ function Home({ allArtists }) {
     const [submit, setSubmit] = useState(false);
     const [isLoading, setLoading] = useState(false)
 
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => {
-        console.log("opening")
-        // setSubmit(true);
-        setOpen(true);
-    };
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    // if (submit) {
-    //     handleOpen()
-    // }
-    const hm = () => console.log("made it")
-    console.log("submit?", submit)
-    console.log("artistid1", artistId, "artistId2", artistId2)
 
     return (
-        <div className="App">
+        <>
             <SearchModule setSubmit={setSubmit}
                 setLoading={setLoading}
                 allArtists={allArtists}
@@ -62,6 +52,7 @@ function Home({ allArtists }) {
                 onClose={handleClose}
             >
                 <Box sx={style}>
+
                     {submit ? (
                         <Results artistId={artistId}
                             artistId2={artistId2}
@@ -74,9 +65,9 @@ function Home({ allArtists }) {
                 </Box>
 
             </Modal>
-            {!isLoading && submit === false ? (
+            {!open ? (
                 <Explanation />) : <></>}
-        </div>
+        </>
     );
 }
 
