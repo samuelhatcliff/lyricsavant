@@ -6,20 +6,20 @@ import React from 'react';
 
 
 function Artist({ artist }) {
-    console.log("Rendering artist:", artist)
+    console.log("Rendering artist:", artist, artist.image, artist.bio)
     return (
-        <React.Fragment>
-            <Grid item spacing={3}>
-                <img width="100px;" src={artist.image} />
-                <p>Bio: {artist.bio.slice(0, 300)} + more</p>
-            </Grid>
-            <Grid item spacing={3}>
-                <p>{artist.name} uses {artist.vocab_score} unique words!</p>
-                {/* <WordCloudFunc width="300px;" artist={artist} />, */}
-            </Grid>
-            <Grid item spacing={3}>
-                <PieChart artist={artist} />
-            </Grid>
+        <React.Fragment >
+            <div className="column">
+                <div className="item">
+                    <div >
+                        <img width="100%" height="100%" src={artist.image} />
+                    </div>
+                    <span className="text">Bio: {artist.bio.slice(0, 300)} + more</span>
+                </div>
+                <span className="text">{artist.name} uses {artist.vocab_score} unique words!</span>
+                <WordCloudFunc className="item" artist={artist} />,
+                <PieChart className="item" artist={artist} />
+            </div>
         </React.Fragment >
 
     )

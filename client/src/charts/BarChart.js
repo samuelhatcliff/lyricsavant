@@ -6,6 +6,8 @@ import { Chart } from 'react-chartjs-2';
 const BarChart = ({ artist1, artist2 }) => {
     const comp1 = artist1.pol_score.data.coms_avg;
     const comp2 = artist2.pol_score.data.coms_avg;
+    const math = ((comp2 - comp1) / comp1) * 100;
+    console.log(comp1, "comp1", comp2, "comp2", "FIGURE OUT HOW TO DO MATH")
     function insightMsg() {
         let leans;
         //artist with more positive lyrics assigned to "winner", rewrite as tertiary operator 
@@ -15,9 +17,8 @@ const BarChart = ({ artist1, artist2 }) => {
         } else {
             leans = "negative"
         }
-        const math = console.log("import calculation written in python")
-        return `The artist ${artist1.name} generally has more ${leans} lyrics than ${artist2.name}
-            by ${math} percent.`
+        return <span className="text">The artist {artist1.name} generally has more {leans} lyrics than {artist2.name}
+            by {math} percent.</span>
     }
 
     const state = {
@@ -63,15 +64,18 @@ const BarChart = ({ artist1, artist2 }) => {
                 display: true,
                 fontSize: 20
             }
-        }
+        },
+        maintainAspectRatio: false
     }
 
     return (
-        <div>
+        <div className="item" >
             <Bar data={state}
+                width={100}
+                height={50}
                 options={options} />
-            {insightMsg()}
-        </div>
+            {/* {insightMsg()} */}
+        </div >
     )
 }
 

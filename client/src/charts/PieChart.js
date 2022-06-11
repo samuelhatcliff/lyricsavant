@@ -8,11 +8,11 @@ const PieChart = ({ artist }) => {
     const data = artist.pol_score.data;
     function insightMsg() {
         if (data.poss_avg > data.negs_avg) {
-            return `The artist ${artist.name} uses lyrics that tend to be more positive than negative, with an average polarity score of
-            ${data.poss_avg} for positive lyrics, and ${data.negs_avg} for negative lyrics. `
+            return <span className="text">The artist {artist.name} uses lyrics that tend to be more positive than negative, with an average polarity score of
+                {data.poss_avg} for positive lyrics, and {data.negs_avg} for negative lyrics. </span>
         } else {
-            return `The artist ${artist.name} uses lyrics that tend to be more negative than positive, with an average polarity score of
-            ${data.negs_avg} for negative lyrics, and ${data.poss_avg} for positive lyrics. `
+            return <span className="text">The artist {artist.name} uses lyrics that tend to be more negative than positive, with an average polarity score of
+                {data.negs_avg} for negative lyrics, and {data.poss_avg} for positive lyrics. </span>
         }
     }
     const state = {
@@ -42,16 +42,16 @@ const PieChart = ({ artist }) => {
             title: {
                 text: artist.name,
                 display: true,
-                fontSize: 20
+                fontSize: 10
             }
         }
     }
 
     return (
-        <div>
+        <div className="pie">
             <Pie data={state}
                 options={options} />
-            {insightMsg()}
+            {/* {insightMsg()} */}
         </div>
     )
 }

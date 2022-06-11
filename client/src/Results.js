@@ -6,6 +6,7 @@ import Compare from "./Compare";
 import { Circles } from 'react-loader-spinner';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+
 import './App.css'
 
 
@@ -28,6 +29,7 @@ const style = {
 const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
     const [artist, setArtist] = useState(null)
     const [artist2, setArtist2] = useState(null)
+
     console.log("current artist query id:", artistId)
     useEffect(() => {
         console.log("inside Results.js use effect")
@@ -64,41 +66,30 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
     }, [artistId, artistId2])
 
     return (
-        <>
+        < >
             {!isLoading ? (
-                <div>
+                <div style={{ height: '100%', width: '100%' }}>
                     {!artist2 ? (
                         <Artist artist={artist} />) : (
                         console.log("not artist 1", artist)
                     )}
                     {artist2 ? (
-                        <Box className="box" sx={{ backgroundColor: 'primary.dark' }, style}>
-                            <Grid
-                                container
-                                direction="row"
-                            // spacing={30}
-                            >
-                                <Grid container direction="column" item xs={4}  >
-                                    <Artist artist={artist} />
-                                </Grid>
-                                <Grid container direction="column" item xs={4}  >
-                                    <Compare artist1={artist} artist2={artist2} />
-                                </Grid>
-                                <Grid container direction="column" item xs={4}  >
-                                    <Artist artist={artist2} />
-                                </Grid>
-                            </Grid>
-                        </Box>
+                        <div className="container" id="interface">
+                            <Artist artist={artist} />
+                            <Compare artist1={artist} artist2={artist2} />
+                            <Artist artist={artist2} />
+                        </div>
                     ) : (
                         console.log("not artist 2", artist2)
                     )}
                 </div>
             ) : (
-                <div >
+                <div className="loading">
                     Loading...
                     <Circles color="#00BFFF" height={80} width={80} />
                 </div>
-            )}
+            )
+            }
         </>
 
     )

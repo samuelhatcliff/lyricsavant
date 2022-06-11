@@ -18,9 +18,9 @@ const WordsChart = ({ artist1, artist2 }) => {
             loser = artist1;
         }
         const subtraction = winner.vocab_score - loser.vocab_score;
-        return `The artist ${winner.name} has a larger vocabulary than ${loser.name}
-            by ${subtraction} words. ${winner.name} uses ${winner.vocab_score} unique words, 
-            while ${loser.name} uses ${loser.vocab_score} unique words.`
+        return <span className="text"><span>The artist {winner.name} has a larger vocabulary than {loser.name}
+            by {subtraction} words. {winner.name} uses {winner.vocab_score} unique words,
+            while {loser.name} uses {loser.vocab_score} unique words.</span></span>
     }
 
     const state = {
@@ -48,14 +48,17 @@ const WordsChart = ({ artist1, artist2 }) => {
                 display: true,
                 fontSize: 20
             }
-        }
+        },
+        maintainAspectRatio: false
     }
 
     return (
-        <div>
+        <div className="item">
             <Bar data={state}
+                width={100}
+                height={50}
                 options={options} />
-            {insightMsg()}
+            {/* {insightMsg()} */}
         </div>
     )
 }

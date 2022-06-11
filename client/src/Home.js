@@ -22,6 +22,7 @@ const style = {
     border: '2px solid #000',
     boxShadow: 23,
     p: 4,
+    padding: 0
 
 };
 

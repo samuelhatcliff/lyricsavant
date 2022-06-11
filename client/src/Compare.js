@@ -7,16 +7,18 @@ import React from 'react';
 function Compare({ artist1, artist2 }) {
     console.log("rendering compare component")
     return (
-        <React.Fragment>
-            {/* <Grid item >
-                <img width="300px;" src="https://blackmantkd.com/wp-content/uploads/2017/04/default-image.jpg" />
-            </Grid> */}
-            <Grid item >
-                <WordsChart artist1={artist1} artist2={artist2} />
-            </Grid>
-            <Grid item >
-                <BarChart artist1={artist1} artist2={artist2} />
-            </Grid>
+        <React.Fragment >
+            <div className="column">
+
+                <img className="item" src="https://blackmantkd.com/wp-content/uploads/2017/04/default-image.jpg" />
+
+
+                <WordsChart className="item" artist1={artist1} artist2={artist2} />
+
+
+                <BarChart className="item" artist1={artist1} artist2={artist2} />
+            </div>
+
         </React.Fragment>
     )
 }

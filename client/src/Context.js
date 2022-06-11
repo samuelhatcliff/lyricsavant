@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-const ClearContext = React.createContext();
-export default ClearContext;
+const DemoContext = React.createContext();
+export default DemoContext;

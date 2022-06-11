@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 // Our own components 
 import Home from "./Home";
 import NavBar from "./NavBar";
-import BasicGrid from './charts/GridDemo';
+import BasicGrid from './GridDemo';
 import Contribute from "./Contribute";
 function App() {
   const [allArtists, setAllArtists] = useState([{}]);

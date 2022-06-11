@@ -43,11 +43,9 @@ const WordCloudFunc = ({ artist }) => {
     const data = freqCount(artist.words)
     const arrData = toArr(data)
     const reducedData = filterArray(arrData)
-
     return <div>
         <WordCloud data={reducedData}
-            width={1200}
-            height={800}
+            style={{ height: "33%" }}
             font="Times"
             // fontStyle="italic"
             fontWeight="bold"
