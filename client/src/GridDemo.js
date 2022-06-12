@@ -10,7 +10,6 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import PieChart from './charts/PieChart';
-import DemoContext from "./Context";
 import WordCloudFunc from "./charts/WordCloud";
 import WordsChart from "./charts/WordsChart";
 import BarChart from "./charts/BarChart"
@@ -26,7 +25,6 @@ const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(1),
     textAlign: "center",
     color: theme.palette.text.secondary,
-    // width: "800px"
 }));
 
 
@@ -51,13 +49,10 @@ export default function BasicGrid(artistId = 111, artistId2 = 130) {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const img1 = "https://images.genius.com/8bbf2ed2197d5a2122ab41e3c108df81.567x567x1.jpg";
-    const img2 = "https://images.genius.com/ac3405000c21ab2d69a0540609b1c8f6.300x300x1.jpg"
     const [demoArtist, setArtist] = useState(null)
     const [demoArtist2, setArtist2] = useState(null)
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        console.log("inside Results.js use effect")
         let p2;
         const p1 = fetch("/api/artists/111").then( // gets data for 1st artist
             res => res.json()
@@ -71,32 +66,28 @@ export default function BasicGrid(artistId = 111, artistId2 = 130) {
                 res => res.json()
             ).then(
                 initialData => {
-                    console.log("got 2nd artist", initialData)
                     setArtist2(initialData);
                 }
             )
         } else {
             Promise.resolve(p1).then(resolved => {
                 setLoading(false)
-                console.log("resolved p for Rromise.resolve", resolved)
             }
             )
         }
         if (artistId2) {
             Promise.all([p1, p2]).then(resolved => {
                 setLoading(false)
-                console.log("resolved p for Rromise.all", resolved)
             })
         }
     }, [])
-    console.log("demo artist:", demoArtist, "demo artist2:", demoArtist2)
     return (
 
         <section>
             {!loading ? (
-                <div className="container">
-                    <div className="column">
-                        <div className="item artist-info">
+                <div className="demo-container">
+                    <div className="demo-column">
+                        <div className="demo-item artist-info">
                             <Stack>
                                 <div className="artist-header">
                                     <Avatar alt={demoArtist.name}
@@ -108,11 +99,11 @@ export default function BasicGrid(artistId = 111, artistId2 = 130) {
                             </Stack>
                         </div>
                         <WordCloudFunc artist={demoArtist} />
-                        <div className="item"><PieChart artist={demoArtist} /></div>
+                        <div className="demo-item"><PieChart artist={demoArtist} /></div>
 
                     </div>
-                    <div className="column">
-                        <Item className="item"  >
+                    <div className="demo-column">
+                        <Item className="demo-item"  >
                             <span className="vs-text">{demoArtist.name}</span>
                             <Avatar alt={demoArtist.name}
                                 src={demoArtist.image}
@@ -128,8 +119,8 @@ export default function BasicGrid(artistId = 111, artistId2 = 130) {
 
 
                     </div>
-                    <div className="column">
-                        <div className="item artist-info">
+                    <div className="demo-column">
+                        <div className="demo-item artist-info">
                             <Stack>
                                 <div className="artist-header">
                                     <Avatar alt={demoArtist2.name}
@@ -141,7 +132,7 @@ export default function BasicGrid(artistId = 111, artistId2 = 130) {
                             </Stack>
                         </div>
                         <WordCloudFunc artist={demoArtist2} />
-                        <div className="item"><PieChart artist={demoArtist2} /></div>
+                        <div className="demo-item"><PieChart artist={demoArtist2} /></div>
 
 
                         {/* <div className="item">
@@ -211,36 +202,36 @@ const bio2 = <span>Christopher Brian Bridges, better known by his stage name Lud
             //     <h2>Artist Bio</h2>
             //     <Button onClick={handleOpen}>Click here</Button>
 
-            //     <Modal
-            //         aria-labelledby="modal-modal-title"
-            //         aria-describedby="modal-modal-description"
-            //         open={open}
-            //         onClose={handleClose}
-            //     >
+                // <Modal
+                //     aria-labelledby="modal-modal-title"
+                //     aria-describedby="modal-modal-description"
+                //     open={open}
+                //     onClose={handleClose}
+                // >
 
 
-            //         <Box sx={style}>
-            //             <Stack direction="row" spacing={2}>
+                //     <Box sx={style}>
+                //         <Stack direction="row" spacing={2}>
 
-            //                 <Avatar alt="Tim Smith"
-            //                     src={cardiacs}
-            //                     sx={{ width: 60, height: 60, marginLeft: 1, marginTop: 1 }} />
+                //             <Avatar alt="Tim Smith"
+                //                 src={cardiacs}
+                //                 sx={{ width: 60, height: 60, marginLeft: 1, marginTop: 1 }} />
 
-            //                 <span style={{ marginTop: '3.75vw', marginLeft: '3vw' }}>Cardiacs Biography:</span>
+                //             <span style={{ marginTop: '3.75vw', marginLeft: '3vw' }}>Cardiacs Biography:</span>
 
-            //             </Stack>
-            //             <hr></hr>
-            //             <Typography variant="body2" component="span" gutterBottom>
+                //         </Stack>
+                //         <hr></hr>
+                //         <Typography variant="body2" component="span" gutterBottom>
 
-            //                 <div className="bio-text">
-            //                     {history}
-            //                 </div>
-            //             </Typography>
+                //             <div className="bio-text">
+                //                 {history}
+                //             </div>
+                //         </Typography>
 
 
-            //         </Box>
+                //     </Box>
 
-            //     </Modal>
+                // </Modal>
             // </div>
 
 

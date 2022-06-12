@@ -46,26 +46,26 @@ function Home({ allArtists }) {
                 submit={submit}
                 handleOpen={handleOpen}
             />
-            <Modal
+            {/* <Modal
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
                 open={open}
                 onClose={handleClose}
             >
-                <Box sx={style}>
+                <Box sx={style}> */}
 
-                    {submit ? (
-                        <Results artistId={artistId}
-                            artistId2={artistId2}
-                            setLoading={setLoading}
-                            isLoading={isLoading}
-                        />
-                    ) : (
-                        <></>
-                    )}
-                </Box>
+            {submit ? (
+                <Results artistId={artistId}
+                    artistId2={artistId2}
+                    setLoading={setLoading}
+                    isLoading={isLoading}
+                />
+            ) : (
+                <></>
+            )}
+            {/* </Box>
 
-            </Modal>
+            </Modal> */}
             {!open ? (
                 <Explanation />) : <></>}
         </>

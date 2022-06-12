@@ -55,7 +55,7 @@ nav{
   .column{
     display: flex;
     flex-direction: column;
-    border: 4px dotted #000000;
+    border: 4px solid #000000;
     justify-content: space-between;
     align-items: space-around; 
     flex-basis: 33.33%;
@@ -66,7 +66,6 @@ nav{
 .item {
     color:white;
     flex-basis: 33.333%;
-    border:3px solid blue;
     background-color: indianred;
     display:flex;
     flex-direction:column;
@@ -98,11 +97,7 @@ nav{
 
 }
 
-  .text{
-      font-size: 1.5vmin;
-      overflow:auto;
-      /* text-align: center; */
-  }
+ 
 
   .bio-text{
     display:flex;
@@ -133,3 +128,41 @@ nav{
     flex-basis: 50%;
 
 }
+
+
+
+
+/* .demo-container {
+    display: flex;
+    border: 8px solid black;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: space-around;
+  }
+
+  .demo-column{
+    display: flex;
+    flex-direction: column;
+    border: 4px dotted #000000;
+    justify-content: space-between;
+    align-items: space-around; 
+    flex-basis: 33.33%;
+    min-width: 0;
+    min-height: 0;
+  }
+
+.demo-item {
+    color:white;
+    flex-basis: 33.333%;
+    border:3px solid blue;
+    background-color: indianred;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+    min-height: 0;
+    width: 100%;
+    height:100%;
+    overflow: auto
+} */

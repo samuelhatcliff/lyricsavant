@@ -29,6 +29,13 @@ const style = {
 const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
     const [artist, setArtist] = useState(null)
     const [artist2, setArtist2] = useState(null)
+    const [expandBio, setExpandBio] = useState(false)
+
+    const expandBioFunc = (artist) => {
+        const bio = artist.bio;
+        setExpandBio(true)
+
+    }
 
     console.log("current artist query id:", artistId)
     useEffect(() => {
@@ -68,16 +75,17 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
     return (
         < >
             {!isLoading ? (
+
                 <div style={{ height: '100%', width: '100%' }}>
                     {!artist2 ? (
-                        <Artist artist={artist} />) : (
+                        <Artist artist={artist} expandBioFunc={expandBioFunc} />) : (
                         console.log("not artist 1", artist)
                     )}
                     {artist2 ? (
                         <div className="container">
-                            <Artist artist={artist} />
+                            <Artist artist={artist} expandBioFunc={expandBioFunc} expandBio={expandBio} />
                             <Compare artist1={artist} artist2={artist2} />
-                            <Artist artist={artist2} />
+                            <Artist artist={artist2} expandBioFunc={expandBioFunc} expandBio={expandBio} />
                         </div>
                     ) : (
                         console.log("not artist 2", artist2)
