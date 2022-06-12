@@ -74,7 +74,7 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
                         console.log("not artist 1", artist)
                     )}
                     {artist2 ? (
-                        <div className="container" id="interface">
+                        <div className="container">
                             <Artist artist={artist} />
                             <Compare artist1={artist} artist2={artist2} />
                             <Artist artist={artist2} />

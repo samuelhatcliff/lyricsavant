@@ -4,6 +4,7 @@ import { Chart as ChartJS } from 'chart.js/auto';
 import { Chart } from 'react-chartjs-2';
 
 const BarChart = ({ artist1, artist2 }) => {
+    // Documentation: https://www.chartjs.org/docs/latest/axes/cartesian/#grid-lines
     const comp1 = artist1.pol_score.data.coms_avg;
     const comp2 = artist2.pol_score.data.coms_avg;
     const math = ((comp2 - comp1) / comp1) * 100;
@@ -54,6 +55,24 @@ const BarChart = ({ artist1, artist2 }) => {
     }
 
     const options = {
+        scales: {
+            x: {
+                grid: {
+                    color: 'red',
+                    borderColor: 'grey',
+                    tickColor: 'grey',
+                    display: false
+                }
+            },
+            y: {
+                grid: {
+                    color: 'red',
+                    borderColor: 'grey',
+                    tickColor: 'grey',
+                    display: false
+                }
+            },
+        },
         plugins: {
             legend: {
                 display: true,

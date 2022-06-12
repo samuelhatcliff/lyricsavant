@@ -1,4 +1,4 @@
-
+/* NAVBAR */
 nav a {
     color:black;
     text-decoration: none;
@@ -7,7 +7,6 @@ nav a {
 nav a:hover {
     font-weight: bold;
 }
-
 
 nav a.active {
     text-decoration: underline;
@@ -27,7 +26,7 @@ nav{
 }
 
 
-
+/* SEARCH MODULE */
 .button{
     z-index: 1;
     padding: 20px;
@@ -37,8 +36,10 @@ nav{
 }
 
 .search2{
-    z-index:-3;
+    z-index:3;
 }
+
+/* RESULTS */
 
 .container {
     display: flex;
@@ -48,12 +49,7 @@ nav{
     flex-direction: row;
     justify-content: space-evenly;
     align-items: space-around;
-    flex-basis: 33.3333%;
-  }
-
-  #interface {
-      height:100%;
-      width:100%;
+    /* flex-basis: 33.3333%; */
   }
 
   .column{
@@ -74,7 +70,7 @@ nav{
     background-color: indianred;
     display:flex;
     flex-direction:column;
-    /* justify-content: center; */
+    justify-content: center;
     align-items: center;
     min-width: 0;
     min-height: 0;
@@ -83,33 +79,29 @@ nav{
     overflow: auto
 }
 
-#words {
-    padding:0px;
-}
-
 .pie {
     min-width: 0;
     min-height: 0;
     width: 85%;
-    height:30vw;
+    height:100%;
 }
 
-canvas {
-    height:100px;
-    width:100%;
+.vs-text {
+    font-weight: bold;
 }
 
+.artist-info {
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-basis: 33.333%;
+
+
+}
 
   .text{
       font-size: 1.5vmin;
       overflow:auto;
       /* text-align: center; */
-  }
-
-  .loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
   .bio-text{
@@ -119,6 +111,25 @@ canvas {
     /* justify-content: flex-start; */
     padding:5px;
     width: 100%;
-    height:60%;
+    height:100%;
+
     overflow:auto;
   }
+
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #words {
+    padding:0px;
+}
+.artist-header{
+    display:flex;
+    justify-content: flex-start
+}
+.name-info {
+    flex-basis: 50%;
+
+}

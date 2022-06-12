@@ -96,29 +96,53 @@ export default function BasicGrid(artistId = 111, artistId2 = 130) {
             {!loading ? (
                 <div className="container">
                     <div className="column">
-                        <div className="item"> <img width="100%" height="100%"
-                            src={img1} />
+                        <div className="item artist-info">
+                            <Stack>
+                                <div className="artist-header">
+                                    <Avatar alt={demoArtist.name}
+                                        src={demoArtist.image}
+                                        sx={{ width: 60, height: 60, marginTop: 1, marginLeft: 1 }} />
+                                    <span className="name-info" style={{ marginTop: 25.75, marginLeft: 60 }}><b>{demoArtist.name} Info:</b></span>
+                                </div>
+                                <p className="bio-text">Bio: {demoArtist.bio.slice(0, 300)} + more</p>
+                            </Stack>
                         </div>
                         <WordCloudFunc artist={demoArtist} />
-                        <div className="item"><PieChart artist={demoArtist2} /></div>
+                        <div className="item"><PieChart artist={demoArtist} /></div>
 
                     </div>
                     <div className="column">
-                        <Item className="item" style={{ padding: 0 }} >
-                            However, not all effects can be deferred. For example, a DOM mutation that is visible to the user must fire synchronously before the next paint so that the user does not perceive a visual inconsistency. (The distinction is conceptually similar to passive versus active event listeners.) For these types of effects, React provides one additional Hook called  useLayoutEffect.
-                            https://reactjs.org/docs/hooks-reference.html#useeffect
-                            Is useLayoutEffect commonly used?Vocab</Item>
+                        <Item className="item"  >
+                            <span className="vs-text">{demoArtist.name}</span>
+                            <Avatar alt={demoArtist.name}
+                                src={demoArtist.image}
+                                sx={{ width: 80, height: 80, marginTop: 1, marginBottom: 1 }} />
+                            <span className="vs-text">VS</span>
+                            <Avatar alt={demoArtist2.name}
+                                src={demoArtist2.image}
+                                sx={{ width: 80, height: 80, marginTop: 1, marginBottom: 1 }} />
+                            <span className="vs-text">{demoArtist2.name}</span>
+                        </Item>
                         <WordsChart artist1={demoArtist} artist2={demoArtist2} />
                         <BarChart artist1={demoArtist} artist2={demoArtist2} />
 
 
                     </div>
                     <div className="column">
-                        <div className="item"> <img width="100%" height="100%"
-                            src={img2} />
+                        <div className="item artist-info">
+                            <Stack>
+                                <div className="artist-header">
+                                    <Avatar alt={demoArtist2.name}
+                                        src={demoArtist2.image}
+                                        sx={{ width: 60, height: 60, marginTop: 1, marginLeft: 1 }} />
+                                    <span className="name-info" style={{ marginTop: 25.75, marginLeft: 60 }}><b>{demoArtist2.name} Info:</b></span>
+                                </div>
+                                <p className="bio-text">Bio: {demoArtist2.bio.slice(0, 300)} + more</p>
+                            </Stack>
                         </div>
                         <WordCloudFunc artist={demoArtist2} />
-                        <div className="item"><PieChart artist={demoArtist} /></div>
+                        <div className="item"><PieChart artist={demoArtist2} /></div>
+
 
                         {/* <div className="item">
                             <div width="100%">
@@ -218,3 +242,13 @@ const bio2 = <span>Christopher Brian Bridges, better known by his stage name Lud
 
             //     </Modal>
             // </div>
+
+
+            // <Item className="item" style={{ padding: 0 }} >
+            //                 However, not all effects can be deferred. For example, a DOM mutation that is visible to the user must fire synchronously before the next paint so that the user does not perceive a visual inconsistency. (The distinction is conceptually similar to passive versus active event listeners.) For these types of effects, React provides one additional Hook called  useLayoutEffect.
+            //                 https://reactjs.org/docs/hooks-reference.html#useeffect
+            //                 Is useLayoutEffect commonly used?Vocab</Item>
+
+            // <div className="item"> <img width="100%" height="100%"
+            //                 src={img2} />
+            //             </div>
