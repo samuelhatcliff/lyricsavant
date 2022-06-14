@@ -91,9 +91,10 @@ class Math:
         num_unique = len(tokenized) 
         return num_unique
 
-    def recursive_clean_up(self, word): #function is recursive because there may be multiple characters that need to be removed
-        current = word
+    def recursive_clean_up(self, current): #function is recursive because there may be multiple characters that need to be removed
         stopwords = self.get_stopwords()
+        if len(current) == 0:
+            return "pass"
         if current[-1] == "," or current[-1] == " ":
                     current = current[:(len(current))-1]
                     self.recursive_clean_up(current)
@@ -108,10 +109,8 @@ class Math:
         
         if current in stopwords:
             return "pass"
-
         return current
         
-
 
     def clean_up_list(self, lst, author = ""):
         stopwords = self.get_stopwords() + nltk_sw
@@ -123,15 +122,9 @@ class Math:
                 current = self.recursive_clean_up(word)
                 if current == "pass":
                     continue
-                
                 filtered.append(current)
-            
-        
         print(len(filtered), "length of filtered list of words")
-
         print(len(lst), "length of original list of words")
-
-   
         return filtered
 
     def clean_up_string(self, text, author, song_title):

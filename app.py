@@ -98,6 +98,7 @@ def get_artist(id):
     """Return JSON for a specific artist in database"""
     artist = Artist.query.get(id)
     words = math.generate_composite(id, "list")
+    print("words11", words)
     words_filtered_stopwords = math.clean_up_list(words)
     pol_score = math.avg_pol(artist)
     unique_words = math.get_num_unique_words(id)
