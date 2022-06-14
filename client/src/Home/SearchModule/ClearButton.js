@@ -1,6 +1,4 @@
 import Button from '@mui/material/Button';
-import ClearContext from "./Context"
-import React, { useContext } from 'react';
 
 const ClearButton = ({ }) => {
     return (

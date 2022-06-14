@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 //Our Components
 import Search from "./Search";
 //MUI Components
@@ -6,10 +6,10 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import ClearButton from "./ClearButton";
+import './SearchModule.css'
 
 
-
-const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArtists, handleOpen }) => {
+const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArtists }) => {
     const [searchQ1, setSearchQ1] = useState([]);
     const [searchQ2, setSearchQ2] = useState([]);
     const [checked, setChecked] = useState(false);
@@ -27,7 +27,6 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
             }
             setSubmit(true)
             setLoading(true)
-            handleOpen()
         }
     }
 

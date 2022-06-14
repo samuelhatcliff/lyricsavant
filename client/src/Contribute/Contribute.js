@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Search from "./Search";
+import Search from "../Home/SearchModule/Search";
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Circles } from 'react-loader-spinner';
@@ -59,7 +59,6 @@ const Contribute = (({ allArtists }) => {
                     </div>
                 ) :
                     <div>
-
                         <Button variant="contained" disabled color="error"
                             style={{ display: 'block' }}>
                             Seed Artist

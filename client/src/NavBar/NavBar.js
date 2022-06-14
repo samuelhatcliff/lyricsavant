@@ -1,7 +1,8 @@
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import './App.css'
+import '../App.css'
+import './NavBar.css'
 
 const NavBar = () => {
     return (

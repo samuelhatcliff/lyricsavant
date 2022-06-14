@@ -6,36 +6,6 @@ hr {
     margin-bottom: 0;
   }
 
-
-
-/* NAVBAR */
-nav a {
-    color:black;
-    text-decoration: none;
-}
-
-nav a:hover {
-    font-weight: bold;
-}
-
-nav a.active {
-    text-decoration: underline;
-}
-
-.navigation {
-    display:flex;
-    justify-content: space-evenly;
-    align-items:center;
-    background-color:#FEFEFE;
-    position: fixed;
-}
-
-nav{
-    /* background-color:#FEFEFE; */
-    margin-bottom: 5rem;
-}
-
-
 /* SEARCH MODULE */
 .button{
     z-index: 1;
@@ -52,7 +22,7 @@ nav{
 
 /* RESULTS */
     /* General Structure */
-.container {
+/* .container {
     display: flex;
     border: 2px solid black;
     flex-direction: row;
@@ -85,26 +55,24 @@ nav{
     width: 100%;
     height:100%;
     overflow: auto
-}
+} */
 
     /*  Specific Items */
         /* Artist Items */
 
-.artist-info {
+/* .artist-info {
     display:flex;
     align-items: flex-start;
 }
 
 .artist-header{
     display:flex;
-    /* justify-content: space-evenly; */
     font-size:13px;
     margin-left:1px;
-    /* display:flex; */
     justify-content: flex-start;
     align-items: center;
-}
-
+} */
+/* 
 .bio-text{
     display:flex;
     flex-direction:column;
@@ -118,27 +86,25 @@ nav{
 .more:hover {
     text-decoration: underline;
     cursor: pointer;
-}
+} */
 
         /* WordCloud Item*/
 
-.wordcloud{
+/* .wordcloud{
             text-align: center;
-            /* width: '100%';
-            height: "90%"; */
-        }
+        } */
 
 
         /* Compare Items */
 
-    .vs-text {
+    /* .vs-text {
     font-weight: bold;
-}
+} */
 
 
     /*Expanded Biography*/
 
-.biography-expand {
+/* .biography-expand {
     display:flex;
     flex-direction:column;
 }
@@ -149,59 +115,23 @@ nav{
     display:flex;
     justify-content: flex-end;
     align-items: center;
-}
-
-.loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /* Demo Grid*/
-
-/* .demo-container {
-    display: flex;
-    border: 8px solid black;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: space-around;
-  }
-
-  .demo-column{
-    display: flex;
-    flex-direction: column;
-    border: 4px dotted #000000;
-    justify-content: space-between;
-    align-items: space-around; 
-    flex-basis: 33.33%;
-    min-width: 0;
-    min-height: 0;
-  }
-
-.demo-item {
-    color:white;
-    flex-basis: 33.333%;
-    border:3px solid blue;
-    background-color: indianred;
-    display:flex;
-    flex-direction:column;
-    justify-content: center;
-    align-items: center;
-    min-width: 0;
-    min-height: 0;
-    width: 100%;
-    height:100%;
-    overflow: auto
 } */
+
+/* .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } */
+
+
+
+
+
+
+
+
+
+
+
+
+

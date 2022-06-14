@@ -1,5 +1,5 @@
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
-import './App.css'
+import '../../App.css'
 
 
 // To-do: change format result so name is the only thing that returns

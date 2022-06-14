@@ -1,0 +1,26 @@
+/* NAVBAR */
+nav a {
+    color:black;
+    text-decoration: none;
+}
+
+nav a:hover {
+    font-weight: bold;
+}
+
+nav a.active {
+    text-decoration: underline;
+}
+
+.navigation {
+    display:flex;
+    justify-content: space-evenly;
+    align-items:center;
+    background-color:#FEFEFE;
+    position: fixed;
+}
+
+nav{
+    /* background-color:#FEFEFE; */
+    margin-bottom: 5rem;
+}

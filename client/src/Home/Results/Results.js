@@ -1,45 +1,18 @@
 import React, { useState, useEffect } from 'react';
 //Our Components
-import Artist from "./Artist";
-import Compare from "./Compare";
+import Artist from "./Artist/Artist";
+import Compare from "./Compare/Compare";
 //Styling Components
 import { Circles } from 'react-loader-spinner';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import './Results.css'
 
-import './App.css'
-
-
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '70vw',
-    height: '40vw',
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    backgroundColor: 'primary.dark',
-    boxShadow: 24,
-    p: 4,
-    margin: 0,
-    padding: 1
-};
 
 const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
     const [artist, setArtist] = useState(null)
     const [artist2, setArtist2] = useState(null)
-    const [expandBio, setExpandBio] = useState(false)
-
-    const expandBioFunc = (artist) => {
-        const bio = artist.bio;
-        setExpandBio(true)
-
-    }
-
     console.log("current artist query id:", artistId)
     useEffect(() => {
-        console.log("inside Results.js use effect")
+        console.log("inside Results.js useEffect")
         let p2;
         const p1 = fetch(`/api/artists/${artistId}`).then( // gets data for 1st artist
             res => res.json()
@@ -60,14 +33,14 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
         } else {
             Promise.resolve(p1).then(resolved => {
                 setLoading(false)
-                console.log("resolved p for Rromise.resolve", resolved)
+                console.log("resolved p for Promise.resolve", resolved)
             }
             )
         }
         if (artistId2) {
             Promise.all([p1, p2]).then(resolved => {
                 setLoading(false)
-                console.log("resolved p for Rromise.all", resolved)
+                console.log("resolved p for Promise.all", resolved)
             })
         }
     }, [artistId, artistId2])
@@ -75,20 +48,21 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
     return (
         < >
             {!isLoading ? (
-
                 <div style={{ height: '60%', width: '100%' }}>
                     {!artist2 ? (
-                        <Artist artist={artist} expandBioFunc={expandBioFunc} />) : (
-                        console.log("not artist 1", artist)
+                        <div className="container">
+                            <Artist artist={artist} />
+                        </div>) : (
+                        console.log("No 2nd Artist identified. Now returning Artist1:", artist)
                     )}
                     {artist2 ? (
                         <div className="container">
-                            <Artist artist={artist} expandBioFunc={expandBioFunc} expandBio={expandBio} />
+                            <Artist artist={artist} />
                             <Compare artist1={artist} artist2={artist2} />
-                            <Artist artist={artist2} expandBioFunc={expandBioFunc} expandBio={expandBio} />
+                            <Artist artist={artist2} />
                         </div>
                     ) : (
-                        console.log("not artist 2", artist2)
+                        console.log("not artist 1", artist2)
                     )}
                 </div>
             ) : (
@@ -99,7 +73,6 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
             )
             }
         </>
-
     )
 }
 

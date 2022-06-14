@@ -1,13 +1,14 @@
-import { BrowserRouter, Route, Link, NavLink } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import './App.css'
 import Typography from '@mui/material/Typography';
 
 // Our own components 
-import Home from "./Home";
-import NavBar from "./NavBar";
-import BasicGrid from './GridDemo';
-import Contribute from "./Contribute";
+import Home from "./Home/Home";
+import NavBar from "./NavBar/NavBar";
+import BasicGrid from './GridDemo/GridDemo';
+import Contribute from "./Contribute/Contribute";
+
 function App() {
   const [allArtists, setAllArtists] = useState([{}]);
   useEffect(() => {
@@ -23,12 +24,10 @@ function App() {
     )
   }, []);
   console.log("All artists:", allArtists)
-
   return (
     <main >
       <BrowserRouter>
         <Typography variant="body2" component="div" gutterBottom>
-
           <NavBar />
           <Route exact path="/">
             <Home allArtists={allArtists} />

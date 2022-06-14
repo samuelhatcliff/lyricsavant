@@ -1,17 +1,13 @@
-import BarChart from "./charts/BarChart"
-import WordsChart from "./charts/WordsChart"
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import BarChart from "./Charts/BarChart"
+import WordsChart from "./Charts/WordsChart"
 import Avatar from '@mui/material/Avatar';
-
-import React from 'react';
+import './Compare.css';
 
 function Compare({ artist1, artist2 }) {
     console.log("rendering compare component")
     return (
-        <React.Fragment >
+        <>
             <div className="column">
-
                 <div className="item"  >
                     <span className="vs-text">{artist1.name}</span>
                     <Avatar alt={artist1.name}
@@ -23,15 +19,10 @@ function Compare({ artist1, artist2 }) {
                         sx={{ width: 80, height: 80, marginTop: 1, marginBottom: 1 }} />
                     <span className="vs-text">{artist2.name}</span>
                 </div>
-
-
                 <WordsChart className="item" artist1={artist1} artist2={artist2} />
-
-
                 <BarChart className="item" artist1={artist1} artist2={artist2} />
             </div>
-
-        </React.Fragment>
+        </>
     )
 }
 
