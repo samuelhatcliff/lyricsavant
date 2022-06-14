@@ -43,10 +43,10 @@ const WordCloudFunc = ({ artist }) => {
     const data = freqCount(artist.words)
     const arrData = toArr(data)
     const reducedData = filterArray(arrData)
-    return <div style={{ width: '90%' }}>
-        <span className="text">{artist.name} uses {artist.vocab_score} unique words!</span>
+    return <div className="wordcloud" style={{ width: '100%', height: "90%" }}>
+        <span >{artist.name} uses {artist.vocab_score} unique words!</span>
         <WordCloud data={reducedData}
-            style={{ height: "100%" }}
+            style={{}}
             font="Times"
             // fontStyle="italic"
             fontWeight="bold"

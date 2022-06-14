@@ -38,6 +38,24 @@ const WordsChart = ({ artist1, artist2 }) => {
         ]
     }
     const options = {
+        scales: {
+            x: {
+                grid: {
+                    color: 'red',
+                    borderColor: 'grey',
+                    tickColor: 'grey',
+                    display: false
+                }
+            },
+            y: {
+                grid: {
+                    color: 'red',
+                    borderColor: 'grey',
+                    tickColor: 'grey',
+                    display: false
+                }
+            },
+        },
         plugins: {
             legend: {
                 display: false,

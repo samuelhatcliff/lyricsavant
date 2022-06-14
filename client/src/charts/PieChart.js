@@ -44,15 +44,18 @@ const PieChart = ({ artist }) => {
                 display: true,
                 fontSize: 10
             }
-        }
+        },
+        maintainAspectRatio: false
     }
 
     return (
-        <div className="pie">
+        <>
             <Pie data={state}
-                options={options} />
+                options={options}
+                width={100}
+                height={50} />
             {/* {insightMsg()} */}
-        </div>
+        </>
     )
 }
 

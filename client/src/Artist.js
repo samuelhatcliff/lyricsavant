@@ -7,6 +7,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import './App.css'
 
 const style = {
     position: 'absolute',
@@ -14,7 +15,7 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '32vw',
-    height: '40vw',
+    height: "40vw",
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 23,
@@ -33,16 +34,26 @@ function Artist({ artist }) {
     return (
         <div className="column">
             <div className="item artist-info">
-                <div className="artist-header">
+                <Stack
+                    direction="row"
+                    spacing={2}
+                >
+
                     <Avatar alt={artist.name}
                         src={artist.image}
-                        sx={{ width: 60, height: 60, marginTop: 1, marginLeft: 1 }} />
-                    <span className="name-info" style={{ marginTop: 25.75, marginLeft: 60 }}><b>{artist.name} Info:</b></span>
-                </div>
-                <p className="bio-text">Bio: {artist.bio.slice(0, 300)} + <span onClick={handleOpen}>more</span></p>
+                        sx={{ width: 60, height: 60, marginTop: .5, marginLeft: 1 }} />
+                    <div className="artist-header">
+                        <div ><b>Artist: {artist.name}</b></div>
+                    </div>
+                </Stack>
+                <hr></hr>
+                <p className="bio-text">Bio: {artist.bio.slice(0, 300)} +
+                    {<a className="more" onClick={handleOpen}>...more</a>}
+                </p>
+
             </div>
-            {/* <span >{artist.name} uses {artist.vocab_score} unique words!</span> */}
-            {/* <div className="item"><WordCloudFunc className="wordcloudfun" artist={artist} /></div> */}
+
+            {/* <div className="item"><WordCloudFunc artist={artist} /></div> */}
             <div className="item"><PieChart artist={artist} /></div>
             {open ? (
                 <Modal
@@ -51,10 +62,10 @@ function Artist({ artist }) {
                     open={open}
                     onClose={handleClose}
                 >
-                    <Box sx={style}>
+                    <Box className="biography-expand" sx={style}>
                         <Stack
                             direction="row"
-                            spacing={2}
+                            spacing={0}
                         >
                             <Avatar
                                 alt={artist.name}
@@ -66,14 +77,16 @@ function Artist({ artist }) {
                                     marginTop: 1
                                 }}
                             />
-                            <span style={{ marginTop: '3.75vw', marginLeft: '3vw' }}>{artist.name} Full Biography:</span>
+                            <div className='full-bio-title'>{artist.name} Full Biography:</div>
                         </Stack>
                         <hr></hr>
-                        <Typography variant="body2" component="span" gutterBottom>
-                            <div className="bio-text">
+                        <div className="bio-text">
+                            <Typography variant="body2" component="span" gutterBottom >
+
                                 {artist.bio}
-                            </div>
-                        </Typography>
+                            </Typography>
+                        </div>
+
                     </Box>
                 </Modal>
             ) : (console.log("expanded bio false"))

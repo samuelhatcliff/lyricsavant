@@ -76,7 +76,7 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
         < >
             {!isLoading ? (
 
-                <div style={{ height: '100%', width: '100%' }}>
+                <div style={{ height: '60%', width: '100%' }}>
                     {!artist2 ? (
                         <Artist artist={artist} expandBioFunc={expandBioFunc} />) : (
                         console.log("not artist 1", artist)
