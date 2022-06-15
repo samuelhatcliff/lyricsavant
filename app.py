@@ -114,6 +114,7 @@ def get_artist(id):
 def get_py_wc(id):
     lyrics = math.generate_composite(id)
     wc_img = pd.get_wordcloud(lyrics)
+    print('wcimg1', wc_img)
     return jsonify(data = wc_img)
 
 

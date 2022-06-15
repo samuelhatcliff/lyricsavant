@@ -7,7 +7,7 @@ import Stack from '@mui/material/Stack';
 // import '../../../App.css'
 import './Artist.css'
 
-function Artist({ artist }) {
+function Artist({ artist, data }) {
     console.log("Rendering artist:", artist)
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -32,7 +32,11 @@ function Artist({ artist }) {
                 </p>
             </div>
 
-            <div className="item"><WordCloudFunc artist={artist} /></div>
+            <div className="item">
+                {/* <WordCloudFunc artist={artist} /> */}
+                <img src={`data:image/jpeg;base64,${data}`} />
+
+            </div>
             <div className="item"><PieChart artist={artist} /></div>
             {open ? (
                 <Biography artist={artist} open={open} handleClose={handleClose} />
