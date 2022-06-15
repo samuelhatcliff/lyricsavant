@@ -8,8 +8,8 @@ math = Math()
 
 """Data Imports"""
 from wordcloud import WordCloud, STOPWORDS
-stopwords2 = ["lyrics", "lyrics", "Embed"] + list(STOPWORDS) + math.get_stopwords()
-wc= WordCloud(stopwords=stopwords2, background_color="white")
+stopwords = list(STOPWORDS) + math.get_stopwords()
+wc= WordCloud(stopwords=stopwords, background_color="#E5E5E5",  height=400, min_word_length=3, min_font_size=9)
 from matplotlib import pyplot as plt
 plt.switch_backend('Agg')
 plt.style.use("fivethirtyeight")
@@ -23,6 +23,7 @@ import base64
 class Python_Data_Visuals:
     
     def get_wordcloud(self, text):
+        # Documentation: http://amueller.github.io/word_cloud/generated/wordcloud.WordCloud.html
         image = wc.generate(text).to_image()
         img = io.BytesIO()
         image.save(img, "PNG")

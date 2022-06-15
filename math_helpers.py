@@ -94,7 +94,7 @@ class Math:
     def regex_word_clean_up(self, word): #function is recursive because there may be multiple characters that need to be removed
         stopwords = self.get_stopwords()
         if len(word) == 0:
-            return "pass"
+            return None
 
         #regex expression to eliminate words that contain special char - but don't start or end with -
         word = re.sub(r'\S+-\S+', "", word)
@@ -102,13 +102,13 @@ class Math:
         regexed = re.sub(r"[^A-Za-z']", "", word)
 
         if len(regexed) == 0 or len(regexed) == 1:
-            return "pass"
+            return None
 
-        if "embed" in regexed:
-            return "pass"
+        if "embed" in regexed or "Embed" in regexed:
+            return None
         
         if regexed in stopwords:
-            return "pass"
+            return None
 
         return regexed
         
@@ -121,7 +121,7 @@ class Math:
             word = word.lower()
             if word not in stopwords_dict:
                 regexed = self.regex_word_clean_up(word)
-                if regexed == "pass":
+                if regexed == None:
                     continue
                 filtered.append(regexed)
         print(len(filtered), "length of filtered5 list of words")
