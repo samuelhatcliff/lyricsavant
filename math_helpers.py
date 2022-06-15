@@ -4,16 +4,16 @@ from models import Artist
 from sent_analysis import polarize, tokenize
 from collections import Counter
 import nltk
+import re
 nltk.download('stopwords')
 from nltk.corpus import stopwords
 nltk_sw = stopwords.words('english')
-
-
 
 class Math:
     def avg_pol(self, artist):
         # first create a list of score objects for each songs 
         scores = []
+        print("artist11",artist)
         for song in artist.songs:
             lyric = song.lyrics
             scores.append(polarize(lyric))
@@ -91,25 +91,26 @@ class Math:
         num_unique = len(tokenized) 
         return num_unique
 
-    def recursive_clean_up(self, current): #function is recursive because there may be multiple characters that need to be removed
+    def regex_word_clean_up(self, word): #function is recursive because there may be multiple characters that need to be removed
         stopwords = self.get_stopwords()
-        if len(current) == 0:
+        if len(word) == 0:
             return "pass"
-        if current[-1] == "," or current[-1] == " ":
-                    current = current[:(len(current))-1]
-                    self.recursive_clean_up(current)
 
-        if current[0] == "(" or current[0] == " ":
-                    current =  current[1:]
-                    self.recursive_clean_up(current)
+        #regex expression to eliminate words that contain special char - but don't start or end with -
+        word = re.sub(r'\S+-\S+', "", word)
+        #regex expression to eliminate special characters from word--does most of the heavy lifting in this func
+        regexed = re.sub(r"[^A-Za-z']", "", word)
 
-        if current[(len(current))-1] == "?" or current[(len(current))-1] == "!" or current[(len(current))-1] == ")":
-                    current = current[:(len(current))-1]
-                    self.recursive_clean_up(current)
+        if len(regexed) == 0 or len(regexed) == 1:
+            return "pass"
+
+        if "embed" in regexed:
+            return "pass"
         
-        if current in stopwords:
+        if regexed in stopwords:
             return "pass"
-        return current
+
+        return regexed
         
 
     def clean_up_list(self, lst, author = ""):
@@ -119,12 +120,14 @@ class Math:
         for word in lst:
             word = word.lower()
             if word not in stopwords_dict:
-                current = self.recursive_clean_up(word)
-                if current == "pass":
+                regexed = self.regex_word_clean_up(word)
+                if regexed == "pass":
                     continue
-                filtered.append(current)
-        print(len(filtered), "length of filtered list of words")
+                filtered.append(regexed)
+        print(len(filtered), "length of filtered5 list of words")
         print(len(lst), "length of original list of words")
+        print("filtered1 words list", (filtered))
+        
         return filtered
 
     def clean_up_string(self, text, author, song_title):
@@ -160,15 +163,15 @@ class Math:
         return string 
 
     def get_stopwords(self):
-        return ["i'll", "let's", "and", "be", "yet", "so", "~", "-", "_", "/", ".", ",", "[", "]", "*", "lyrics", "na", "say", "want", "need", "naa", "nah", "ha", "yes", "Hey", "u", "make", "mi", "ooh", "around", "oh", "still", "see", "after", "afterwards", "ag", "again", "well", "one", "em", "let", "go",
+        return ["di", "'s", "ay"," ", "uh", "trs" "e", "'em", "em", "i'll", "let's", "and", "be", "yet", "so", "~", "-", "_", "/", ".", ",", "[", "]", "*", "lyrics", "na", "say", "want", "need", "naa", "nah", "ha", "yes", "Hey", "u", "make", "mi", "ooh", "around", "oh", "still", "see", "after", "afterwards", "ag", "again", "well", "one", "em", "let", "go",
 "ah", "ain", "ain't", "aj", "al", "all","almost",  "already", "also", "although", 
 "am","an", "and","another", "any", "are", "aren", "arent", "as", "a's", "right", "wanna", "ya ya", "I'ma", "ya", "til",
 "did", "didn", "didn't", "do", "does", "doesn", "doesn't","either", "else", "for", 
 "gave", "ge", "get", "gets", "getting", "gi", "give", "given", "gives", "giving", "gj", "gl",
  "go", "goes", "going", "got", "gotten", "has", "hasn", "hasnt", "hasn't", "have", "haven", "haven't",
- "he", "hed", "he'd", "he'll", "here", "hereafter", "hereby", "herein", "heres",
+ "he", "hed", "he'd", "he'll", "he's", "here", "hereafter", "hereby", "herein", "heres",
  "him", "himself", "his", "i'd", "ie", "if", "ig", "ih", "ii", "ij", "il", "im", "i'm",
- "it'd", "it'll", "its", "it's", "itself", "iv", "i've", "just", "like", "my", "no", "not",
+ "it'd", "it'll","ill", "its", "it's", "itself", "iv", "i've", "ive" "just", "like", "my", "no", "not",
  "she'd", "she'll", "shes", "she's", "should", "shouldn", "shouldn't", "should've", "since",
  "them", "then", "there", "that", "that'll", "thats", "that's", "that've", "the", "their", "theirs", "them", "themselves",
  "these", "they", "theyd", "they'd", "they'll", "theyre", "they're", "they've",

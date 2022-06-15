@@ -55,31 +55,31 @@ failed = []
 
 @app.route("/test")
 def home():
-    artist1 = Artist.query.get(20710) #a7x
-    artist2 = Artist.query.get(17912) #evanescence
-    test = download_artist("fasdfasdfasdfasdfa", 1)
-    print(test)
-    return {"members": ["mem1", "mem2"]}
+    # artist1 = Artist.query.get(20710) #a7x
+    # artist2 = Artist.query.get(17912) #evanescence
+    # test = download_artist("fasdfasdfasdfasdfa", 1)
+    # print(test)
+    return render_template('home.html')
 
 @app.route("/results")
 def results():
     id1 = request.args["id1"]
-    id2 = request.args["id2"]
+    # id2 = request.args["id2"]
 
     """WordCloud"""
     lyrics = math.generate_composite(id1)
     wc_img = pd.get_wordcloud(lyrics)
 
-    """Pie Chart"""
-    pie_img = pd.get_pie(id1)
+    # """Pie Chart"""
+    # pie_img = pd.get_pie(id1)
 
-    """Unique Words Bar Chart"""
-    bar_img = pd.get_unique_words_bar(id1, id2)
+    # """Unique Words Bar Chart"""
+    # bar_img = pd.get_unique_words_bar(id1, id2)
   
-    """Polarity Bar Chart"""
-    pol_img = pd.get_pol_bar(id1, id2)
+    # """Polarity Bar Chart"""
+    # pol_img = pd.get_pol_bar(id1, id2)
 
-    return render_template('results.html', wc_img = wc_img, pie_img = pie_img, bar_img = bar_img, pol_img = pol_img)
+    return render_template('results.html', wc_img = wc_img)
 
 
 
@@ -106,8 +106,16 @@ def get_artist(id):
     artist_dict['pol_score'] = pol_score
     artist_dict['vocab_score'] = unique_words
     artist_dict['words'] = words_filtered_stopwords
+    # artist_dict['wc'] = pd.get_wordcloud(words_filtered_stopwords)
     serialized = serialize_artist_data(artist_dict)
     return serialized
+
+@app.route("/api/artists/wc/<int:id>", methods = ["GET"])
+def get_py_wc(id):
+    lyrics = math.generate_composite(id)
+    wc_img = pd.get_wordcloud(lyrics)
+    return jsonify(data = wc_img)
+
 
 @app.route("/api/artists/add/<name>", methods = ["POST"])
 def post_artist(name):
