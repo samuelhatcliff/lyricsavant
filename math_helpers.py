@@ -1,19 +1,19 @@
-import json
-from types import SimpleNamespace
 from models import Artist
 from sent_analysis import polarize, tokenize
-from collections import Counter
-import nltk
 import re
+import nltk
+nltk.download('omw-1.4')
+from nltk.corpus import wordnet, stopwords
+from nltk.stem.wordnet import WordNetLemmatizer as wnl
+wnl.lemmatize('tests', "tests")
 nltk.download('stopwords')
-from nltk.corpus import stopwords
-nltk_sw = stopwords.words('english')
+nltk_sw_en = stopwords.words('english')
+nltk_sw_es = stopwords.words('spanish')
 
 class Math:
     def avg_pol(self, artist):
         # first create a list of score objects for each songs 
         scores = []
-        print("artist11",artist)
         for song in artist.songs:
             lyric = song.lyrics
             scores.append(polarize(lyric))
@@ -26,15 +26,17 @@ class Math:
         try: 
             for score in scores:
                # this is wrapped in a try/except block because of a bug I'm experiencing where flask tells me the dict is actually a nonetype.
-               # really weird and would be nice to figure out what's going on, even though the try/except solution works 
+               # really weird and would be nice to figure out what's going on, even though lines 30-33 work perfectly when contained in try block
+               # todo: write a test that will fail if except is ran
                 coms.append(score['avg_com'])
                 poss.append(score['avg_pos'])
                 negs.append(score['avg_neg'])
                 neus.append(score['avg_neu'])
         except: 
+            print("except1", artist.name)
             pass
 
-        
+
         # get average for each category by averaging list
         coms_avg = round((sum(coms) / len(coms)), 2)
         poss_avg = round((sum(poss) / len(poss)), 2)
@@ -46,7 +48,6 @@ class Math:
         "poss_avg": poss_avg, "negs_avg": negs_avg, "neus_avg": neus_avg}
 
         data = { "data": obj }
-        # pol_score = json.dumps(data)
         return data
   
     def percent_dif(self, item1, item2):
@@ -63,106 +64,96 @@ class Math:
             return f"{item1} and {item2} score exactly the same. Weird."
 
     def generate_composite(self, artist_id, type = "string"):
-        """Sums the entirety of an artist's lyrics to a single string to be used to generate data"""
+        """Sums the entirety of an artist's lyrics to a single string or list (if specified) to be used to generate data"""
         # This functionality is neccesary because visual data libraries in python tend to accept a single input of text
         # rather than saving every single song's lyrics to our artist object in our db, we'd prefer to generate this text 
-        # in a single calculation in the moment we call it. This saves memory and lets us add and remove songs/lyrics from 
+        # in a single calculation in the moment we call it. This saves memory in our db and lets us add and remove songs/lyrics from 
         # an artist without having to update a composite string saved to the artist sqalchemy object each time
         artist = Artist.query.get(artist_id)
         
-        if type == "list": # returns list of every word in every song
+        if type == "list": 
             words_lst = []
             for song in artist.songs:
                 lyric_lst = song.lyrics.split()
                 words_lst.extend(lyric_lst)
-            return words_lst
+            return words_lst # returns list of every word in every song
 
-        # returns string of every word in every song
-        comp = ""
+        comp = ""         
         for song in artist.songs:
             comp += song.lyrics
 
-        return comp
+        return comp # returns string of every word in every song
 
     def get_num_unique_words(self, artist_id):
-        artist = Artist.query.get(artist_id)
-        lyrics = self.generate_composite(artist_id)
-        tokenized = tokenize(lyrics, artist.name)
-        num_unique = len(tokenized) 
-        return num_unique
 
-    def regex_word_clean_up(self, word): #function is recursive because there may be multiple characters that need to be removed
+        artist = Artist.query.get(artist_id)
+        string_composite = self.generate_composite(artist_id)
+        tokenized_string_composite = tokenize(string_composite, artist.name)
+        #tokenized_string_composite was the original source before attempting to use lemmization.
+        token_set = set(tokenized_string_composite)
+        token_lemmy = [wnl.lemmatize(wrd, wrd) for wrd in token_set]
+    
+        list_composite = self.generate_composite(artist_id, "list")
+        regexed = self.clean_up_list(list_composite, artist.name)
+        regexed_set = set(regexed)
+        # regex_lemmy = [wnl.lemmatize(wrd, wrd) for wrd in regexed_set]
+        
+        
+        print("length of lemmied regexed set", len(regexed_set),
+        "length of tokenized set", len(token_set), "length of lemmitized token set", (len(set(token_lemmy))), "artist22:", artist.name)
+
+        return len(regexed_set)
+
+    def regex_word_clean_up(self, word): 
         stopwords = self.get_stopwords()
-        if len(word) == 0:
-            return None
 
         #regex expression to eliminate words that contain special char - but don't start or end with -
         word = re.sub(r'\S+-\S+', "", word)
+
         #regex expression to eliminate special characters from word--does most of the heavy lifting in this func
         regexed = re.sub(r"[^A-Za-z']", "", word)
 
+        #lemmatization attempt--arbitrarily receive error of AttributeError: 'WordNetCorpusReader' object has no attribute '_LazyCorpusLoader__args'
+        regexed = wnl.lemmatize(regexed, regexed)
+
+        #filters out words that are single letters or only two letters, which are often junk
         if len(regexed) == 0 or len(regexed) == 1:
-            return None
+            return False
 
-        if "embed" in regexed or "Embed" in regexed:
-            return None
+        #filters out common non-lyrical content form webscaping
+        #todo: write a switch statement for line 115 instead
+        if "embed" in regexed or "Embed" in regexed or "lyrics" in regexed or "Lyrics" in regexed or ".com" in regexed:
+            return False
         
-        if regexed in stopwords:
-            return None
+        #filters out words that don't contain vowels
+        vowels = set('aeiou')
+        if vowels.isdisjoint(regexed):
+            return False
 
+        #after applying regular expressions to clean up our word, we can now check again if the word is a stopword
+        if regexed in stopwords:
+            return False
+
+        #if the word meets all of the above conditions, it can be returned and added to our filtered list in clean_up_list
         return regexed
         
 
     def clean_up_list(self, lst, author = ""):
-        stopwords = self.get_stopwords() + nltk_sw
-        stopwords_dict = Counter(stopwords)
+        stopwords = self.get_stopwords() 
         filtered = []
         for word in lst:
             word = word.lower()
-            if word not in stopwords_dict:
-                regexed = self.regex_word_clean_up(word)
-                if regexed == None:
+            if word not in stopwords:
+                legit = self.regex_word_clean_up(word)
+                if legit == False or legit==author:
                     continue
-                filtered.append(regexed)
-        print(len(filtered), "length of filtered5 list of words")
-        print(len(lst), "length of original list of words")
-        print("filtered1 words list", (filtered))
-        
+                filtered.append(legit)
+
         return filtered
 
-    def clean_up_string(self, text, author, song_title):
-        lst = list(text.split(" "))
-
-        for word in lst.copy():
-            if "lyrics" in word:
-                if word in lst:
-                    lst.remove(word)
-            if "Lyrics" in word:
-                if word in lst:
-                    lst.remove(word)
-            if "Embed" in word:
-                if word in lst:
-                    lst.remove(word)
-            if "embed" in word:
-                if word in lst:
-                    lst.remove(word)
-            if author in word:
-                if word in lst:
-                    lst.remove(word)
-            if song_title in word:
-                if word in lst:
-                    lst.remove(word)
-            if author.lower() in word:
-                if word in lst:
-                    lst.remove(word)     
-            if song_title.lower() in word:
-                if word in lst:
-                    lst.remove(word)       
-
-        string = ' '.join(lst)
-        return string 
-
     def get_stopwords(self):
+        #todo: add stopword list from wordcloud. once all external stopword lists are added (including in various languages, convert
+        # to set and then back to list)
         return ["di", "'s", "ay"," ", "uh", "trs" "e", "'em", "em", "i'll", "let's", "and", "be", "yet", "so", "~", "-", "_", "/", ".", ",", "[", "]", "*", "lyrics", "na", "say", "want", "need", "naa", "nah", "ha", "yes", "Hey", "u", "make", "mi", "ooh", "around", "oh", "still", "see", "after", "afterwards", "ag", "again", "well", "one", "em", "let", "go",
 "ah", "ain", "ain't", "aj", "al", "all","almost",  "already", "also", "although", 
 "am","an", "and","another", "any", "are", "aren", "arent", "as", "a's", "right", "wanna", "ya ya", "I'ma", "ya", "til",
@@ -197,5 +188,6 @@ class Math:
       "under", "again", "further", "then", "once", "here", "there", "when", "where", 
       "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", 
       "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", 
-      "very", "s", "t", "can", "will", "just", "us", "don", "should", "now"] + nltk_sw
+      "very", "s", "t", "can", "will", "just", "us", "don", "should", "now"] + nltk_sw_en + nltk_sw_es
+
 

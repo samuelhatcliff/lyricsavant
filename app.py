@@ -1,8 +1,6 @@
 """General Imports"""
 from flask import Flask, jsonify, request, render_template
-import json
 from lyricsgenius import Genius
-from types import SimpleNamespace
 from lyrics_api import download_artist
 
 """Web Scraping"""
@@ -18,8 +16,6 @@ from lyrics_api import download_artist
 #     artist_list.append(a.text)
 
 
-# from flask_debugtoolbar import DebugToolbarExtension 
-
 """Imports from our own costum modules"""
 from models import connect_db, db, Song, Artist
 from api import serialize_artist_data, serialize_artist_names, serialize_song
@@ -29,6 +25,8 @@ from python_data_visuals import Python_Data_Visuals
 from lyrics_api import download_artist
 pd = Python_Data_Visuals()
 math = Math()
+
+# from flask_debugtoolbar import DebugToolbarExtension 
 
 app = Flask(__name__)
 
@@ -97,24 +95,27 @@ def get_all_artists():
 def get_artist(id):
     """Return JSON for a specific artist in database"""
     artist = Artist.query.get(id)
-    words = math.generate_composite(id, "list")
-    print("words11", words)
-    words_filtered_stopwords = math.clean_up_list(words)
     pol_score = math.avg_pol(artist)
     unique_words = math.get_num_unique_words(id)
     artist_dict = artist.__dict__
     artist_dict['pol_score'] = pol_score
     artist_dict['vocab_score'] = unique_words
-    artist_dict['words'] = words_filtered_stopwords
-    # artist_dict['wc'] = pd.get_wordcloud(words_filtered_stopwords)
     serialized = serialize_artist_data(artist_dict)
     return serialized
 
-@app.route("/api/artists/wc/<int:id>", methods = ["GET"])
+@app.route("/api/artists/<int:id>/wc", methods = ["GET"])
 def get_py_wc(id):
-    lyrics = math.generate_composite(id)
-    wc_img = pd.get_wordcloud(lyrics)
-    print('wcimg1', wc_img)
+    string_composite = math.generate_composite(id)
+
+    artist = Artist.query.get(id)
+    words = math.generate_composite(id, "list")
+    clean_list = math.clean_up_list(words, artist.name)
+    clean_str = ' '.join(clean_list)
+    #bug: I would like for 'clean_str' to be the argument passed into .get_wordcloud--however, this results in more duplicate words showing up in the wc image. (although the problem still exists with "string_composite")
+    # I have attempted to diagnose the issue a bit by printing clean_str as a set--but did not see any duplicated that might have resulted from invisible spacing--which was the 
+    # first culpit that came to my mind. I've also tested the length of clean_str vs lyrics, and as one would suspect, clean_str is signifantly smaller than string_composite 
+    # as of now, the output of the wordcloud with 'string_composite' is displays an adequate word cloud, but this is something that needs to be addressed in the future. 
+    wc_img = pd.get_wordcloud(string_composite)
     return jsonify(data = wc_img)
 
 

@@ -8,7 +8,6 @@ def serialize_artist_data(artist):
         "name": artist['name'],
         "bio": artist['bio'],
         "image": artist['image'],
-        "words": artist['words'],
         "pol_score": artist['pol_score'],
         "vocab_score": artist['vocab_score']
 

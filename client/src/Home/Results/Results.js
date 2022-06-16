@@ -12,7 +12,6 @@ import base64 from 'react-native-base64';
 const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
     const [artist, setArtist] = useState(null)
     const [artist2, setArtist2] = useState(null)
-    const [data, setData] = useState(null)
     console.log("current artist query id:", artistId)
     useEffect(() => {
         console.log("inside Results.js useEffect")
@@ -34,14 +33,6 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
                     setArtist2(initialData);
                 }
             )
-            p3 = fetch(`/api/artists/wc/${artistId2}`).then(
-                res => res.json().then(
-                    initialData => {
-                        const data = initialData['data']
-                        setData(data)
-                        console.log(base64.decode(initialData['data']))
-                    }
-                ))
         } else {
             Promise.resolve(p1).then(resolved => {
                 setLoading(false)
@@ -69,9 +60,9 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
                     )}
                     {artist2 ? (
                         <div className="container">
-                            <Artist artist={artist} data={data} />
+                            <Artist artist={artist} />
                             <Compare artist1={artist} artist2={artist2} />
-                            <Artist artist={artist2} data={data} />
+                            <Artist artist={artist2} />
                         </div>
                     ) : (
                         console.log("not artist 1", artist2)

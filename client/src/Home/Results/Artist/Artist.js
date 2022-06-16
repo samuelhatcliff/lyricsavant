@@ -4,10 +4,9 @@ import Biography from './Biography'
 import Avatar from '@mui/material/Avatar';
 import React, { useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
-// import '../../../App.css'
 import './Artist.css'
 
-function Artist({ artist, data }) {
+function Artist({ artist }) {
     console.log("Rendering artist:", artist)
     const [wc, setWc] = useState(null)
     const [open, setOpen] = useState(false);
@@ -16,7 +15,7 @@ function Artist({ artist, data }) {
 
     useEffect(() => {
         //Retrieves base64 wordcloud data from our API
-        fetch(`/api/artists/wc/${artist.id}`).then(
+        fetch(`/api/artists/${artist.id}/wc`).then(
             res => res.json().then(
                 initialData => {
                     const data = initialData['data']
@@ -48,7 +47,7 @@ function Artist({ artist, data }) {
             <div className="item">
                 {/* <WordCloudFunc artist={artist} /> */}
                 <img
-                    //  height="100%"
+                    height="100%"
                     src={`data:image/jpeg;base64,${wc}`} />
 
             </div>

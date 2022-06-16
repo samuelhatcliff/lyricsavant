@@ -5,17 +5,13 @@ nltk.download('stopwords')
 nltk.download('punkt')
 from nltk.corpus import stopwords
 
+
 from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
 sia = SIA()
 import re
 import json 
 import spacy
 nlp = spacy.load('en_core_web_sm', disable=["parser", "ner"])
-
-my_stopwords = ["tell", "now", "got", "back", "come", "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "her", "hers", "herself", "it", "its", "itself", "they", "them", "their", "theirs", "themselves", "what", "which", "who", "whom", "this", "that", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "against", "between", "into", "through", "during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "on", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "should", "now"]
-# from textblob import TextBlob
-# import spacy
-# nlp = spacy.load('en_core_web_sm', disable=["parser", "ner"])
 
 def polarize(text):
     #function returns an object of two sepearate polarity scores; one based off the text of the article and the other
@@ -56,11 +52,7 @@ def polarize(text):
 
   #TRY TO USE ROUNDED VERSIONS IN message
     pol_obj["message"] = f"compound: {avg_com}. {avg_neg *100}% Negative, {avg_neu *100}% Neutral, and {avg_pos *100}% Positive"
-    # data = { "data": pol_obj
-    # }
-    # res = json.dumps(data)
-    test = []
-    test.append(pol_obj['avg_com'])
+
     return pol_obj
 
 def tokenize(text, author):
