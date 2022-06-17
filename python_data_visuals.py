@@ -9,7 +9,7 @@ math = Math()
 """Data Imports"""
 from wordcloud import WordCloud, STOPWORDS
 stopwords = list(STOPWORDS) + math.get_stopwords()
-wc= WordCloud(stopwords=stopwords, background_color="#E5E5E5",  height=400, min_word_length=3, min_font_size=9)
+wc= WordCloud(collocations=False, stopwords=stopwords, background_color="#E5E5E5",  height=400, min_word_length=3, min_font_size=9)
 from matplotlib import pyplot as plt
 plt.switch_backend('Agg')
 plt.style.use("fivethirtyeight")

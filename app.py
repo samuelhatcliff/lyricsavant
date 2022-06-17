@@ -105,17 +105,12 @@ def get_artist(id):
 
 @app.route("/api/artists/<int:id>/wc", methods = ["GET"])
 def get_py_wc(id):
-    string_composite = math.generate_composite(id)
-
     artist = Artist.query.get(id)
     words = math.generate_composite(id, "list")
     clean_list = math.clean_up_list(words, artist.name)
-    clean_str = ' '.join(clean_list)
-    #bug: I would like for 'clean_str' to be the argument passed into .get_wordcloud--however, this results in more duplicate words showing up in the wc image. (although the problem still exists with "string_composite")
-    # I have attempted to diagnose the issue a bit by printing clean_str as a set--but did not see any duplicated that might have resulted from invisible spacing--which was the 
-    # first culpit that came to my mind. I've also tested the length of clean_str vs lyrics, and as one would suspect, clean_str is signifantly smaller than string_composite 
-    # as of now, the output of the wordcloud with 'string_composite' is displays an adequate word cloud, but this is something that needs to be addressed in the future. 
-    wc_img = pd.get_wordcloud(string_composite)
+    sorted_list = sorted(clean_list)
+    clean_str = ' '.join(sorted_list)
+    wc_img = pd.get_wordcloud(clean_str)
     return jsonify(data = wc_img)
 
 

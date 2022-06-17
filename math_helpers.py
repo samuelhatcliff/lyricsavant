@@ -85,23 +85,10 @@ class Math:
         return comp # returns string of every word in every song
 
     def get_num_unique_words(self, artist_id):
-
         artist = Artist.query.get(artist_id)
-        string_composite = self.generate_composite(artist_id)
-        tokenized_string_composite = tokenize(string_composite, artist.name)
-        #tokenized_string_composite was the original source before attempting to use lemmization.
-        token_set = set(tokenized_string_composite)
-        token_lemmy = [wnl.lemmatize(wrd, wrd) for wrd in token_set]
-    
         list_composite = self.generate_composite(artist_id, "list")
         regexed = self.clean_up_list(list_composite, artist.name)
         regexed_set = set(regexed)
-        # regex_lemmy = [wnl.lemmatize(wrd, wrd) for wrd in regexed_set]
-        
-        
-        print("length of lemmied regexed set", len(regexed_set),
-        "length of tokenized set", len(token_set), "length of lemmitized token set", (len(set(token_lemmy))), "artist22:", artist.name)
-
         return len(regexed_set)
 
     def regex_word_clean_up(self, word): 
@@ -154,7 +141,7 @@ class Math:
     def get_stopwords(self):
         #todo: add stopword list from wordcloud. once all external stopword lists are added (including in various languages, convert
         # to set and then back to list)
-        return ["di", "'s", "ay"," ", "uh", "trs" "e", "'em", "em", "i'll", "let's", "and", "be", "yet", "so", "~", "-", "_", "/", ".", ",", "[", "]", "*", "lyrics", "na", "say", "want", "need", "naa", "nah", "ha", "yes", "Hey", "u", "make", "mi", "ooh", "around", "oh", "still", "see", "after", "afterwards", "ag", "again", "well", "one", "em", "let", "go",
+        return ["take", "di", "'s", "ay"," ", "uh", "trs" "e", "'em", "em", "i'll", "let's", "and", "be", "yet", "so", "~", "-", "_", "/", ".", ",", "[", "]", "*", "lyrics", "na", "say", "want", "need", "naa", "nah", "ha", "yes", "Hey", "u", "make", "mi", "ooh", "around", "oh", "still", "see", "after", "afterwards", "ag", "again", "well", "one", "em", "let", "go",
 "ah", "ain", "ain't", "aj", "al", "all","almost",  "already", "also", "although", 
 "am","an", "and","another", "any", "are", "aren", "arent", "as", "a's", "right", "wanna", "ya ya", "I'ma", "ya", "til",
 "did", "didn", "didn't", "do", "does", "doesn", "doesn't","either", "else", "for", 
