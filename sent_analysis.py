@@ -1,5 +1,4 @@
 #libraries for parsing and sentiment analysis
-from calendar import c
 import nltk
 nltk.download('stopwords')
 nltk.download('punkt')
@@ -9,7 +8,6 @@ from nltk.corpus import stopwords
 from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
 sia = SIA()
 import re
-import json 
 import spacy
 nlp = spacy.load('en_core_web_sm', disable=["parser", "ner"])
 

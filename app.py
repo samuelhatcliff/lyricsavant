@@ -3,30 +3,16 @@ from flask import Flask, jsonify, request, render_template
 from lyricsgenius import Genius
 from lyrics_api import download_artist
 
-"""Web Scraping"""
-# import requests
-# from bs4 import BeautifulSoup
-# URL = "https://www.songkick.com/leaderboards/popular_artists?page=5"
-# page = requests.get(URL)
-# soup = BeautifulSoup(page.content, "html.parser")
-# results = soup.find_all("td", class_="name")
-# artist_list = []
-# for td in results:
-#     a= td.find("a")
-#     artist_list.append(a.text)
-
-
 """Imports from our own costum modules"""
-from models import connect_db, db, Song, Artist
+from models import connect_db, db, Song, Artist, Artist_Incomplete
 from api import serialize_artist_data, serialize_artist_names, serialize_song
 from math_helpers import Math
-from sent_analysis import polarize, tokenize
 from python_data_visuals import Python_Data_Visuals
 from lyrics_api import download_artist
+from db_maintenance import check_songs, delete_artists
 pd = Python_Data_Visuals()
 math = Math()
 
-# from flask_debugtoolbar import DebugToolbarExtension 
 
 app = Flask(__name__)
 
@@ -34,6 +20,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///lyrics-db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = "topsecret1"
+# from flask_debugtoolbar import DebugToolbarExtension 
 # app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 # debug = DebugToolbarExtension(app)
 
@@ -52,34 +39,32 @@ completed = []
 failed = []
 
 @app.route("/test")
-def home():
+def test():
     # artist1 = Artist.query.get(20710) #a7x
     # artist2 = Artist.query.get(17912) #evanescence
     # test = download_artist("fasdfasdfasdfasdfa", 1)
     # print(test)
     return render_template('home.html')
 
-@app.route("/results")
+@app.route("/python/results")
 def results():
     id1 = request.args["id1"]
-    # id2 = request.args["id2"]
+    id2 = request.args["id2"]
 
     """WordCloud"""
     lyrics = math.generate_composite(id1)
     wc_img = pd.get_wordcloud(lyrics)
 
-    # """Pie Chart"""
-    # pie_img = pd.get_pie(id1)
+    """Pie Chart"""
+    pie_img = pd.get_pie(id1)
 
-    # """Unique Words Bar Chart"""
-    # bar_img = pd.get_unique_words_bar(id1, id2)
+    """Unique Words Bar Chart"""
+    bar_img = pd.get_unique_words_bar(id1, id2)
   
-    # """Polarity Bar Chart"""
-    # pol_img = pd.get_pol_bar(id1, id2)
+    """Polarity Bar Chart"""
+    pol_img = pd.get_pol_bar(id1, id2)
 
-    return render_template('results.html', wc_img = wc_img)
-
-
+    return render_template('results.html', wc_img = wc_img, pie_img=pie_img, bar_img=bar_img, pol_img=pol_img)
 
 """RESTFUL API"""
 

@@ -1,5 +1,5 @@
 from models import Artist
-from sent_analysis import polarize, tokenize
+from sent_analysis import polarize
 import re
 import nltk
 nltk.download('omw-1.4')

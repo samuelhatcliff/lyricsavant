@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import { Circles } from 'react-loader-spinner';
 
 // ToDo: check database to see how many artists were added accidentally while writing this and remove each
+// delete artist ids on line 40 of app.py
 
 const Contribute = (({ allArtists }) => {
     const [searchQ1, setSearchQ1] = useState(null);

@@ -5,7 +5,6 @@ import Compare from "./Compare/Compare";
 //Styling Components
 import { Circles } from 'react-loader-spinner';
 import './Results.css';
-import base64 from 'react-native-base64';
 
 
 
@@ -16,7 +15,6 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
     useEffect(() => {
         console.log("inside Results.js useEffect")
         let p2;
-        let p3;
         const p1 = fetch(`/api/artists/${artistId}`).then( // gets data for 1st artist
             res => res.json()
         ).then(

@@ -1,8 +1,6 @@
 """General Imports"""
 from flask import Flask, jsonify, request, render_template
-import json
 from lyricsgenius import Genius
-from types import SimpleNamespace
 
 genius = Genius('aPt0Y03tHHx7XAVyDWcJUzgaR7qBN5_D1-Dg_s-BBgTO8ifIJUB0toLzQ0P2YKCF')
 #modifies our genius object with params to narrow down search results
@@ -12,7 +10,7 @@ genius.remove_section_headers = True
 genius.retries = 1
 
 """Imports from our own costum modules"""
-from models import connect_db, db, Song, Artist
+from models import db, Song, Artist
 from math_helpers import Math
 from python_data_visuals import Python_Data_Visuals
 pd = Python_Data_Visuals()
@@ -82,9 +80,7 @@ def save_lyrics(artist):
             song_id = data['id']
             url = data['url']
             lyrics = genius.lyrics(song_url=url)
-            # lyrics = math.clean_up(lyrics, artist.name, title)
-            # print(lyrics, "cleaned up lyrics", len(lyrics), "length")
-            # score = polarize(lyrics)
+   
             our_song = Song(id = song_id, title=title, image=image, release_date=release_date,
                         lyrics=lyrics, artist_id = artist.id)
             songs.append(our_song)

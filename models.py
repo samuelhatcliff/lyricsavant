@@ -14,11 +14,8 @@ def connect_db(app):
 class Artist(db.Model):
     __tablename__ = "artists"
     id = db.Column(db.Integer, primary_key=True)
-
-    
     name = db.Column(db.String, nullable=False)
 
-    # incorporate additional API to obtain artist image and bio to render in react component
     bio = db.Column(db.String)
     image = db.Column(db.Text)
   
@@ -29,6 +26,16 @@ class Artist(db.Model):
 
     def __repr__(self):
         return f"<ID: {self.id}, Name:{self.name}>"
+
+class Artist_Incomplete(db.Model):
+    __tablename__ = "artists_incomplete"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+    artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'), nullable = False)
+    name = db.Column(db.String, nullable=False)
+    num_songs = db.Integer
+    def __repr__(self):
+        return f"<ID: {self.id}, Name:{self.name}>, Artist-ID: {self.artist_id}, Number of Songs {self.num_songs}"
 
 class Song(db.Model):
     __tablename__ = "songs"
