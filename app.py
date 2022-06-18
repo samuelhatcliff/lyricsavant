@@ -111,7 +111,10 @@ def post_artist(name):
     if result == None:
         print("result was none")
         return jsonify(data = msg)
-    return "Artist {result} added successfully. Head to the home page to generate insights!"
+    if not result.songs:
+        return jsonify(data = msg)
+    msg = {"message": f"Artist {name} added successfully. Head to the home page to generate insights!"}
+    return jsonify(data = msg)
 
 
 

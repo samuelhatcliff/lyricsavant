@@ -44,7 +44,7 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
                 console.log("resolved p for Promise.all", resolved)
             })
         }
-    }, [artistId, artistId2])
+    }, [artistId, artistId2, isLoading])
 
     return (
         < >

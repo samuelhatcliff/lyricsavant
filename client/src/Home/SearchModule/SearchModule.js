@@ -10,20 +10,25 @@ import './SearchModule.css'
 
 
 const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArtists }) => {
-    const [searchQ1, setSearchQ1] = useState([]);
-    const [searchQ2, setSearchQ2] = useState([]);
     const [checked, setChecked] = useState(false);
+    const [selected, setSelected] = useState(null)
+    const [selected2, setSelected2] = useState(null)
 
     const handleChecked = () => {
         setChecked(!checked);
+
     };
 
+    if (!checked && selected2) {
+        setSelected2(null)
+    }
+
     const handleOnSearch = () => {
-        console.log(searchQ1["id"], "on search", searchQ2["id"], "on search")
-        if (searchQ1) {
-            setArtistId(searchQ1["id"])
-            if (setArtistId2) {
-                setArtistId2(searchQ2["id"])
+        // console.log(selected["id"], "on search", selected2["id"], "selected2")
+        if (selected) {
+            setArtistId(selected["id"])
+            if (selected2) {
+                setArtistId2(selected2["id"])
             }
             setSubmit(true)
             setLoading(true)
@@ -35,18 +40,42 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
             {checked ? (
                 <div>
                     <Typography variant="subtitle1" component="div" gutterBottom>
-                        <span>Selected Artist: {searchQ1["name"]}</span>
-                        <Search allArtists={allArtists} setSearchQ={setSearchQ1} classs={"search1"} />
-                        <span>Selected Artist: {searchQ2["name"]}</span>
-                        <Search allArtists={allArtists} setSearchQ={setSearchQ2} classs={"search2"} />
+                        <span>Selected Artist:
+                            {selected ? (
+                                <span>
+                                    {selected["name"]}
+                                </span>
+                            ) : (<></>)}
+                        </span>
+                        <Search allArtists={allArtists}
+                            //  setSearchQ={setSearchQ1} 
+                            classs={"search1"}
+                            setSelected={setSelected} />
+                        <span>Selected Artist:
+                            {selected2 ? (
+                                <span>
+                                    {selected2["name"]}
+                                </span>
+                            ) : (<></>)}
+                        </span>
+                        <Search allArtists={allArtists}
+                            classs={"search2"}
+                            setSelected={setSelected2} />
                     </Typography>
                 </div>
             )
                 : (
                     <div>
                         <Typography variant="subtitle1" component="div" gutterBottom>
-                            <span>Selected Artist: {searchQ1["name"]}</span>
-                            <Search allArtists={allArtists} setSearchQ={setSearchQ1} />
+                            <span>Selected Artist:
+                                {selected ? (
+                                    <span>
+                                        {selected["name"]}
+                                    </span>
+                                ) : (<></>)}
+                            </span>
+                            <Search allArtists={allArtists}
+                                setSelected={setSelected} />
                         </Typography>
                     </div>
                 )}
@@ -56,10 +85,16 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                     Compare two separate artists?
                 </Typography>
             </label>
-            <Button className="button" variant="contained" color="success" onClick={handleOnSearch}
+            <Button
+                disabled={selected ? false : true}
+                className="button"
+                variant="contained"
+                color="success"
+                onClick={handleOnSearch}
                 style={{ display: 'block', marginBottom: 9, marginTop: 4 }}>
                 Get Insights
             </Button>
+
             <ClearButton />
             <hr></hr>
         </div >

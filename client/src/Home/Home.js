@@ -10,7 +10,6 @@ function Home({ allArtists }) {
     const [artistId2, setArtistId2] = useState(null)
     const [submit, setSubmit] = useState(false);
     const [isLoading, setLoading] = useState(false)
-
     return (
         <>
             <SearchModule setSubmit={setSubmit}

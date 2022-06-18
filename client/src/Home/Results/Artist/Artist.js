@@ -7,7 +7,6 @@ import Stack from '@mui/material/Stack';
 import './Artist.css'
 
 function Artist({ artist }) {
-    console.log("Rendering artist:", artist)
     const [wc, setWc] = useState(null)
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -54,7 +53,7 @@ function Artist({ artist }) {
             <div className="item"><PieChart artist={artist} /></div>
             {open ? (
                 <Biography artist={artist} open={open} handleClose={handleClose} />
-            ) : (console.log("expanded bio false"))
+            ) : (<></>)
             }
         </div >
     )

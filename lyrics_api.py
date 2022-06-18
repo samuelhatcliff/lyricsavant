@@ -4,7 +4,7 @@ from lyricsgenius import Genius
 
 genius = Genius('aPt0Y03tHHx7XAVyDWcJUzgaR7qBN5_D1-Dg_s-BBgTO8ifIJUB0toLzQ0P2YKCF')
 #modifies our genius object with params to narrow down search results
-genius.excluded_terms = ["(Remix)", "(Live)"]
+genius.excluded_terms = ["(Remix)", "(Live)", "(Demo)"]
 genius.skip_non_songs = True
 genius.remove_section_headers = True
 genius.retries = 1
@@ -58,7 +58,7 @@ def download_artist(name, quantity = 40):
             save_lyrics(artist)
         completed.append(name)
         print(f"completed seeding data for {name}")
-        return f"completed seeding data for {name}"
+        return artist
     except:
         failed.append(name)
         print(f"failed seeding data for {name}")
