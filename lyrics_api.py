@@ -17,6 +17,8 @@ pd = Python_Data_Visuals()
 math = Math()
 
 def download_artist(name, quantity = 40):
+    completed = []
+    failed = []
     # quantity refers to number of songs returned with artist in artist.songs
 
     # if searching an artist tends to be problematic, it might be worth trying to change the  "allow_name_change" 
@@ -29,8 +31,10 @@ def download_artist(name, quantity = 40):
         # timeout error to ensure that a timeout for a single song doesn't halt the entire search. It seems like this simply lets said song 
         # be skipped in favor of the next one (due to the request taking too much time)
         # make sure this is working like i think it is
+
         if artist == None:
             print("artist was none")
+            #Todo: Replace print statement with error handing
             return None
         #save artist to our database extracting the information that we want from lyricsgenius API
         res = genius.artist(artist.id)
@@ -62,6 +66,7 @@ def download_artist(name, quantity = 40):
     except:
         failed.append(name)
         print(f"failed seeding data for {name}")
+        #todo: replace print statement with error handling
         db.session.rollback()
 
     finally:
@@ -80,7 +85,11 @@ def save_lyrics(artist):
             song_id = data['id']
             url = data['url']
             lyrics = genius.lyrics(song_url=url)
-   
+            #Todo: if lyrics == null, raise error instead of adding to database
+            print(f'lyrics1 for song {title}')
+
+            if not lyrics:
+                continue
             our_song = Song(id = song_id, title=title, image=image, release_date=release_date,
                         lyrics=lyrics, artist_id = artist.id)
             songs.append(our_song)
@@ -88,6 +97,7 @@ def save_lyrics(artist):
             db.session.commit()
         except:
             print(f"problem adding song with id {song.id}")
+            #todo: replace print statement with error handling
         finally:
             pass
     
@@ -119,19 +129,3 @@ data = ['Major Lazer', 'Pharrell Williams', 'Tyga', 'blink-182', 'The xx', 'Bast
    'Four Tet', 'Real Estate', 'Future Islands', 'Felix Jaehn', 'Thundercat', 'Idina Menzel', 'Bee Gees', 'Poison', 'Krewella', 'The Cars', 'Killswitch Engage', 'Kurt Vile', 'Baby Bash', 'Annie Lennox', 'Brent Faiyaz', 'Pulp', 'Hoodie Allen', 'The Hives', 'Vic Mensa', 'Action Bronson', 'Toni Braxton', 'Josh Turner', 'Manu Chao', 'Blood Orange', 'Pat Benatar', 'Dr. Dog', 'Aventura', 'D12', 'Elvis Costello', 'RÜFÜS DU SOL', 'Paloma Faith', 'Mustard', 'Of Mice & Men', 'Tina Turner', 'K Camp', 'Dej Loaf', 'Fort Minor', 'FKA twigs', 'Dashboard Confessional', 'Yeasayer', 'Dexys Midnight Runners', 'Coolio', 'STRFKR', 'Zero 7', 'Fugees', 'The Human League',
     'LANY', 'Gary Clark Jr.', 'Majid Jordan', 'of Montreal', 'Mobb Deep', 'Live', 'America', 'Yes', 'The Pretty Reckless', 'Cash Cash', 'John Mellencamp', 'Crowded House', 'Escape the Fate', 'Public Enemy', 'New Boyz', 'Austin Mahone']
 
-completed = []
-failed = []
-
-# roll_call = Artist.query.all()
-# present = []
-# failed = []
-# for artist in roll_call:
-#     present.append(artist.name)
-
-# print(present, "presents", roll_call, "rollcall1")
-# for artist in data:
-#     if artist not in present:
-#         download_artist(artist)
-#         present.append(artist)
-#         print(f"Downloaded artist {artist}. Artists already added: {present}. Artists that failed to download: {failed}")
-       

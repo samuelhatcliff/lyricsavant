@@ -8,7 +8,7 @@ import { Circles } from 'react-loader-spinner';
 // delete artist ids on line 40 of app.py
 // Use usecontext or something else to update getallartist (react router wont automatically update when going back to home tab)
 
-const Contribute = (({ allArtists }) => {
+const Contribute = (({ allArtists, setRefresh, refresh }) => {
     const [searchQ1, setSearchQ1] = useState(null);
     const [selected, setSelected] = useState(null);
     const [valid, setValid] = useState(false);
@@ -16,7 +16,7 @@ const Contribute = (({ allArtists }) => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        if (allArtists.length > 1 && searchQ1 !== null) {
+        if (allArtists && searchQ1 !== null) {
             console.log("sq1.name", searchQ1['name'])
             for (let obj of allArtists) {
                 if (obj['name'] === searchQ1['name'] || searchQ1 === false) {
@@ -46,6 +46,7 @@ const Contribute = (({ allArtists }) => {
             res.json().then(data => {
                 setMsg(data.data.message)
                 setLoading(false)
+                setRefresh(!refresh)
             }
             ))
     }

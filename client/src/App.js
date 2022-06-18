@@ -1,4 +1,4 @@
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Router } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import './App.css'
 import Typography from '@mui/material/Typography';
@@ -10,7 +10,9 @@ import BasicGrid from './GridDemo/GridDemo';
 import Contribute from "./Contribute/Contribute";
 
 function App() {
-  const [allArtists, setAllArtists] = useState([{}]);
+  const [allArtists, setAllArtists] = useState([]);
+  const [refresh, setRefresh] = useState(false)
+
   useEffect(() => {
     fetch("/api/artists/").then( // gets all artist names
       res => res.json()
@@ -22,7 +24,7 @@ function App() {
         setAllArtists(names)
       },
     )
-  }, []);
+  }, [refresh]);
   console.log("All artists:", allArtists)
   return (
     <main >
@@ -33,7 +35,7 @@ function App() {
             <Home allArtists={allArtists} />
           </Route>
           <Route exact path="/contribute">
-            <Contribute allArtists={allArtists} />
+            <Contribute allArtists={allArtists} setRefresh={setRefresh} refresh={refresh} />
           </Route>
           <Route exact path="/grid">
             <BasicGrid />

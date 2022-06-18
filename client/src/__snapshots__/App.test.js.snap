@@ -1,0 +1,199 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot 1`] = `
+<DocumentFragment>
+  <main>
+    <div
+      class="MuiTypography-root MuiTypography-body2 MuiTypography-gutterBottom css-ejgmvm-MuiTypography-root"
+    >
+      <nav>
+        <header
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed appBar mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
+        >
+          <div
+            class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular navigation css-hyum1k-MuiToolbar-root"
+          >
+            <a
+              aria-current="page"
+              class="active"
+              href="/"
+            >
+              Home
+            </a>
+            <a
+              href="/contribute"
+            >
+              Contribute
+            </a>
+            <a
+              href="/grid"
+            >
+              Grid
+            </a>
+          </div>
+        </header>
+      </nav>
+      <div>
+        <div>
+          <div
+            class="MuiTypography-root MuiTypography-subtitle1 MuiTypography-gutterBottom css-1wniyei-MuiTypography-root"
+          >
+            <span>
+              Selected Artist:
+            </span>
+            <div
+              style="width: 400px;"
+            >
+              <div
+                class="sc-eCYdqJ bdHMCv"
+              >
+                <div
+                  class="wrapper"
+                >
+                  <div
+                    class="sc-hKMtZM hCOnUy"
+                  >
+                    <svg
+                      class="sc-bczRLJ fASA-Dv search-icon"
+                      focusable="false"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                      />
+                    </svg>
+                    <input
+                      placeholder=""
+                      spellcheck="false"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <label>
+          <div
+            class="MuiTypography-root MuiTypography-body2 MuiTypography-gutterBottom css-ejgmvm-MuiTypography-root"
+            style="display: inline;"
+          >
+            <span
+              class="MuiCheckbox-root MuiCheckbox-colorPrimary MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root css-1oakzvg-MuiButtonBase-root-MuiCheckbox-root"
+              placeholder="checkbox"
+              style="display: inline; z-index: -1;"
+            >
+              <input
+                class="PrivateSwitchBase-input css-1m9pwf3"
+                data-indeterminate="false"
+                type="checkbox"
+              />
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                data-testid="CheckBoxOutlineBlankIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                />
+              </svg>
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </span>
+            <span>
+              Compare two separate artists?
+            </span>
+          </div>
+        </label>
+        <button
+          class="MuiButton-root MuiButton-contained MuiButton-containedSuccess MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root Mui-disabled button css-ke5b6m-MuiButtonBase-root-MuiButton-root"
+          disabled=""
+          style="display: block; margin-bottom: 9px; margin-top: 4px;"
+          tabindex="-1"
+          type="button"
+        >
+          Get Insights
+        </button>
+        <button
+          class="MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root button css-zcbmsk-MuiButtonBase-root-MuiButton-root"
+          style="display: block;"
+          tabindex="0"
+          type="button"
+        >
+          Clear        
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+        <hr />
+      </div>
+      <div
+        class="MuiBox-root css-i9gxme"
+        style="padding: 10px;"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 css-zow5z4-MuiGrid-root"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4 css-wg4xta-MuiGrid-root"
+          >
+            <div
+              class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-8bofch-MuiPaper-root"
+              style="text-align: center; padding: 3px;"
+            >
+              <h2>
+                How It Works
+              </h2>
+              <p
+                style="text-align: center; padding: 10px; margin: 3px;"
+              >
+                Lyrics Savant uses web scraping to extract lyrics for a given artist and generate data insights based on the text contents of each lyric. The number of unique words used is calculated alongside polarity data to determine whether the content of an artist's lyrics leans more positive or negative.
+              </p>
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4 css-wg4xta-MuiGrid-root"
+          >
+            <div
+              class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-8bofch-MuiPaper-root"
+              style="text-align: center; padding: 3px;"
+            >
+              <h2>
+                Side-By-Side Comparisons
+              </h2>
+              <p
+                style="text-align: center; padding: 10px; margin: 3px;"
+              >
+                Have you ever wanted to know if an artist has a larger vocabulary than another? What about which artist tends to use a more optimistic vs pessimistic tone? Check "Compare two separate artists" to generate results for each artist that includes charts comparing the number of unique words used and polarity data to acquire insights as to how one might compare to another.
+              </p>
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4 css-wg4xta-MuiGrid-root"
+          >
+            <div
+              class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-nfyc6s-MuiPaper-root"
+              style="text-align: center; padding: 3px;"
+            >
+              <h2>
+                Contribute
+              </h2>
+              <p
+                style="text-align: center; padding: 10px; margin: 3px;"
+              >
+                We may not yet have scraped the web for the lyrics of your favorite niche artist. You can check to see if an artist is already included in our database by typing their name into the search bar and seeing if they appear as a suggested result. If the artist does not appear and you would like to generate data for this artist, click the "Contribute" tab in the navbar and enter the artist in the search bar. Please be patient as the artist seeds to our database, as separate request are required to scrape lyrics for each song.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</DocumentFragment>
+`;

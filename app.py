@@ -38,6 +38,7 @@ genius.retries = 1
 completed = []
 failed = []
 
+# check_songs()
 @app.route("/test")
 def test():
     # artist1 = Artist.query.get(20710) #a7x

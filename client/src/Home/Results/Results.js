@@ -11,7 +11,6 @@ import './Results.css';
 const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
     const [artist, setArtist] = useState(null)
     const [artist2, setArtist2] = useState(null)
-    console.log("current artist query id:", artistId)
     useEffect(() => {
         console.log("inside Results.js useEffect")
         let p2;
@@ -63,8 +62,7 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
                             <Artist artist={artist2} />
                         </div>
                     ) : (
-                        console.log("not artist 1", artist2)
-                    )}
+                        <></>)}
                 </div>
             ) : (
                 <div className="loading">

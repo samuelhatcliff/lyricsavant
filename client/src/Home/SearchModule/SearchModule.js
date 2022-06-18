@@ -48,7 +48,6 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                             ) : (<></>)}
                         </span>
                         <Search allArtists={allArtists}
-                            //  setSearchQ={setSearchQ1} 
                             classs={"search1"}
                             setSelected={setSelected} />
                         <span>Selected Artist:
@@ -81,8 +80,8 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                 )}
             <label  >
                 <Typography variant="body2" component="div" gutterBottom style={{ display: 'inline' }}>
-                    <Checkbox onChange={handleChecked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} style={{ display: 'inline', zIndex: -1 }} />
-                    Compare two separate artists?
+                    <Checkbox placeholder="checkbox" onChange={handleChecked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} style={{ display: 'inline', zIndex: -1 }} />
+                    <span>Compare two separate artists?</span>
                 </Typography>
             </label>
             <Button
