@@ -5,24 +5,20 @@ import Typography from '@mui/material/Typography';
 import { Circles } from 'react-loader-spinner';
 import './Contribute.css'
 
-// ToDo: check database to see how many artists were added accidentally while writing this and remove each
-// delete artist ids on line 40 of app.py
-// Use usecontext or something else to update getallartist (react router wont automatically update when going back to home tab)
+
 
 const Contribute = (({ allArtists, setRefresh, refresh }) => {
-    const [searchQ1, setSearchQ1] = useState(null);
+    const [searchQ1, setSearchQ1] = useState(false);
     const [selected, setSelected] = useState(null);
     const [valid, setValid] = useState(false);
-    const [msg, setMsg] = useState("Enter an Artist that hasn't been added to our database yet. Check to see if artist has been added by typing there name into the drop down. If they appear as a suggestion, the artist has already been added.");
+    const [msg, setMsg] = useState([]);
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         if (allArtists && searchQ1 !== false) {
-            console.log("sq1.name", searchQ1)
             for (let obj of allArtists) {
                 if (obj['name'].toLowerCase() === searchQ1.toLowerCase() || searchQ1 === false) {
                     setValid(false);
-                    console.log("MATCH", "obj['name'] = ", obj['name'], "searchq1['name']", searchQ1['name'])
                     break;
                 } else {
                     setValid(true);
@@ -63,11 +59,20 @@ const Contribute = (({ allArtists, setRefresh, refresh }) => {
                         Seed Artist
                     </Button>
                 </div>
-                <div className="message">
+                <div >
                     {!valid && searchQ1 ? (
                         <span>This artist already exists in our database!</span>) : (
                         <span className="message-text">{msg}</span>
+
                     )}
+                    <div className="message" >
+                        <span className="instructions">
+
+                            Enter an Artist that hasn't been added to our database yet.
+                            Check to see if artist has been added by typing there name into the drop down.
+                            If they appear as a suggestion, the artist has already been added.</span></div>
+
+
                 </div>
                 {loading ? <div className="App">
                     Loading...

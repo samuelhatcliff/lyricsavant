@@ -4,3 +4,7 @@
     align-items:center;
     margin-bottom: 20px;
 }
+
+.selected {
+    margin-left:5px;
+}
