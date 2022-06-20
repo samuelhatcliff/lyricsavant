@@ -6,6 +6,7 @@ import { Circles } from 'react-loader-spinner';
 import './Contribute.css'
 
 
+//todo: add material ui error messages for msg
 
 const Contribute = (({ allArtists, setRefresh, refresh }) => {
     const [searchQ1, setSearchQ1] = useState(false);
@@ -63,16 +64,12 @@ const Contribute = (({ allArtists, setRefresh, refresh }) => {
                     {!valid && searchQ1 ? (
                         <span>This artist already exists in our database!</span>) : (
                         <span className="message-text">{msg}</span>
-
                     )}
                     <div className="message" >
                         <span className="instructions">
-
                             Enter an Artist that hasn't been added to our database yet.
                             Check to see if artist has been added by typing there name into the drop down.
                             If they appear as a suggestion, the artist has already been added.</span></div>
-
-
                 </div>
                 {loading ? <div className="App">
                     Loading...

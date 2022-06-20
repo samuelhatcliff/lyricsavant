@@ -6,11 +6,22 @@ import React, { useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import './Artist.css'
 
+const findStopPoint = (text, wordLimit) => {
+    let numSpaces = 0
+    for (let i = 0; i < text.length - 1; i++) {
+        if (text[i] === " ") numSpaces += 1;
+        if (numSpaces === wordLimit) return i;
+    }
+}
+
 function Artist({ artist }) {
     const [wc, setWc] = useState(null)
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const bioStopIndex = findStopPoint(artist.bio, 14)
+
+    console.log("artist:", artist)
 
     useEffect(() => {
         //Retrieves base64 wordcloud data from our API
@@ -38,9 +49,10 @@ function Artist({ artist }) {
                     </div>
                 </Stack>
                 <hr></hr>
-                <p className="bio-text">Bio: {artist.bio.slice(0, 300)} +
-                    {<a className="more" onClick={handleOpen}>...more</a>}
-                </p>
+                <span className="bio-text">Bio: {artist.bio.slice(0, bioStopIndex)} {<a className="more" onClick={handleOpen}>...more</a>}
+                </span>
+                <span className="num-unique-words">{artist.name} uses {artist.vocab_score} unique words.</span>
+
             </div>
 
             <div className="item">
