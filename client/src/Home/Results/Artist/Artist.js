@@ -14,14 +14,16 @@ const findStopPoint = (text, wordLimit) => {
     }
 }
 
-function Artist({ artist }) {
+function Artist({ artist, artistSongs }) {
     const [wc, setWc] = useState(null)
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const bioStopIndex = findStopPoint(artist.bio, 14)
 
-    console.log("artist:", artist)
+    const popularSongs = ` ${artistSongs['songs'][0]['title']} ${artistSongs['songs'][1]['title']}, ${artistSongs['songs'][2]['title']},
+     ${artistSongs['songs'][3]['title']}, and ${artistSongs['songs'][4]['title']}.`
+    console.log(popularSongs, "pop")
 
     useEffect(() => {
         //Retrieves base64 wordcloud data from our API
@@ -51,6 +53,9 @@ function Artist({ artist }) {
                 <hr></hr>
                 <span className="bio-text">Bio: {artist.bio.slice(0, bioStopIndex)} {<a className="more" onClick={handleOpen}>...more</a>}
                 </span>
+                <p>Popular song lyrics include
+                    {popularSongs}
+                </p>
                 <span className="num-unique-words">{artist.name} uses {artist.vocab_score} unique words.</span>
 
             </div>

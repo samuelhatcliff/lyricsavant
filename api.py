@@ -31,6 +31,5 @@ def serialize_song(song):
         "title": song.title,
         "image": song.image,
         "release_date": song.release_date,
-        "pol_score": song.pol_score,
         "unique_words": song.unique_words
     }

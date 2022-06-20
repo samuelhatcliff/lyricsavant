@@ -11,14 +11,27 @@ import './Results.css';
 const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLoaded }) => {
     const [artist, setArtist] = useState(null)
     const [artist2, setArtist2] = useState(null)
+    const [artistSongs, setArtistSongs] = useState([])
+    const [artistSongs2, setArtistSongs2] = useState([])
+
+
+
     useEffect(() => {
-        console.log("inside Results.js useEffect")
         let p2;
+        let getSongs2;
         const p1 = fetch(`/api/artists/${artistId}`).then( // gets data for 1st artist
             res => res.json()
         ).then(
             initialData => {
                 setArtist(initialData);
+            }
+        )
+        const getSongs = fetch(`/api/artists/${artistId}/songs`).then( // gets data for 1st artist
+            res => res.json()
+        ).then(
+            initialData => {
+                setArtistSongs(initialData);
+                console.log(artistSongs)
             }
         )
         if (artistId2) {
@@ -28,6 +41,14 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
                 initialData => {
                     console.log("got 2nd artist", initialData)
                     setArtist2(initialData);
+                }
+            )
+            getSongs2 = fetch(`/api/artists/${artistId2}/songs`).then( // gets data for 1st artist
+                res => res.json()
+            ).then(
+                initialData => {
+                    setArtistSongs2(initialData);
+                    console.log(artistSongs2, "artist songs 2")
                 }
             )
         } else {
@@ -57,15 +78,15 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
                 <div style={{ height: '60%', width: '100%' }}>
                     {!artist2 ? (
                         <div className="single-column-container">
-                            <Artist artist={artist} />
+                            <Artist artist={artist} artistSongs={artistSongs} />
                         </div>) : (
                         console.log("No 2nd Artist identified. Now returning Artist1:", artist)
                     )}
                     {artist2 ? (
                         <div className="container">
-                            <Artist artist={artist} />
+                            <Artist artist={artist} artistSongs={artistSongs} />
                             <Compare artist1={artist} artist2={artist2} />
-                            <Artist artist={artist2} />
+                            <Artist artist={artist2} artistSongs={artistSongs2} />
                         </div>
                     ) : (
                         <></>)}
