@@ -31,7 +31,7 @@ def check_songs(mark_in_db = False):
             print(msg)
             artist_ids.append(artist.id)
             if mark_in_db:
-                incomplete_artist = Artist_Incomplete(name = artist.name, artist_id = artist.id)
+                incomplete_artist = Artist_Incomplete(name = artist.name, artist_id = artist.id, num_songs=(len(artist.songs)))
                 db.session.add(incomplete_artist)
                 db.session.commit()
 
@@ -76,7 +76,6 @@ def fill_artist_songs(artist_id, limit = 40):
                     song_id = data['id']
                     url = data['url']
                     lyrics = genius.lyrics(song_url=url)
-                    print(f'lyrics1 for song {title}')
 
                     if not lyrics:
                         print(lyrics, "THIS!")

@@ -1,12 +1,8 @@
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import '../../App.css'
 
-
-// To-do: change format result so name is the only thing that returns
-
-function Search({ allArtists, searchQ, setSearchQ, setSelected, classs, type = "search" }) {
+function Search({ allArtists, setSearchQ, setSelected, type = "search" }) {
     const items = allArtists;
-    const errorMsg = `The artist you have searched for is not in our database. If you'd like to add this artist, you can click on the "Contribute" tab in the navbar.`
     const handleOnSearch = (string) => {
         // onSearch will have as the first callback parameter
         // the string searched and for the second the results.
@@ -14,9 +10,7 @@ function Search({ allArtists, searchQ, setSearchQ, setSelected, classs, type = "
             setSearchQ(string)
         }
     }
-
     const handleOnHover = (result) => {
-
         // the item hovered
         // console.log(result, "on hover")
     }
@@ -26,9 +20,8 @@ function Search({ allArtists, searchQ, setSearchQ, setSelected, classs, type = "
             setSelected(item)
         }
         if (type === "contribute") {
-            setSearchQ(false)
+            setSearchQ(item['name'])
         }
-        console.log(item, "on select")
     }
     const handleOnFocus = () => {
         // console.log('Focused')
@@ -36,21 +29,19 @@ function Search({ allArtists, searchQ, setSearchQ, setSelected, classs, type = "
     const formatResult = (item) => {
         return (
             <>
-                <span className={classs} style={{ display: 'block', textAlign: 'left' }}>{item.name}</span>
+                <span style={{ display: 'block', textAlign: 'left' }}>{item.name}</span>
             </>
         )
     }
     return (
 
-        <div style={{ width: 400 }} >
+        <div style={{ width: 350, display: 'flex', flexDirection: 'column', justifyContent: 'center' }} >
             <ReactSearchAutocomplete
                 items={items}
                 onSearch={handleOnSearch}
                 onHover={handleOnHover}
-
                 onSelect={handleOnSelect}
                 onFocus={handleOnFocus}
-                // onChange={showString}
                 autoFocus
                 formatResult={formatResult}
             />

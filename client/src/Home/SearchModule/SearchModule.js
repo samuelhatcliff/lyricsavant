@@ -36,7 +36,7 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
     }
 
     return (
-        <div>
+        <div className="search-module-container">
             {checked ? (
                 <div>
                     <Typography variant="subtitle1" component="div" gutterBottom>
@@ -48,7 +48,7 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                             ) : (<></>)}
                         </span>
                         <Search allArtists={allArtists}
-                            classs={"search1"}
+                            className={"search1"}
                             setSelected={setSelected} />
                         <span>Selected Artist:
                             {selected2 ? (
@@ -58,7 +58,8 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                             ) : (<></>)}
                         </span>
                         <Search allArtists={allArtists}
-                            classs={"search2"}
+                            className={"search2"}
+                            placeholder="search2"
                             setSelected={setSelected2} />
                     </Typography>
                 </div>
@@ -95,7 +96,6 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
             </Button>
 
             <ClearButton />
-            <hr></hr>
         </div >
     )
 }

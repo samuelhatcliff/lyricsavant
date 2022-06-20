@@ -14,7 +14,7 @@ const theme = createTheme({
 
 const Explanation = () => {
     return (
-        <Box sx={{ flexGrow: 1 }} style={{ padding: 10 }}>
+        <Box sx={{ flexGrow: 1 }} style={{ padding: 10, margin: 3 }}>
             <Grid container spacing={3}>
                 <ThemeProvider theme={theme}>
                     <Grid item xs={12} sm={4}>

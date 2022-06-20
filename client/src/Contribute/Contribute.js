@@ -3,6 +3,7 @@ import Search from "../Home/SearchModule/Search";
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Circles } from 'react-loader-spinner';
+import './Contribute.css'
 
 // ToDo: check database to see how many artists were added accidentally while writing this and remove each
 // delete artist ids on line 40 of app.py
@@ -16,10 +17,10 @@ const Contribute = (({ allArtists, setRefresh, refresh }) => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        if (allArtists && searchQ1 !== null) {
-            console.log("sq1.name", searchQ1['name'])
+        if (allArtists && searchQ1 !== false) {
+            console.log("sq1.name", searchQ1)
             for (let obj of allArtists) {
-                if (obj['name'] === searchQ1['name'] || searchQ1 === false) {
+                if (obj['name'].toLowerCase() === searchQ1.toLowerCase() || searchQ1 === false) {
                     setValid(false);
                     console.log("MATCH", "obj['name'] = ", obj['name'], "searchq1['name']", searchQ1['name'])
                     break;
@@ -52,28 +53,29 @@ const Contribute = (({ allArtists, setRefresh, refresh }) => {
     }
 
     return (
-        <>
-            <Typography variant="body2" component="div" gutterBottom>
+        <div>
+            <Typography className="contribute-container" variant="body2" component="div" gutterBottom>
                 <Search allArtists={allArtists} setSelected={setSelected} setSearchQ={setSearchQ1} type="contribute"
                 />
-                <div>
+                <div className="seed-button">
                     <Button variant="contained" color="success" disabled={valid ? false : true} onClick={attemptSeed}
                         style={{ display: 'block' }}>
                         Seed Artist
                     </Button>
                 </div>
-                {!valid && searchQ1 ? (
-                    <span>This artist already exists in our database!</span>) : (
-                    <span>{msg}</span>
-                )}
-
+                <div className="message">
+                    {!valid && searchQ1 ? (
+                        <span>This artist already exists in our database!</span>) : (
+                        <span className="message-text">{msg}</span>
+                    )}
+                </div>
                 {loading ? <div className="App">
                     Loading...
                     <Circles color="#00BFFF" height={80} width={80} />
                 </div> :
                     <></>}
             </Typography>
-        </>
+        </div>
     )
 })
 

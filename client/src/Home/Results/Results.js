@@ -8,7 +8,7 @@ import './Results.css';
 
 
 
-const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
+const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLoaded }) => {
     const [artist, setArtist] = useState(null)
     const [artist2, setArtist2] = useState(null)
     useEffect(() => {
@@ -33,24 +33,30 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
         } else {
             Promise.resolve(p1).then(resolved => {
                 setLoading(false)
-                console.log("resolved p for Promise.resolve", resolved)
+                setIsLoaded(true)
             }
             )
         }
         if (artistId2) {
             Promise.all([p1, p2]).then(resolved => {
                 setLoading(false)
-                console.log("resolved p for Promise.all", resolved)
+                setIsLoaded(true)
             })
         }
     }, [artistId, artistId2, isLoading])
 
     return (
         < >
+            <div>
+                {!isLoaded ? (<hr></hr>
+                )
+                    :
+                    (<></>)}
+            </div>
             {!isLoading ? (
                 <div style={{ height: '60%', width: '100%' }}>
                     {!artist2 ? (
-                        <div className="container">
+                        <div className="single-column-container">
                             <Artist artist={artist} />
                         </div>) : (
                         console.log("No 2nd Artist identified. Now returning Artist1:", artist)
