@@ -35,7 +35,7 @@ function Search({ allArtists, setSearchQ, setSelected, type = "search" }) {
     }
     return (
 
-        <div style={{ width: 350, display: 'flex', flexDirection: 'column', justifyContent: 'center' }} >
+        <div style={{ width: 350, display: 'flex', flexDirection: 'column', justifyContent: 'center', zIndex: 5 }} >
             <ReactSearchAutocomplete
                 items={items}
                 onSearch={handleOnSearch}

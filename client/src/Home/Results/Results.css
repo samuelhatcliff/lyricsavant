@@ -1,18 +1,29 @@
 /* RESULTS */
     /* General Structure */
+    .center{
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height:100vh;
+      width:100vw;
+    }
 
-    .single-column-container {
+    /* .single-column-container {
       display:flex;
       justify-content:flex-start
-    }
+    } */
     
     .container {
         display: flex;
         border: 2px solid black;
+        border-right:5px solid black;
         flex-direction: row;
         justify-content: space-evenly;
         align-items: space-around;
         margin-top: 10px;
+        height:100%;
+        width:100%
       }
     
     .column{
@@ -24,13 +35,15 @@
         flex-basis: 33.33%;
         min-width: 0;
         min-height: 0;
+        /* height:100%;
+        width:100% */
       }
     
     .item {
         color:black;
         flex-basis: 33.333%;
         background-color: #E5E5E5;
-        border:1px solid black;
+        border:2px solid black;
         display:flex;
         flex-direction:column;
         justify-content: flex-start;

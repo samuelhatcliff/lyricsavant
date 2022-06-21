@@ -29,22 +29,12 @@ function Artist({ artist, artistSongs, compare, wc }) {
     const popularSongs = ` ${artistSongs[0]['title']} ${artistSongs[1]['title']},
      ${artistSongs[2]['title']},${artistSongs[3]['title']}, and ${artistSongs[4]['title']}.`
 
-    // useEffect(() => {
-    //     //Retrieves base64 wordcloud data from our API
-    //     fetch(`/api/artists/${artist.id}/wc`).then(
-    //         res => res.json().then(
-    //             initialData => {
-    //                 const data = initialData['data']
-    //                 setWc(data)
-    //             }
-    //         ))
-    // }, [])
 
     return (
-        <div className={compare ? "column" : "single-row-container"}>
+        <div className={compare !== false ? "column" : "single-row-container"}>
 
             {/* ITEM 1 */}
-            <div className="item artist-info">
+            <div className={compare === false ? "rounded-item1" : "item"}>
                 <Stack
                     direction="row"
                     spacing={2}
@@ -80,23 +70,25 @@ function Artist({ artist, artistSongs, compare, wc }) {
             </div>
 
             {/* ITEM 3 */}
-            <div className="item">
+            <div className={compare === false ? "rounded-item2" : "item"}>
                 <PieChart artist={artist} />
             </div>
 
             {/* MODALS */}
-            {openBio ? (
-                <Biography artist={artist}
-                    open={openBio}
-                    handleClose={handleCloseBio} />
-            ) : (<></>)
+            {
+                openBio ? (
+                    <Biography artist={artist}
+                        open={openBio}
+                        handleClose={handleCloseBio} />
+                ) : (<></>)
             }
-            {openLyrics ? (
-                <Lyrics
-                    openLyrics={openLyrics}
-                    handleCloseLyrics={handleCloseLyrics}
-                    songs={artistSongs} />
-            ) : (<></>)
+            {
+                openLyrics ? (
+                    <Lyrics
+                        openLyrics={openLyrics}
+                        handleCloseLyrics={handleCloseLyrics}
+                        songs={artistSongs} />
+                ) : (<></>)
             }
         </div >
     )

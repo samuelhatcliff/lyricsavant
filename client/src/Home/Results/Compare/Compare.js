@@ -7,7 +7,7 @@ import './Compare.css';
 function Compare({ artist1, artist2 }) {
     return (
         <>
-            <div className="column">
+            <div className="column" >
                 <div className="item"  >
                     <div className="artist1">
                         <Stack alignItems="center"

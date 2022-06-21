@@ -83,7 +83,7 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
             </label>
             <Button
                 disabled={selected ? false : true}
-                className="button"
+                className={selected ? "ready" : "notready"}
                 variant="contained"
                 color="success"
                 onClick={handleOnSearch}
@@ -91,8 +91,12 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                 Get Insights
             </Button>
 
-            <ClearButton />
-        </div >
+            <Button
+                className={selected ? "ready" : "notready"}
+                variant="contained" color="secondary"
+                onClick={() => window.location.reload(false)}
+                style={{ display: 'block' }}>
+                Clear        </Button>        </div >
     )
 }
 

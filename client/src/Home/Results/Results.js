@@ -6,8 +6,6 @@ import Compare from "./Compare/Compare";
 import { Circles } from 'react-loader-spinner';
 import './Results.css';
 
-
-
 const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLoaded }) => {
     const [artist, setArtist] = useState(null)
     const [artist2, setArtist2] = useState(null)
@@ -94,16 +92,16 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
                     (<></>)}
             </div>
             {!isLoading ? (
-                <div style={{ height: '60%', width: '100%' }}>
+                <div className="center" style={{ height: '60%', width: '100%' }}>
                     {!artist2 ? (
                         <div
-                            //  className="single-column-container"
                             className="single-row-container"
                         >
                             <Artist
                                 artist={artist}
                                 artistSongs={artistSongs}
                                 wc={wc}
+                                compare={false}
                             />
                         </div>) : (
                         <></>
@@ -111,7 +109,7 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
                     {artist2 ? (
                         <div className="container">
                             <Artist artist={artist} artistSongs={artistSongs} compare={true} wc={wc} />
-                            <Compare artist1={artist} artist2={artist2} />
+                            <Compare artist1={artist} artist2={artist2} compare={true} />
                             <Artist artist={artist2} artistSongs={artistSongs2} compare={true} wc={wc2} />
                         </div>
                     ) : (

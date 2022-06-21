@@ -25,6 +25,7 @@ function App() {
       },
     )
   }, [refresh]);
+
   return (
     <main >
       <BrowserRouter>

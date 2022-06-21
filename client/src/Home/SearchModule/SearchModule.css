@@ -8,3 +8,11 @@
 .selected {
     margin-left:5px;
 }
+
+.ready {
+    z-index: 1;
+}
+
+.notready {
+    z-index:-1;
+}
