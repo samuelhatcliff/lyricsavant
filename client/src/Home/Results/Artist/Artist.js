@@ -1,6 +1,6 @@
 import PieChart from './Charts/PieChart';
-import WordCloudFunc from './Charts/WordCloud';
 import Biography from './Biography'
+import Lyrics from './Lyrics';
 import Avatar from '@mui/material/Avatar';
 import React, { useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
@@ -15,15 +15,19 @@ const findStopPoint = (text, wordLimit) => {
 }
 
 function Artist({ artist, artistSongs }) {
+    //STATE
     const [wc, setWc] = useState(null)
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const [openBio, setOpenBio] = useState(false);
+    const [openLyrics, setOpenLyrics] = useState(false);
+    //UTILITY FUNCTIONS
+    const handleOpenBio = () => setOpenBio(true);
+    const handleCloseBio = () => setOpenBio(false);
+    const handleOpenLyrics = () => setOpenLyrics(true);
+    const handleCloseLyrics = () => setOpenLyrics(false);
     const bioStopIndex = findStopPoint(artist.bio, 14)
-
-    const popularSongs = ` ${artistSongs['songs'][0]['title']} ${artistSongs['songs'][1]['title']}, ${artistSongs['songs'][2]['title']},
-     ${artistSongs['songs'][3]['title']}, and ${artistSongs['songs'][4]['title']}.`
-    console.log(popularSongs, "pop")
+    //DISPLAY MESSAGES
+    const popularSongs = ` ${artistSongs[0]['title']} ${artistSongs[1]['title']},
+     ${artistSongs[2]['title']},${artistSongs[3]['title']}, and ${artistSongs[4]['title']}.`
 
     useEffect(() => {
         //Retrieves base64 wordcloud data from our API
@@ -38,6 +42,8 @@ function Artist({ artist, artistSongs }) {
 
     return (
         <div className="column">
+
+            {/* ITEM 1 */}
             <div className="item artist-info">
                 <Stack
                     direction="row"
@@ -47,29 +53,49 @@ function Artist({ artist, artistSongs }) {
                         src={artist.image}
                         sx={{ width: 60, height: 60, marginTop: .5, marginLeft: 1 }} />
                     <div className="artist-header">
-                        <div ><b>Artist: {artist.name}</b></div>
+                        <div>
+                            <b>Artist: {artist.name}</b>
+                        </div>
                     </div>
                 </Stack>
                 <hr></hr>
-                <span className="bio-text">Bio: {artist.bio.slice(0, bioStopIndex)} {<a className="more" onClick={handleOpen}>...more</a>}
+                <span className="bio-text">Bio: {artist.bio.slice(0, bioStopIndex)}
+                    {<a className="openModal" onClick={handleOpenBio}>...more</a>}
                 </span>
                 <p>Popular song lyrics include
-                    {popularSongs}
+                    {popularSongs} {<a
+                        className="openModal"
+                        onClick={handleOpenLyrics}>
+                        See all lyrics.
+                    </a>}
                 </p>
                 <span className="num-unique-words">{artist.name} uses {artist.vocab_score} unique words.</span>
-
             </div>
 
+            {/* ITEM 2 */}
             <div className="item">
-                {/* <WordCloudFunc artist={artist} /> */}
                 <img
                     height="100%"
                     src={`data:image/jpeg;base64,${wc}`} />
-
             </div>
-            <div className="item"><PieChart artist={artist} /></div>
-            {open ? (
-                <Biography artist={artist} open={open} handleClose={handleClose} />
+
+            {/* ITEM 3 */}
+            <div className="item">
+                <PieChart artist={artist} />
+            </div>
+
+            {/* MODALS */}
+            {openBio ? (
+                <Biography artist={artist}
+                    open={openBio}
+                    handleClose={handleCloseBio} />
+            ) : (<></>)
+            }
+            {openLyrics ? (
+                <Lyrics
+                    openLyrics={openLyrics}
+                    handleCloseLyrics={handleCloseLyrics}
+                    songs={artistSongs} />
             ) : (<></>)
             }
         </div >

@@ -30,7 +30,7 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
             res => res.json()
         ).then(
             initialData => {
-                setArtistSongs(initialData);
+                setArtistSongs(initialData['songs']);
                 console.log(artistSongs)
             }
         )
@@ -47,7 +47,7 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
                 res => res.json()
             ).then(
                 initialData => {
-                    setArtistSongs2(initialData);
+                    setArtistSongs2(initialData['songs']);
                     console.log(artistSongs2, "artist songs 2")
                 }
             )

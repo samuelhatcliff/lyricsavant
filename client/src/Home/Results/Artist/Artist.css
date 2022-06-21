@@ -27,7 +27,7 @@
             display: inline;
           }
         
-        .more:hover {
+        .openModal:hover {
             text-decoration: underline;
             cursor: pointer;
         }
@@ -53,4 +53,8 @@
     display:flex;
     justify-content: flex-end;
     align-items: center;
+}
+
+.lyrics-container{
+    overflow:auto;
 }

@@ -117,9 +117,6 @@ def post_artist(name):
     msg = {"message": f"Artist {name} added successfully. Head to the home page to generate insights!"}
     return jsonify(data = msg)
 
-
-
-
 @app.route("/api/artists/<int:id>/songs")
 def get_songs_by_artist(id):
     artist = Artist.query.get(id)
@@ -132,6 +129,14 @@ def get_song_by_artist(artist_id, song_id):
     song = Song.query.get(song_id)
     serialized = serialize_song(song)
     return jsonify(songs=serialized)
+
+@app.route("/api/artists/<int:artist_id>/<int:song_id>/lyrics")
+def get_lyric_by_artist(artist_id, song_id):
+    artist = Artist.query.get(artist_id)
+    song = Song.query.get(song_id)
+    return song.lyrics
+
+
 
 # @app.route("/api/artists/", methods=["POST"])
 # def add_artist():
