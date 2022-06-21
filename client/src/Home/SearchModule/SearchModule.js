@@ -29,6 +29,7 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
             }
             setSubmit(true)
             setLoading(true)
+
         }
     }
 

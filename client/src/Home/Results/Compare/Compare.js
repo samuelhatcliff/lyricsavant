@@ -5,7 +5,6 @@ import Stack from '@mui/material/Stack';
 import './Compare.css';
 
 function Compare({ artist1, artist2 }) {
-    console.log("rendering compare component")
     return (
         <>
             <div className="column">

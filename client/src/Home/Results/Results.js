@@ -11,11 +11,32 @@ import './Results.css';
 const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLoaded }) => {
     const [artist, setArtist] = useState(null)
     const [artist2, setArtist2] = useState(null)
+    const [wc, setWc] = useState(null)
+    const [wc2, setWc2] = useState(null)
     const [artistSongs, setArtistSongs] = useState([])
     const [artistSongs2, setArtistSongs2] = useState([])
 
+    useEffect(() => {
+        wcPromise = fetch(`/api/artists/${artistId}/wc`).then(
+            res => res.json().then(
+                initialData => {
+                    const data = initialData['data']
+                    setWc(data)
+                }
+            ))
+        if (artistId2) {
+            wcPromise2 = fetch(`/api/artists/${artistId2}/wc`).then(
+                res => res.json().then(
+                    initialData => {
+                        const data = initialData['data']
+                        setWc2(data)
+                    }
+                ))
+        }
+    }, [artistId, artistId2])
 
-
+    let wcPromise;
+    let wcPromise2;
     useEffect(() => {
         let p2;
         let getSongs2;
@@ -31,7 +52,6 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
         ).then(
             initialData => {
                 setArtistSongs(initialData['songs']);
-                console.log(artistSongs)
             }
         )
         if (artistId2) {
@@ -39,7 +59,6 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
                 res => res.json()
             ).then(
                 initialData => {
-                    console.log("got 2nd artist", initialData)
                     setArtist2(initialData);
                 }
             )
@@ -48,7 +67,6 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
             ).then(
                 initialData => {
                     setArtistSongs2(initialData['songs']);
-                    console.log(artistSongs2, "artist songs 2")
                 }
             )
         } else {
@@ -59,17 +77,18 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
             )
         }
         if (artistId2) {
-            Promise.all([p1, p2]).then(resolved => {
+            Promise.all([p1, p2, wcPromise, wcPromise2]).then(resolved => {
                 setLoading(false)
                 setIsLoaded(true)
             })
         }
     }, [artistId, artistId2, isLoading])
 
+
     return (
         < >
             <div>
-                {!isLoaded ? (<hr></hr>
+                {!isLoaded && isLoading ? (<hr></hr>
                 )
                     :
                     (<></>)}
@@ -77,16 +96,23 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
             {!isLoading ? (
                 <div style={{ height: '60%', width: '100%' }}>
                     {!artist2 ? (
-                        <div className="single-column-container">
-                            <Artist artist={artist} artistSongs={artistSongs} />
+                        <div
+                            //  className="single-column-container"
+                            className="single-row-container"
+                        >
+                            <Artist
+                                artist={artist}
+                                artistSongs={artistSongs}
+                                wc={wc}
+                            />
                         </div>) : (
-                        console.log("No 2nd Artist identified. Now returning Artist1:", artist)
+                        <></>
                     )}
                     {artist2 ? (
                         <div className="container">
-                            <Artist artist={artist} artistSongs={artistSongs} />
+                            <Artist artist={artist} artistSongs={artistSongs} compare={true} wc={wc} />
                             <Compare artist1={artist} artist2={artist2} />
-                            <Artist artist={artist2} artistSongs={artistSongs2} />
+                            <Artist artist={artist2} artistSongs={artistSongs2} compare={true} wc={wc2} />
                         </div>
                     ) : (
                         <></>)}

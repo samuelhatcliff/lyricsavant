@@ -8,7 +8,6 @@ const BarChart = ({ artist1, artist2 }) => {
     const comp1 = artist1.pol_score.data.coms_avg;
     const comp2 = artist2.pol_score.data.coms_avg;
     const math = ((comp2 - comp1) / comp1) * 100;
-    console.log(comp1, "comp1", comp2, "comp2", "FIGURE OUT HOW TO DO MATH")
     function insightMsg() {
         let leans;
         //artist with more positive lyrics assigned to "winner", rewrite as tertiary operator 

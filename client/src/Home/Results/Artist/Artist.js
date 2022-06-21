@@ -14,9 +14,9 @@ const findStopPoint = (text, wordLimit) => {
     }
 }
 
-function Artist({ artist, artistSongs }) {
+function Artist({ artist, artistSongs, compare, wc }) {
     //STATE
-    const [wc, setWc] = useState(null)
+    // const [wc, setWc] = useState(null)
     const [openBio, setOpenBio] = useState(false);
     const [openLyrics, setOpenLyrics] = useState(false);
     //UTILITY FUNCTIONS
@@ -29,19 +29,19 @@ function Artist({ artist, artistSongs }) {
     const popularSongs = ` ${artistSongs[0]['title']} ${artistSongs[1]['title']},
      ${artistSongs[2]['title']},${artistSongs[3]['title']}, and ${artistSongs[4]['title']}.`
 
-    useEffect(() => {
-        //Retrieves base64 wordcloud data from our API
-        fetch(`/api/artists/${artist.id}/wc`).then(
-            res => res.json().then(
-                initialData => {
-                    const data = initialData['data']
-                    setWc(data)
-                }
-            ))
-    }, [])
+    // useEffect(() => {
+    //     //Retrieves base64 wordcloud data from our API
+    //     fetch(`/api/artists/${artist.id}/wc`).then(
+    //         res => res.json().then(
+    //             initialData => {
+    //                 const data = initialData['data']
+    //                 setWc(data)
+    //             }
+    //         ))
+    // }, [])
 
     return (
-        <div className="column">
+        <div className={compare ? "column" : "single-row-container"}>
 
             {/* ITEM 1 */}
             <div className="item artist-info">

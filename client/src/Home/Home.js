@@ -9,8 +9,10 @@ function Home({ allArtists }) {
     const [artistId, setArtistId] = useState(null);
     const [artistId2, setArtistId2] = useState(null)
     const [submit, setSubmit] = useState(false);
-    const [isLoading, setLoading] = useState(false)
-    const [isLoaded, setIsLoaded] = useState(false)
+    const [isLoading, setLoading] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+
     return (
         <>
             <SearchModule setSubmit={setSubmit}
@@ -19,6 +21,9 @@ function Home({ allArtists }) {
                 setArtistId={setArtistId}
                 setArtistId2={setArtistId2}
                 submit={submit}
+                isLoaded={isLoaded}
+                setIsLoaded={setIsLoaded}
+
             />
             {submit ? (
                 <Results artistId={artistId}
@@ -27,6 +32,7 @@ function Home({ allArtists }) {
                     isLoading={isLoading}
                     setIsLoaded={setIsLoaded}
                     isLoaded={isLoaded}
+
                 />
             ) : (
                 <></>

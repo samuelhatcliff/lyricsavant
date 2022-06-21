@@ -5,7 +5,6 @@ import { Chart } from 'react-chartjs-2';
 
 const WordsChart = ({ artist1, artist2 }) => {
     // UNIQUE WORDS
-    console.log(`inside words chart, artist1 ${artist1}, artist2 ${artist2}`)
     function insightMsg() {
         let winner;
         let loser;
