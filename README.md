@@ -1,10 +1,14 @@
 # Lyrics Savant
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Tech Stack
 
-## Available Scripts
+Python, Flask, Sqlalchemy, React, Material UI.
 
-In the project directory, you can run:
+### External Libraries
+#### Python
+NLTK, MatPlotLib, WordCloud.
+#### Javascript
+Material UI, Chart.js, React-Search-Autocomplete, React-Load-Spinner.
 
 ### `npm start`
 
