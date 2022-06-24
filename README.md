@@ -10,13 +10,9 @@ Material UI, Chart.js, React-Search-Autocomplete, React-Load-Spinner.
 
 ## `Summary`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Lyrics Savant is a data-driven User Interface that leverages the Lyrics Genius API to webscrape an Artist's lyrics to display a module that includes their biographical information, a sample of their lyrics, and statistical insights regarding their vocabulary and polarity scores of their lyrics. Artists can be compared side-by-side to help users visualize such data insights. If an artist is not already present in our database, users have the option to contribute to the project by submitting an http request to our API to seed said artist to our database. Learn more about our RESTFUL API below. 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
+## `Lyrics Savant API`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
