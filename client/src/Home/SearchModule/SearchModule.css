@@ -3,26 +3,16 @@
     flex-direction: column;
     align-items:center;
     margin-bottom: 20px;
+    justify-content: flex-start;
 }
 
-.search1 {
-    z-index:1;
-    
+.row-container{
+    display:flex;
+    flex-direction: row;
 }
-.search2 {
-    z-index: -1;
-    position:relative;
-}
+
 .selected {
     margin-left:5px;
-    z-index:4
-
+    z-index:2
 }
 
-.ready {
-    z-index: 1;
-}
-
-.notready {
-    z-index:-1;
-}

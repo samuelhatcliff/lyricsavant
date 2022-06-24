@@ -35,33 +35,8 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
 
     return (
         <div className="search-module-container">
-            {checked ? (
-                <div>
-                    <Typography variant="subtitle1" component="div" gutterBottom>
-                        <span>Selected Artist:
-                            {selected ? (
-                                <span className="selected">
-                                    {selected["name"]}
-                                </span>
-                            ) : (<></>)}
-                        </span>
-                        <Search allArtists={allArtists}
-                            className={"search1"}
-                            setSelected={setSelected} />
-                        <span>Selected Artist:
-                            {selected2 ? (
-                                <span className="selected">{selected2["name"]}</span>
-                            ) : (<></>)}
-                        </span>
-                        <Search allArtists={allArtists}
-                            className={"search2"}
-                            placeholder="search2"
-                            secondarySearch={true}
-                            setSelected={setSelected2} />
-                    </Typography>
-                </div>
-            )
-                : (
+            <div className='row-container'>
+                {checked ? (
                     <div>
                         <Typography variant="subtitle1" component="div" gutterBottom>
                             <span>Selected Artist:
@@ -73,41 +48,56 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                             </span>
                             <Search allArtists={allArtists}
                                 setSelected={setSelected} />
+                            <span>Selected Artist:
+                                {selected2 ? (
+                                    <span className="selected">{selected2["name"]}</span>
+                                ) : (<></>)}
+                            </span>
+                            <Search allArtists={allArtists}
+                                placeholder="search2"
+                                secondarySearch={true}
+                                setSelected={setSelected2} />
                         </Typography>
                     </div>
-                )}
+                )
+                    : (
+                        <div>
+                            <Typography variant="subtitle1" component="div" gutterBottom>
+                                <span>Selected Artist:
+                                    {selected ? (
+                                        <span className="selected">
+                                            {selected["name"]}
+                                        </span>
+                                    ) : (<></>)}
+                                </span>
+                                <Search allArtists={allArtists}
+                                    setSelected={setSelected} />
+                            </Typography>
+                        </div>
+                    )}
+                <div>
+                    <Button
+                        disabled={selected ? false : true}
+                        className={selected ? "ready" : "notready"}
+                        variant="contained"
+                        color="success"
+                        onClick={handleOnSearch}
+                        style={{ display: 'block', marginLeft: 10, marginTop: 32 }}>
+                        Get Insights
+                    </Button>
+                </div>
+
+
+            </div>
             <label  >
-                <Typography variant="body2" component="div" gutterBottom style={{ display: 'inline' }}>
+                <Typography variant="body2" component="div" gutterBottom style={{ display: 'inline', paddingRight: 220, paddingTop: 12 }}>
                     <Checkbox placeholder="checkbox" onChange={handleChecked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} style={{ display: 'inline', zIndex: -1 }} />
                     <span>Compare two separate artists?</span>
                     {/* <Checkbox placeholder="checkbox" onChange={handleChecked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} style={{ display: 'inline', zIndex: -1 }} />
                     <span>Clear</span> */}
                 </Typography>
             </label>
-            {selected && !selected2 ? (<div><Button
-                disabled={selected ? false : true}
-                className={selected ? "ready" : "notready"}
-                variant="contained"
-                color="success"
-                onClick={handleOnSearch}
-                style={{ display: 'block', marginBottom: 9, marginTop: 4 }}>
-                Get Insights
-            </Button>
-            </div>) : (
-                <></>
-            )}
-            {selected && selected2 && checked ? (<div><Button
-                disabled={selected ? false : true}
-                className={selected ? "ready" : "notready"}
-                variant="contained"
-                color="success"
-                onClick={handleOnSearch}
-                style={{ display: 'block', marginBottom: 9, marginTop: 4 }}>
-                Get Insights
-            </Button>
-            </div>) : (
-                <></>
-            )}
+
 
         </div>
     )
