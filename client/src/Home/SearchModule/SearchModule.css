@@ -5,8 +5,18 @@
     margin-bottom: 20px;
 }
 
+.search1 {
+    z-index:1;
+    
+}
+.search2 {
+    z-index: -1;
+    position:relative;
+}
 .selected {
     margin-left:5px;
+    z-index:4
+
 }
 
 .ready {

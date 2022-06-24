@@ -56,6 +56,7 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                         <Search allArtists={allArtists}
                             className={"search2"}
                             placeholder="search2"
+                            secondarySearch={true}
                             setSelected={setSelected2} />
                     </Typography>
                 </div>
@@ -79,9 +80,11 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                 <Typography variant="body2" component="div" gutterBottom style={{ display: 'inline' }}>
                     <Checkbox placeholder="checkbox" onChange={handleChecked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} style={{ display: 'inline', zIndex: -1 }} />
                     <span>Compare two separate artists?</span>
+                    {/* <Checkbox placeholder="checkbox" onChange={handleChecked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} style={{ display: 'inline', zIndex: -1 }} />
+                    <span>Clear</span> */}
                 </Typography>
             </label>
-            <Button
+            {selected && !selected2 ? (<div><Button
                 disabled={selected ? false : true}
                 className={selected ? "ready" : "notready"}
                 variant="contained"
@@ -90,13 +93,23 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                 style={{ display: 'block', marginBottom: 9, marginTop: 4 }}>
                 Get Insights
             </Button>
-
-            <Button
+            </div>) : (
+                <></>
+            )}
+            {selected && selected2 && checked ? (<div><Button
+                disabled={selected ? false : true}
                 className={selected ? "ready" : "notready"}
-                variant="contained" color="secondary"
-                onClick={() => window.location.reload(false)}
-                style={{ display: 'block' }}>
-                Clear        </Button>        </div >
+                variant="contained"
+                color="success"
+                onClick={handleOnSearch}
+                style={{ display: 'block', marginBottom: 9, marginTop: 4 }}>
+                Get Insights
+            </Button>
+            </div>) : (
+                <></>
+            )}
+
+        </div>
     )
 }
 
