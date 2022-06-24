@@ -1,16 +1,14 @@
 # Lyrics Savant
 
-## Tech Stack
-
-Python, Flask, Sqlalchemy, React, Material UI.
-
+## `Tech Stack`
+Python, Flask, Sqlalchemy, Javascript, React, CSS, HTML.
 ### External Libraries
 #### Python
 NLTK, MatPlotLib, WordCloud.
 #### Javascript
 Material UI, Chart.js, React-Search-Autocomplete, React-Load-Spinner.
 
-### `npm start`
+## `Summary`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
