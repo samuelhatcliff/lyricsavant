@@ -450,6 +450,9 @@ class Genius(API, PublicAPI):
             print('Done.')
         return song
 
+    def test(self):
+        print("testing1")
+
     def search_artist(self, artist_name, max_songs=None,
                       sort='popularity', per_page=20,
                       get_full_info=True,

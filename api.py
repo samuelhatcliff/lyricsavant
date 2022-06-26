@@ -1,5 +1,7 @@
 #rewrite serialize functions this as either class methods or a single method
 
+def demo():
+    return "nice"
 def serialize_artist_data(artist):
     """Serialize an artist SQLAlchemy obj to dictionary"""
     #This is done so that it can be converted to JSON for our API using the jsonify method
