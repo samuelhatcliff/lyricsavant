@@ -10,7 +10,7 @@ genius.remove_section_headers = True
 genius.retries = 1
 
 """Imports from our own costum modules"""
-from models import db, Song, Artist
+from models import db, Song, Artist, Message
 from math_helpers import Math
 from python_data_visuals import Python_Data_Visuals
 pd = Python_Data_Visuals()
@@ -48,7 +48,7 @@ def download_artist(name, quantity = 40):
             db.session.add(our_artist)
             db.session.commit()
         except:
-            print("excepting")
+            print("Something went wrong when adding artist to DB")
             if Artist.query.get(artist.id):
                 artist = Artist.query.get(artist.id)
                 artist.name = artist_name
@@ -60,6 +60,8 @@ def download_artist(name, quantity = 40):
             # our lyricsgenius artist object may or may not return songs depending on the 2nd argument passed to this function
             # if songs are indeed present, we call save_lyrics, which saves each song to our db
             save_lyrics(artist)
+        Message.query.delete()
+
         completed.append(name)
         print(f"completed seeding data for {name}")
         return artist
@@ -86,7 +88,6 @@ def save_lyrics(artist):
             url = data['url']
             lyrics = genius.lyrics(song_url=url)
             #Todo: if lyrics == null, raise error instead of adding to database
-            print(f'lyrics1 for song {title}')
 
             if not lyrics:
                 continue
@@ -94,6 +95,9 @@ def save_lyrics(artist):
                         lyrics=lyrics, artist_id = artist.id)
             songs.append(our_song)
             db.session.add(our_song)
+            db.session.commit()
+            message = Message(msg = f"Added {title} to our database!")
+            db.session.add(message)
             db.session.commit()
         except:
             print(f"problem adding song with id {song.id}")

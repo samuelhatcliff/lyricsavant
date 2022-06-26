@@ -16,6 +16,7 @@ from .api import API, PublicAPI
 from .types import Album, Artist, Song, Track
 from .utils import clean_str, safe_unicode
 
+from models import Message, db
 
 class Genius(API, PublicAPI):
     """User-level interface with the Genius.com API and public API.
@@ -504,7 +505,6 @@ class Genius(API, PublicAPI):
             """
             if self.verbose:
                 print('Searching for songs by {0}...\n'.format(search_term))
-
             # Perform a Genius API search for the artist
             found_artist = None
             response = self.search_all(search_term)
@@ -576,6 +576,12 @@ class Genius(API, PublicAPI):
                 result = artist.add_song(song, verbose=False,
                                          include_features=include_features)
                 if result is not None and self.verbose:
+
+                    message = Message(msg = 'Song {n}: "{t}"'.format(n=artist.num_songs,
+                                                   t=safe_unicode(song.title)))
+                    db.session.add(message)
+                    db.session.commit()
+
                     print('Song {n}: "{t}"'.format(n=artist.num_songs,
                                                    t=safe_unicode(song.title)))
 

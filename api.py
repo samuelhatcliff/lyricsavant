@@ -1,7 +1,5 @@
 #rewrite serialize functions this as either class methods or a single method
 
-def demo():
-    return "nice"
 def serialize_artist_data(artist):
     """Serialize an artist SQLAlchemy obj to dictionary"""
     #This is done so that it can be converted to JSON for our API using the jsonify method
@@ -12,7 +10,6 @@ def serialize_artist_data(artist):
         "image": artist['image'],
         "pol_score": artist['pol_score'],
         "vocab_score": artist['vocab_score']
-
     }
     return serialized
 

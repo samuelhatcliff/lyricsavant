@@ -4,7 +4,7 @@ from lyricsgenius import Genius
 from lyrics_api import download_artist
 
 """Imports from our own costum modules"""
-from models import connect_db, db, Song, Artist, Artist_Incomplete
+from models import connect_db, db, Song, Artist, Artist_Incomplete, Message
 from api import serialize_artist_data, serialize_artist_names, serialize_song
 from math_helpers import Math
 from python_data_visuals import Python_Data_Visuals
@@ -72,6 +72,7 @@ def results():
 @app.route("/api/artists/")
 def get_all_artists():
     """Return JSON for all artists in database"""
+    print("route hit")
     artists = Artist.query.all()
     dix = [(a.__dict__) for a in artists]
     serialized = [serialize_artist_names(a) for a in dix]
@@ -116,6 +117,14 @@ def post_artist(name):
         return jsonify(data = msg)
     msg = {"message": f"Artist {name} added successfully. Head to the home page to generate insights!"}
     return jsonify(data = msg)
+
+@app.route("/api/seed/status", methods = ["GET"])
+def get_progress():
+    messages = Message.query.all()
+    messages = [message.msg for message in messages]
+    return jsonify(data = messages)
+
+
 
 @app.route("/api/artists/<int:id>/songs")
 def get_songs_by_artist(id):

@@ -37,6 +37,14 @@ class Artist_Incomplete(db.Model):
     def __repr__(self):
         return f"<ID: {self.id}, Name:{self.name}>, Artist-ID: {self.artist_id}, Number of Songs {self.num_songs}"
 
+class Message(db.Model):
+    __tablename__ = "messages"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    msg = db.Column(db.String, nullable=False)
+    def __repr__(self):
+        return f"{self.msg}"
+
+
 class Song(db.Model):
     __tablename__ = "songs"
     id = db.Column(db.Integer,

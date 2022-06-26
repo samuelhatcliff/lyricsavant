@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Search from "../Home/SearchModule/Search";
+import SWR from "./SWR/SWR"
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Circles } from 'react-loader-spinner';
@@ -8,7 +9,7 @@ import './Contribute.css'
 
 //todo: add material ui error messages for msg
 
-const Contribute = (({ allArtists, setRefresh, refresh }) => {
+const Contribute = (({ allArtists, setRefresh }) => {
     const [searchQ1, setSearchQ1] = useState(false);
     const [selected, setSelected] = useState(null);
     const [valid, setValid] = useState(false);
@@ -27,7 +28,6 @@ const Contribute = (({ allArtists, setRefresh, refresh }) => {
             }
         }
     }, [searchQ1, selected]);
-
     function attemptSeed() {
         if (!valid) {
             return
@@ -44,10 +44,15 @@ const Contribute = (({ allArtists, setRefresh, refresh }) => {
             res.json().then(data => {
                 setMsg(data.data.message)
                 setLoading(false)
-                setRefresh(!refresh)
+                // setRefresh(!refresh)
             }
             ))
     }
+
+    console.log('contribute comp rendering')
+
+
+
 
     return (
         <div>
@@ -74,6 +79,8 @@ const Contribute = (({ allArtists, setRefresh, refresh }) => {
                 {loading ? <div className="App">
                     Loading...
                     <Circles color="#00BFFF" height={80} width={80} />
+                    <SWR />
+
                 </div> :
                     <></>}
             </Typography>
