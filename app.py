@@ -104,24 +104,25 @@ def get_py_wc(id):
 @app.route("/api/artists/add/<name>", methods = ["POST"])
 def post_artist(name):
     """Attempt to add a new Artist to our database"""
-    msg = {"message": "Could not find artist on lyrics genius. Please check or revise your spelling."}
+    msg = {"message": "Could not find artist on lyrics genius. Please check or revise your spelling.",
+    "type":"error"}
     print("Post Route Hit")
     if name == "null":
-        print("name was null")
         return jsonify(data = msg)
     result = download_artist(name)
     if result == None:
-        print("result was none")
         return jsonify(data = msg)
     if not result.songs:
         return jsonify(data = msg)
-    msg = {"message": f"Artist {name} added successfully. Head to the home page to generate insights!"}
+    msg = {"message": f'Artist "{name}" added successfully. Head to the home page to generate insights!',
+            "type": "success"}
     return jsonify(data = msg)
 
 @app.route("/api/seed/status", methods = ["GET"])
 def get_progress():
     messages = Message.query.all()
     messages = [message.msg for message in messages]
+    print(messages, "MESSAGES")
     return jsonify(data = messages)
 
 

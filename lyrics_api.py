@@ -17,6 +17,9 @@ pd = Python_Data_Visuals()
 math = Math()
 
 def download_artist(name, quantity = 40):
+    #deletes data from last artist
+    Message.query.delete()
+    db.session.commit()
     completed = []
     failed = []
     # quantity refers to number of songs returned with artist in artist.songs
@@ -60,7 +63,6 @@ def download_artist(name, quantity = 40):
             # our lyricsgenius artist object may or may not return songs depending on the 2nd argument passed to this function
             # if songs are indeed present, we call save_lyrics, which saves each song to our db
             save_lyrics(artist)
-        Message.query.delete()
 
         completed.append(name)
         print(f"completed seeding data for {name}")

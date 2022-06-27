@@ -3,11 +3,14 @@ import Search from "../Home/SearchModule/Search";
 import SWR from "./SWR/SWR"
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
+
 import { Circles } from 'react-loader-spinner';
 import './Contribute.css'
 
 
-//todo: add material ui error messages for msg
+//todo: add material ui error and success messages for msg
+//todo: fix bug where it displays last message.length before reseting to 0
 
 const Contribute = (({ allArtists, setRefresh }) => {
     const [searchQ1, setSearchQ1] = useState(false);
@@ -42,21 +45,23 @@ const Contribute = (({ allArtists, setRefresh }) => {
             }
         }).then(res =>
             res.json().then(data => {
-                setMsg(data.data.message)
+                setMsg(data.data)
                 setLoading(false)
                 // setRefresh(!refresh)
             }
             ))
     }
 
-    console.log('contribute comp rendering')
-
-
-
+    console.log('contribute comp rendering', "message:", msg)
 
     return (
         <div>
             <Typography className="contribute-container" variant="body2" component="div" gutterBottom>
+                <div className="message" >
+                    <span className="instructions">
+                        Enter an Artist that hasn't been added to our database yet.
+                        Check to see if artist has been added by typing there name into the drop down.
+                        If they appear as a suggestion, the artist has already been added.</span></div>
                 <Search allArtists={allArtists} setSelected={setSelected} setSearchQ={setSearchQ1} type="contribute"
                 />
                 <div className="seed-button">
@@ -67,24 +72,22 @@ const Contribute = (({ allArtists, setRefresh }) => {
                 </div>
                 <div >
                     {!valid && searchQ1 ? (
-                        <span>This artist already exists in our database!</span>) : (
-                        <span className="message-text">{msg}</span>
-                    )}
-                    <div className="message" >
-                        <span className="instructions">
-                            Enter an Artist that hasn't been added to our database yet.
-                            Check to see if artist has been added by typing there name into the drop down.
-                            If they appear as a suggestion, the artist has already been added.</span></div>
+                        <Alert severity="error">This artist already exists in our database!</Alert>) : (<></>)}
+                    {msg.message ? (<Alert severity={msg.type}>
+                        {msg.message}
+                    </Alert>) : (<></>)}
                 </div>
-                {loading ? <div className="App">
-                    Loading...
-                    <Circles color="#00BFFF" height={80} width={80} />
-                    <SWR />
+                {
+                    loading ? <div className="App">
+                        Seeding Artist...
+                        {/* <Circles color="#00BFFF" height={60} width={60} /> */}
+                        <SWR />
 
-                </div> :
-                    <></>}
-            </Typography>
-        </div>
+                    </div> :
+                        <></>
+                }
+            </Typography >
+        </div >
     )
 })
 
