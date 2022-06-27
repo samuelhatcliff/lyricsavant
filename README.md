@@ -6,7 +6,7 @@ Python, Flask, Sqlalchemy, Postgres, Javascript, React, CSS, HTML.
 #### Python
 NLTK, MatPlotLib, WordCloud.
 #### Javascript
-SWR, Axios, Material UI, Chart.js, React-Search-Autocomplete, React-Load-Spinner.
+SWR, Axios, React Router Material UI, Chart.js, React-Search-Autocomplete, React-Load-Spinner.
 
 ## `Summary`
 
