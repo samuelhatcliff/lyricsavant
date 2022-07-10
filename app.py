@@ -2,6 +2,7 @@
 from flask import Flask, jsonify, request, render_template
 from lyricsgenius import Genius
 from lyrics_api import download_artist
+from creds import api_key
 
 """Imports from our own costum modules"""
 from models import connect_db, db, Song, Artist, Artist_Incomplete, Message
@@ -14,7 +15,7 @@ pd = Python_Data_Visuals()
 math = Math()
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="/client/build", static_url_path="/")
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///lyrics-db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -28,7 +29,7 @@ connect_db(app)
 
 db.create_all()
 
-genius = Genius('aPt0Y03tHHx7XAVyDWcJUzgaR7qBN5_D1-Dg_s-BBgTO8ifIJUB0toLzQ0P2YKCF')
+genius = Genius(api_key)
 #modifies our genius object with params to narrow down search results
 genius.excluded_terms = ["(Remix)", "(Live)"]
 genius.skip_non_songs = True
@@ -37,6 +38,10 @@ genius.retries = 1
 
 completed = []
 failed = []
+
+@app.route("/")
+def index():
+    return app.send_static_file('index.html')
 
 """RESTFUL API"""
 
