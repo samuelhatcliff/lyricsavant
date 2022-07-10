@@ -14,8 +14,9 @@ from db_maintenance import check_songs, delete_artists
 pd = Python_Data_Visuals()
 math = Math()
 
-
+# production:
 app = Flask(__name__, static_folder="/client/build", static_url_path="/")
+# app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///lyrics-db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
