@@ -38,35 +38,6 @@ genius.retries = 1
 completed = []
 failed = []
 
-# check_songs()
-@app.route("/test")
-def test():
-    # artist1 = Artist.query.get(20710) #a7x
-    # artist2 = Artist.query.get(17912) #evanescence
-    # test = download_artist("fasdfasdfasdfasdfa", 1)
-    # print(test)
-    return render_template('home.html')
-
-@app.route("/python/results")
-def results():
-    id1 = request.args["id1"]
-    id2 = request.args["id2"]
-
-    """WordCloud"""
-    lyrics = math.generate_composite(id1)
-    wc_img = pd.get_wordcloud(lyrics)
-
-    """Pie Chart"""
-    pie_img = pd.get_pie(id1)
-
-    """Unique Words Bar Chart"""
-    bar_img = pd.get_unique_words_bar(id1, id2)
-  
-    """Polarity Bar Chart"""
-    pol_img = pd.get_pol_bar(id1, id2)
-
-    return render_template('results.html', wc_img = wc_img, pie_img=pie_img, bar_img=bar_img, pol_img=pol_img)
-
 """RESTFUL API"""
 
 @app.route("/api/artists/")
@@ -124,7 +95,6 @@ def get_progress():
     messages = [message.msg for message in messages]
     print(messages, "MESSAGES")
     return jsonify(data = messages)
-
 
 
 @app.route("/api/artists/<int:id>/songs")
