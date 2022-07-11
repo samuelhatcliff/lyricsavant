@@ -15,16 +15,13 @@ pd = Python_Data_Visuals()
 math = Math()
 
 # production:
-app = Flask(__name__, static_folder="/client/build", static_url_path="/")
-# app = Flask(__name__)
+# app = Flask(__name__, static_folder="/client/build", static_url_path="/")
+app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///lyrics-db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = "topsecret1"
-# from flask_debugtoolbar import DebugToolbarExtension 
-# app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-# debug = DebugToolbarExtension(app)
 
 connect_db(app)
 
