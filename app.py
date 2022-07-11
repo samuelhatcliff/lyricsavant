@@ -30,7 +30,7 @@ connect_db(app)
 
 db.create_all()
 
-genius = Genius(api_key)
+genius = Genius('aPt0Y03tHHx7XAVyDWcJUzgaR7qBN5_D1-Dg_s-BBgTO8ifIJUB0toLzQ0P2YKCF')
 #modifies our genius object with params to narrow down search results
 genius.excluded_terms = ["(Remix)", "(Live)"]
 genius.skip_non_songs = True
