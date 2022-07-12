@@ -20,7 +20,7 @@ Jinja2==3.1.1
 joblib==1.1.0
 kiwisolver==1.4.2
 langcodes==3.3.0
--e git+ssh://git@github.com/samuelhatcliff/lyrics_savant.git@e2134cb21cdfa92482836186b341596dc59c3e37#egg=lyricsgenius&subdirectory=lyrics-genius-api
+-e git+ssh://git@github.com/samuelhatcliff/lyrics_savant.git@9d215587c4b1126b62f8255564fc956f2861ead8#egg=lyricsgenius&subdirectory=lyrics-genius-api
 MarkupSafe==2.1.1
 matplotlib==3.5.2
 murmurhash==1.0.7
@@ -53,4 +53,4 @@ typing_extensions==4.2.0
 urllib3==1.26.9
 wasabi==0.9.1
 Werkzeug==2.0.3
-wordcloud==1.8.1.post10+ge9dc8c7
+wordcloud==1.8.2.2
