@@ -1,0 +1,12 @@
+{
+    "name": "Lyrics Savant",
+    "description": "Lyrics Savant v1",
+    "repository": "https://github.com/samuelhatcliff/lyrics_savant",
+    "logo": "https://node-js-sample.herokuapp.com/node.png",
+    "keywords": [
+        "flask",
+        "python",
+        "react",
+        "nltk"
+    ]
+}
