@@ -1,3 +1,4 @@
 stopwords
 punkt
 vader_lexicon
+wordnet
