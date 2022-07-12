@@ -14,7 +14,7 @@ idna==3.3
 ipython==8.0.1
 jedi==0.18.1
 kiwisolver==1.4.2
--e git+ssh://git@github.com/samuelhatcliff/lyrics_savant.git@78f8ddd0d273008c11da3454d562bde3b123ef06#egg=lyricsgenius&subdirectory=lyrics-genius-api
+-e git+https://git@github.com/samuelhatcliff/lyrics_savant.git@78f8ddd0d273008c11da3454d562bde3b123ef06#egg=lyricsgenius&subdirectory=lyrics-genius-api
 matplotlib==3.5.2
 matplotlib-inline==0.1.3
 mypy-extensions==0.4.3
