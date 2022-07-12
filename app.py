@@ -3,7 +3,6 @@ import os
 from flask import Flask, jsonify, request, render_template
 from lyricsgenius import Genius
 from lyrics_api import download_artist
-from creds import api_key
 
 """Imports from our own costum modules"""
 from models import connect_db, db, Song, Artist, Artist_Incomplete, Message
