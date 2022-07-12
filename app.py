@@ -20,9 +20,11 @@ if production:
     api_key = os.environ.get("API_KEY")
     app = Flask(__name__, static_folder="/client/build", static_url_path="/")
 else:
-    from creds import api_key
+    # from creds import api_key
+    app = Flask(__name__)
 
-app = Flask(__name__)
+
+
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///lyrics-db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
