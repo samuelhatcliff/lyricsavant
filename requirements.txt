@@ -20,7 +20,8 @@ Jinja2==3.1.1
 joblib==1.1.0
 kiwisolver==1.4.2
 langcodes==3.3.0
--e git+https://github.com/username:token@github.com/samuelhatcliff/lyrics_savant.git#egg=lyrics_savant
+-e git+https://github.com/username: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@github.com/
+samuelhatcliff/lyrics_savant.git
 MarkupSafe==2.1.1
 matplotlib==3.5.2
 murmurhash==1.0.7
