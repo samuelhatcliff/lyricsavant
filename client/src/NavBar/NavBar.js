@@ -11,9 +11,7 @@ const NavBar = () => {
                 <Toolbar className="navigation">
                     <NavLink exact to="/">Home</NavLink>
                     <NavLink exact to="/contribute">Contribute</NavLink>
-                    <NavLink to="/grid">Grid</NavLink>
                 </Toolbar>
-
             </AppBar>
 
         </nav>

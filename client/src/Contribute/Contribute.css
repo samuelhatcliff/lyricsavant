@@ -5,21 +5,24 @@
     text-align: center;
 }
 
+.message {
+    display:flex;
+    justify-content: center;
+    }
+    
+    .instructions {
+        flex-basis:65%;
+        margin-top:12px;
+    }
+    
+
 .seed-button {
     margin:10px;
     margin-top:15px;
 }
 
-.message {
-display:flex;
-justify-content: center;
+.contribute-search {
+    margin-bottom: 10px;
 }
 
-.message-text {
-    flex-basis:65%;
-}
 
-.instructions {
-    flex-basis:65%;
-    margin-top:12px;
-}

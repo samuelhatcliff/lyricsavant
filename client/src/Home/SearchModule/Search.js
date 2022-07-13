@@ -1,63 +1,53 @@
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import '../../App.css'
 
-function Search({ allArtists, setSearchQ, setSelected, type = "search", secondarySearch }) {
+function Search({ allArtists, setSearchQ, setSelected, type = "GET", secondarySearch }) {
     const items = allArtists;
     const handleOnSearch = (string) => {
-        // onSearch will have as the first callback parameter
-        // the string searched and for the second the results.
-        if (type === "contribute") {
+        // A Search Component that is a descendant of the Contribute component will be given type === "POST",
+        // and will need to check to ensure that searchQ does not exist in the the project's database in order
+        // to avoid attempting to seed an artist that already exists. In the handleOnSelect function, the searchQ
+        // will be set to the artist selected to mainain the same variable (searchQ) when checking against our database
+        if (type === "POST") {
             setSearchQ(string)
         }
     }
-    const handleOnHover = (result) => {
-        // the item hovered
-        // console.log(result, "on hover")
-    }
     const handleOnSelect = (item) => {
-        // the item selected
-        if (type === "search") {
+        // When a Search Component is used to inititate a GET request, as in the case of Home/SearchModule,
+        // the user must select an artist from the artists that appear in the auto-complete suggestions to ensure that
+        // the artist already exists in the project's database. Therefore, setSelected is the only possible method to be 
+        // called for type === "GET"
+        if (type === "GET") {
             setSelected(item)
         }
-        if (type === "contribute") {
+        if (type === "POST") {
             setSearchQ(item['name'])
         }
-    }
-    const handleOnFocus = () => {
-        // console.log('Focused')
     }
     const formatResult = (item) => {
         return (
             <>
-                <span style={{ display: 'block', textAlign: 'left', zIndex: 0 }}>{item.name}</span>
+                <span style={{ display: 'block', textAlign: 'left' }}>{item.name}</span>
             </>
         )
     }
     return (
         <div>
             {secondarySearch ? (
-                <div style={{ width: 350, display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', zIndex: 0 }} >
+                <div style={{ width: 350, display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', zIndex: 1 }} >
                     <ReactSearchAutocomplete
-
                         items={items}
                         onSearch={handleOnSearch}
-                        onHover={handleOnHover}
                         onSelect={handleOnSelect}
-                        onFocus={handleOnFocus}
                         autoFocus
-
                         formatResult={formatResult}
                     />
-                </div>) : (<div style={{ width: 350, display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', zIndex: 1 }} >
+                </div>) : (<div style={{ width: 350, display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', zIndex: 2 }} >
                     <ReactSearchAutocomplete
-
                         items={items}
                         onSearch={handleOnSearch}
-                        onHover={handleOnHover}
                         onSelect={handleOnSelect}
-                        onFocus={handleOnFocus}
                         autoFocus
-
                         formatResult={formatResult}
                     />
                 </div>)}

@@ -12,17 +12,18 @@ import './Contribute.css'
 //todo: add material ui error and success messages for msg
 //todo: fix bug where it displays last message.length before reseting to 0
 
-const Contribute = (({ allArtists, setRefresh }) => {
-    const [searchQ1, setSearchQ1] = useState(false);
-    const [selected, setSelected] = useState(null);
+const Contribute = (({ allArtists, setRefresh, refresh }) => {
+    const [searchQ1, setSearchQ1] = useState("None");
     const [valid, setValid] = useState(false);
     const [msg, setMsg] = useState([]);
     const [loading, setLoading] = useState(false)
 
+    console.log(searchQ1)
+
     useEffect(() => {
-        if (allArtists && searchQ1 !== false) {
+        if (allArtists) {
             for (let obj of allArtists) {
-                if (obj['name'].toLowerCase() === searchQ1.toLowerCase() || searchQ1 === false) {
+                if (obj['name'].toLowerCase() === searchQ1.toLowerCase() || !searchQ1) {
                     setValid(false);
                     break;
                 } else {
@@ -30,13 +31,12 @@ const Contribute = (({ allArtists, setRefresh }) => {
                 }
             }
         }
-    }, [searchQ1, selected]);
+    }, [searchQ1]);
     function attemptSeed() {
         if (!valid) {
             return
         }
         setLoading(true)
-        console.log("attempting seed")
         fetch(`/api/artists/add/${searchQ1}`, {
             method: "POST",
             headers: {
@@ -47,12 +47,10 @@ const Contribute = (({ allArtists, setRefresh }) => {
             res.json().then(data => {
                 setMsg(data.data)
                 setLoading(false)
-                // setRefresh(!refresh)
+                setRefresh(!refresh)
             }
             ))
     }
-
-    console.log('contribute comp rendering', "message:", msg)
 
     return (
         <div>
@@ -62,16 +60,19 @@ const Contribute = (({ allArtists, setRefresh }) => {
                         Enter an Artist that hasn't been added to our database yet.
                         Check to see if artist has been added by typing there name into the drop down.
                         If they appear as a suggestion, the artist has already been added.</span></div>
-                <Search allArtists={allArtists} setSelected={setSelected} setSearchQ={setSearchQ1} type="contribute"
-                />
                 <div className="seed-button">
                     <Button variant="contained" color="success" disabled={valid ? false : true} onClick={attemptSeed}
                         style={{ display: 'block' }}>
                         Seed Artist
                     </Button>
                 </div>
+                <div className='contribute-search'>
+                    <Search allArtists={allArtists} setSearchQ={setSearchQ1} type="POST"
+                    />
+                </div>
+
                 <div >
-                    {!valid && searchQ1 ? (
+                    {!valid && searchQ1 !== "None" && searchQ1 ? (
                         <Alert severity="error">This artist already exists in our database!</Alert>) : (<></>)}
                     {msg.message ? (<Alert severity={msg.type}>
                         {msg.message}
@@ -80,9 +81,7 @@ const Contribute = (({ allArtists, setRefresh }) => {
                 {
                     loading ? <div className="App">
                         Seeding Artist...
-                        {/* <Circles color="#00BFFF" height={60} width={60} /> */}
                         <SWR />
-
                     </div> :
                         <></>
                 }

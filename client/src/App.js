@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Router } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import './App.css'
 import Typography from '@mui/material/Typography';
@@ -6,12 +6,13 @@ import Typography from '@mui/material/Typography';
 // Our own components 
 import Home from "./Home/Home";
 import NavBar from "./NavBar/NavBar";
-import BasicGrid from './GridDemo/GridDemo';
 import Contribute from "./Contribute/Contribute";
 
 function App() {
   const [allArtists, setAllArtists] = useState([]);
-  const [refresh, setRefresh] = useState(false)
+  const [refresh, setRefresh] = useState(false) //value inverts after new artist has been seeded so that
+  //the API call below executes and retrieves artist info to show up in search,
+  // instead of the browser itself refreshing
 
   useEffect(() => {
     fetch("/api/artists/").then( // gets all artist names
@@ -36,9 +37,6 @@ function App() {
           </Route>
           <Route exact path="/contribute">
             <Contribute allArtists={allArtists} setRefresh={setRefresh} refresh={refresh} />
-          </Route>
-          <Route exact path="/grid">
-            <BasicGrid />
           </Route>
         </Typography>
       </BrowserRouter>
