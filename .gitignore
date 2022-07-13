@@ -3,3 +3,4 @@ creds.py
 __pycache__
 client/package-lock.json
 package-lock.json
+config.json
