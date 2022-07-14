@@ -22,7 +22,7 @@ if production:
         'DATABASE_URL', 'postgresql:///lyrics-db')
         # .replace("://", "ql://", 1)
 else:
-    # from creds import api_key
+    from creds import api_key
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///lyrics-db'
 
@@ -43,7 +43,7 @@ genius.excluded_terms = ["(Remix)", "(Live)"]
 genius.skip_non_songs = True
 genius.remove_section_headers = True
 genius.retries = 1
-
+application = app
 completed = []
 failed = []
 
