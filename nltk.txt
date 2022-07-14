@@ -1,4 +1,5 @@
 stopwords
 punkt
 vader_lexicon
+stem
 wordnet
