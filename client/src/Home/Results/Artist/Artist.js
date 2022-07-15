@@ -16,7 +16,6 @@ const findStopPoint = (text, wordLimit) => {
 
 function Artist({ artist, artistSongs, compare, wc }) {
     //STATE
-    // const [wc, setWc] = useState(null)
     const [openBio, setOpenBio] = useState(false);
     const [openLyrics, setOpenLyrics] = useState(false);
     //UTILITY FUNCTIONS

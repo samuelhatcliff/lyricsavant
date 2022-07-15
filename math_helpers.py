@@ -5,7 +5,7 @@ import nltk
 nltk.download('omw-1.4')
 from nltk.corpus import wordnet, stopwords
 from nltk.stem.wordnet import WordNetLemmatizer as wnl
-# wnl.lemmatize('tests', "tests")
+wnl.lemmatize('tests', "tests")
 nltk.download('stopwords')
 nltk_sw_en = stopwords.words('english')
 nltk_sw_es = stopwords.words('spanish')
