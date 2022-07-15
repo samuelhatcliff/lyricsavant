@@ -49,7 +49,7 @@ failed = []
 @app.route("/")
 def index():
     test = Artist.query.all()
-    songs = Song.query.all()
+    # songs = Song.query.all()
     print("########## HEY!")
 
 
