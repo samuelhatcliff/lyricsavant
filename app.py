@@ -48,6 +48,8 @@ failed = []
 
 @app.route("/")
 def index():
+    test = Artist.query.all()
+
     return app.send_static_file('index.html')
 
 """RESTFUL API"""
