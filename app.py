@@ -17,7 +17,7 @@ math = Math()
 production = True
 if production:
     api_key = os.environ.get("API_KEY")
-    app = Flask(__name__, static_folder="/client/build", static_url_path="/")
+    app = Flask(__name__, static_folder="client/build", static_url_path="/")
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
         'DATABASE_URL', 'postgresql:///lyrics-db').replace("://", "ql://", 1)
 else:
@@ -49,8 +49,9 @@ failed = []
 @app.route("/")
 def index():
     test = Artist.query.all()
+    artist = Artist.query.all()[0]
     # songs = Song.query.all()
-    print("########## HEY!")
+    print("@@@@@ HEY!", artist)
 
 
     return app.send_static_file('index.html')
