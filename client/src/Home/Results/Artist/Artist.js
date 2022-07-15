@@ -29,6 +29,7 @@ function Artist({ artist, artistSongs, compare, wc }) {
      ${artistSongs[2]['title']},${artistSongs[3]['title']}, and ${artistSongs[4]['title']}.`
 
 
+    console.log("artist in Artist.js", artist)
     return (
         <div className={compare !== false ? "column" : "single-row-container"}>
 

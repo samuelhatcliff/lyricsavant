@@ -14,6 +14,8 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
     const [artistSongs, setArtistSongs] = useState([])
     const [artistSongs2, setArtistSongs2] = useState([])
 
+    let wcPromise;
+    let wcPromise2;
     useEffect(() => {
         wcPromise = fetch(`/api/artists/${artistId}/wc`).then(
             res => res.json().then(
@@ -33,8 +35,7 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
         }
     }, [artistId, artistId2])
 
-    let wcPromise;
-    let wcPromise2;
+
     useEffect(() => {
         let p2;
         let getSongs2;
@@ -81,6 +82,11 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
             })
         }
     }, [artistId, artistId2, isLoading])
+
+    console.log("artist in results.js", artist)
+    console.log("artist2 in results.js", artist2)
+    console.log("artistid in results.js", artistId)
+    console.log("artistid2 in results.js", artistId2)
 
 
     return (

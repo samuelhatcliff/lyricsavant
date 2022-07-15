@@ -12,6 +12,9 @@ function Home({ allArtists }) {
     const [isLoading, setLoading] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
 
+    console.log("all artists in home", allArtists)
+    console.log("artistId in home", artistId)
+    console.log("artistId2 in home", artistId2)
 
     return (
         <>

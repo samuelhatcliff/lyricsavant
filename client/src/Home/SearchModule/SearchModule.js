@@ -29,9 +29,12 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
             }
             setSubmit(true)
             setLoading(true)
-
         }
     }
+
+    console.log("selected in searchModule", selected)
+    console.log("selected2 in searchModule", selected2)
+
 
     return (
         <div className="search-module-container">
