@@ -49,6 +49,9 @@ failed = []
 @app.route("/")
 def index():
     test = Artist.query.all()
+    songs = Song.query.all()
+    print("########## HEY!")
+
 
     return app.send_static_file('index.html')
 
