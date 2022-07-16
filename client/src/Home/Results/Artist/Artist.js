@@ -25,9 +25,11 @@ function Artist({ artist, artistSongs, compare, wc }) {
     const handleCloseLyrics = () => setOpenLyrics(false);
     const bioStopIndex = findStopPoint(artist.bio, 14)
     //DISPLAY MESSAGES
-    const popularSongs = ` ${artistSongs[0]['title']} ${artistSongs[1]['title']},
+    let popularSongs
+    if (artistSongs.length > 0) {
+        popularSongs = ` ${artistSongs[0]['title']} ${artistSongs[1]['title']},
      ${artistSongs[2]['title']},${artistSongs[3]['title']}, and ${artistSongs[4]['title']}.`
-
+    }
 
     console.log("artist in Artist.js", artist)
     return (

@@ -69,14 +69,14 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
                 }
             )
         } else {
-            Promise.all(p1, wcPromise, getSongs).then(resolved => {
+            Promise.all([p1, getSongs]).then(resolved => {
                 setLoading(false)
                 setIsLoaded(true)
             }
             )
         }
         if (artistId2) {
-            Promise.all([p1, p2, wcPromise, wcPromise2, getSongs, getSongs2]).then(resolved => {
+            Promise.all([p1, p2, wcPromise, wcPromise2]).then(resolved => {
                 setLoading(false)
                 setIsLoaded(true)
             })
