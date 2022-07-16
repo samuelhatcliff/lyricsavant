@@ -13,7 +13,6 @@ function App() {
   const [refresh, setRefresh] = useState(false) //value inverts after new artist has been seeded so that
   //the API call below executes and retrieves artist info to show up in search,
   // instead of the browser itself refreshing
-  console.log("test")
   useEffect(() => {
     fetch("/api/artists/").then( // gets all artist names
       res => res.json()
