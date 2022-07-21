@@ -38,9 +38,9 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
 
     return (
         <div className="search-module-container">
-            <div className='row-container'>
+            <div className='col-container'>
                 {checked ? (
-                    <div>
+                    <div className="two-searches">
                         <Typography variant="subtitle1" component="div" gutterBottom>
                             <span>Selected Artist:
                                 {selected ? (
@@ -64,7 +64,7 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                     </div>
                 )
                     : (
-                        <div>
+                        <div className="one-search">
                             <Typography variant="subtitle1" component="div" gutterBottom>
                                 <span>Selected Artist:
                                     {selected ? (
@@ -78,28 +78,28 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                             </Typography>
                         </div>
                     )}
-                <div>
-                    <Button
-                        disabled={selected ? false : true}
-                        className={selected ? "ready" : "notready"}
-                        variant="contained"
-                        color="success"
-                        onClick={handleOnSearch}
-                        style={{ display: 'block', marginLeft: 10, marginTop: 32 }}>
-                        Get Insights
-                    </Button>
-                </div>
 
+                <label className="prompt" >
+                    <Typography variant="body2" component="div" gutterBottom style={{ display: 'inline', paddingTop: 12 }}>
+                        <Checkbox placeholder="checkbox" onChange={handleChecked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} style={{ display: 'inline', zIndex: -1 }} />
+                        <span>Compare two separate artists?</span>
+                        {/* <Checkbox placeholder="checkbox" onChange={handleChecked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} style={{ display: 'inline', zIndex: -1 }} />
+                    <span>Clear</span> */}
+                    </Typography>
+                </label>
 
             </div>
-            <label  >
-                <Typography variant="body2" component="div" gutterBottom style={{ display: 'inline', paddingRight: 220, paddingTop: 12 }}>
-                    <Checkbox placeholder="checkbox" onChange={handleChecked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} style={{ display: 'inline', zIndex: -1 }} />
-                    <span>Compare two separate artists?</span>
-                    {/* <Checkbox placeholder="checkbox" onChange={handleChecked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} style={{ display: 'inline', zIndex: -1 }} />
-                    <span>Clear</span> */}
-                </Typography>
-            </label>
+            <div className="button-container">
+                <Button
+                    disabled={selected ? false : true}
+                    className={selected ? "ready" : "notready"}
+                    variant="contained"
+                    color="success"
+                    onClick={handleOnSearch}
+                    style={{ display: 'block', marginLeft: 10, marginTop: 32 }}>
+                    Get Insights
+                </Button>
+            </div>
 
 
         </div>

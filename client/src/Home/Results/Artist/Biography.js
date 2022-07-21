@@ -45,7 +45,7 @@ const Biography = ({ artist, open, handleClose }) => {
                             marginTop: 1
                         }}
                     />
-                    <div className='full-bio-title'>{artist.name} Full Biography:</div>
+                    <div className='full-bio-title'>{artist.name}'s Full Biography:</div>
                 </Stack>
                 <hr></hr>
                 <div className="bio-text">

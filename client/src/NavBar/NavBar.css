@@ -15,12 +15,14 @@ nav a.active {
 .navigation {
     display:flex;
     justify-content: space-evenly;
-    align-items:center;
     background-color:#FEFEFE;
-    position: fixed;
 }
 
 nav{
-    /* background-color:#FEFEFE; */
     margin-bottom: 5rem;
 }
+@media screen and (max-width: 820px) {
+nav {
+    margin-bottom: 3.5rem;
+}
+  }

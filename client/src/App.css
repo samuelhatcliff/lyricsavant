@@ -5,6 +5,11 @@ hr {
     color:black;
     margin-bottom: 0;
   }
+  /* html {
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+    } */
 
 /* SEARCH MODULE */
 .button{

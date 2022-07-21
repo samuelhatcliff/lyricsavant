@@ -98,25 +98,29 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
                     (<></>)}
             </div>
             {!isLoading ? (
-                <div className="center" style={{ height: '60%', width: '100%' }}>
+                <div style={{
+                    // height: '100%', width: '100%'
+                }}>
                     {!artist2 ? (
-                        <div
-                            className="single-row-container"
-                        >
+                        <div className="flex-container">
                             <Artist
                                 artist={artist}
                                 artistSongs={artistSongs}
                                 wc={wc}
                                 compare={false}
                             />
-                        </div>) : (
+                        </div>
+                    ) : (
                         <></>
                     )}
                     {artist2 ? (
-                        <div className="container">
-                            <Artist artist={artist} artistSongs={artistSongs} compare={true} wc={wc} />
-                            <Compare artist1={artist} artist2={artist2} compare={true} />
-                            <Artist artist={artist2} artistSongs={artistSongs2} compare={true} wc={wc2} />
+                        <div className="results">
+                            <div className="container">
+                                <Artist artist={artist} artistSongs={artistSongs} compare={true} wc={wc} />
+                                <Compare artist1={artist} artist2={artist2} compare={true} />
+                                <Artist artist={artist2} artistSongs={artistSongs2} compare={true} wc={wc2} />
+
+                            </div>
                         </div>
                     ) : (
                         <></>)}

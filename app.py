@@ -14,7 +14,7 @@ from db_maintenance import check_songs, delete_artists
 pd = Python_Data_Visuals()
 math = Math()
 
-production = True
+production = False
 if production:
     api_key = os.environ.get("API_KEY")
     app = Flask(__name__, static_folder="client/build", static_url_path="/")

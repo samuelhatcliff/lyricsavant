@@ -31,37 +31,40 @@ function Artist({ artist, artistSongs, compare, wc }) {
      ${artistSongs[2]['title']},${artistSongs[3]['title']}, and ${artistSongs[4]['title']}.`
     }
 
-    console.log("artist in Artist.js", artist)
     return (
         <div className={compare !== false ? "column" : "single-row-container"}>
 
             {/* ITEM 1 */}
             <div className={compare === false ? "rounded-item1" : "item"}>
-                <Stack
-                    direction="row"
-                    spacing={2}
-                >
-                    <Avatar alt={artist.name}
-                        src={artist.image}
-                        sx={{ width: 60, height: 60, marginTop: .5, marginLeft: 1 }} />
-                    <div className="artist-header">
-                        <div>
-                            <b>Artist: {artist.name}</b>
+                <div className='header'>
+                    <Stack
+                        direction="row"
+                        spacing={2}
+                    >
+                        <Avatar alt={artist.name}
+                            src={artist.image}
+                            sx={{ width: 60, height: 60, marginTop: .5, marginLeft: 1 }} />
+                        <div className="artist-header">
+                            <div>
+                                <b>Artist: {artist.name}</b>
+                            </div>
                         </div>
-                    </div>
-                </Stack>
+                    </Stack>
+                </div>
                 <hr></hr>
-                <span className="bio-text">Bio: {artist.bio.slice(0, bioStopIndex)}
-                    {<a className="openModal" onClick={handleOpenBio}>...more</a>}
-                </span>
-                <p>Popular song lyrics include
-                    {popularSongs} {<a
-                        className="openModal"
-                        onClick={handleOpenLyrics}>
-                        See all lyrics.
-                    </a>}
-                </p>
-                <span className="num-unique-words">{artist.name} uses {artist.vocab_score} unique words.</span>
+                <div className='artist-info'>
+                    <span className="bio-text">Bio: {artist.bio.slice(0, bioStopIndex)}
+                        {<a className="openModal" onClick={handleOpenBio}>...Open full bio.</a>}
+                    </span>
+                    <p>Popular song lyrics include
+                        {popularSongs} {<a
+                            className="openModal"
+                            onClick={handleOpenLyrics}>
+                            See all lyrics.
+                        </a>}
+                    </p>
+                    <span className="num-unique-words">{artist.name} uses {artist.vocab_score} unique words.</span>
+                </div>
             </div>
 
             {/* ITEM 2 */}
