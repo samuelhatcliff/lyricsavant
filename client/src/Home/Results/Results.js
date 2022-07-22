@@ -7,6 +7,8 @@ import { Circles } from 'react-loader-spinner';
 import './Results.css';
 
 const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLoaded }) => {
+    //because artist state carries over from previous searches, we use the 'checked' state as a simple boolean to determine 
+    //whether information for a second artist needs to be retrieved
     const [artist, setArtist] = useState(null)
     const [artist2, setArtist2] = useState(null)
     const [wc, setWc] = useState(null)
@@ -14,6 +16,10 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
     const [artistSongs, setArtistSongs] = useState([])
     const [artistSongs2, setArtistSongs2] = useState([])
 
+
+
+    console.log('artistId', artistId, 'artistId2', artistId2)
+    console.log(artist2, 'artist2')
     let wcPromise;
     let wcPromise2;
     useEffect(() => {
@@ -37,6 +43,7 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
 
 
     useEffect(() => {
+        console.log("REQ USE EFFECT", artistId2)
         let p2;
         let getSongs2;
         const p1 = fetch(`/api/artists/${artistId}`).then( // gets data for 1st artist
@@ -69,9 +76,10 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
                 }
             )
         } else {
-            Promise.all([p1, getSongs]).then(resolved => {
+            Promise.all([p1, getSongs, wcPromise]).then(resolved => {
                 setLoading(false)
                 setIsLoaded(true)
+                setArtist2(null)
             }
             )
         }
@@ -81,13 +89,7 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
                 setIsLoaded(true)
             })
         }
-    }, [artistId, artistId2, isLoading])
-
-    console.log("artist in results.js", artist)
-    console.log("artist2 in results.js", artist2)
-    console.log("artistid in results.js", artistId)
-    console.log("artistid2 in results.js", artistId2)
-
+    }, [artistId2, artistId, isLoading])
 
     return (
         < >

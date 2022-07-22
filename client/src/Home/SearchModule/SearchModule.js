@@ -9,10 +9,9 @@ import ClearButton from "./ClearButton";
 import './SearchModule.css'
 
 const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArtists }) => {
-    const [checked, setChecked] = useState(false);
     const [selected, setSelected] = useState(null)
     const [selected2, setSelected2] = useState(null)
-
+    const [checked, setChecked] = useState(false);
     const handleChecked = () => {
         setChecked(!checked);
     };
@@ -26,15 +25,15 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
             setArtistId(selected["id"])
             if (selected2) {
                 setArtistId2(selected2["id"])
+            } else {
+                setArtistId2(null)
             }
             setSubmit(true)
             setLoading(true)
         }
     }
-
-    console.log("selected in searchModule", selected)
-    console.log("selected2 in searchModule", selected2)
-
+    console.log('checked?', checked)
+    console.log('selected2:', selected2)
 
     return (
         <div className="search-module-container">

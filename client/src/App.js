@@ -26,7 +26,6 @@ function App() {
     )
   }, [refresh]);
 
-  console.log("all artists in app.js", allArtists)
   return (
     <main >
       <BrowserRouter>
