@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Search from "../Home/SearchModule/Search";
 import SWR from "./SWR/SWR"
 import Button from '@mui/material/Button';
@@ -9,21 +9,17 @@ import { Circles } from 'react-loader-spinner';
 import './Contribute.css'
 
 
-//todo: add material ui error and success messages for msg
 //todo: fix bug where it displays last message.length before reseting to 0
 
 const Contribute = (({ allArtists, setRefresh, refresh }) => {
-    const [searchQ1, setSearchQ1] = useState("None");
+    const [searchQ1, setSearchQ1] = useState("");
     const [valid, setValid] = useState(false);
     const [msg, setMsg] = useState([]);
     const [loading, setLoading] = useState(false)
-
-    console.log(searchQ1)
-
     useEffect(() => {
         if (allArtists) {
-            for (let obj of allArtists) {
-                if (obj['name'].toLowerCase() === searchQ1.toLowerCase() || !searchQ1) {
+            for (let artist of allArtists) {
+                if (artist['name'].toLowerCase() === searchQ1.toLowerCase() || !searchQ1) {
                     setValid(false);
                     break;
                 } else {
@@ -32,6 +28,7 @@ const Contribute = (({ allArtists, setRefresh, refresh }) => {
             }
         }
     }, [searchQ1]);
+
     function attemptSeed() {
         if (!valid) {
             return
@@ -51,7 +48,6 @@ const Contribute = (({ allArtists, setRefresh, refresh }) => {
             }
             ))
     }
-
     return (
         <div>
             <Typography className="contribute-container" variant="body2" component="div" gutterBottom>

@@ -451,8 +451,6 @@ class Genius(API, PublicAPI):
             print('Done.')
         return song
 
-    def test(self):
-        print("testing1")
 
     def search_artist(self, artist_name, max_songs=None,
                       sort='popularity', per_page=20,
@@ -503,6 +501,8 @@ class Genius(API, PublicAPI):
             ‍None‍‍ if there were not results
 
             """
+            Message.query.delete()
+            db.session.commit()
             if self.verbose:
                 print('Searching for songs by {0}...\n'.format(search_term))
             # Perform a Genius API search for the artist
@@ -597,7 +597,8 @@ class Genius(API, PublicAPI):
             page = songs_on_page['next_page']
             if page is None:
                 break  # Exit search when last page is reached
-
+        Message.query.delete()
+        db.session.commit()
         if self.verbose:
             print('Done. Found {n} songs.'.format(n=artist.num_songs))
         return artist

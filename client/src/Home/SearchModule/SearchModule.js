@@ -83,8 +83,6 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                     <Typography variant="body2" component="div" gutterBottom style={{ display: 'inline', paddingTop: 12 }}>
                         <Checkbox placeholder="checkbox" onChange={handleChecked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} style={{ display: 'inline', zIndex: -1 }} />
                         <span>Compare two separate artists?</span>
-                        {/* <Checkbox placeholder="checkbox" onChange={handleChecked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} style={{ display: 'inline', zIndex: -1 }} />
-                    <span>Clear</span> */}
                     </Typography>
                 </label>
 
