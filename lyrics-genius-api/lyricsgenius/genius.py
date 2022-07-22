@@ -597,8 +597,6 @@ class Genius(API, PublicAPI):
             page = songs_on_page['next_page']
             if page is None:
                 break  # Exit search when last page is reached
-        Message.query.delete()
-        db.session.commit()
         if self.verbose:
             print('Done. Found {n} songs.'.format(n=artist.num_songs))
         return artist

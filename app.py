@@ -93,6 +93,8 @@ def get_py_wc(id):
 @app.route("/api/artists/add/<name>", methods = ["POST"])
 def post_artist(name):
     """Attempt to add a new Artist to our database"""
+    Message.query.delete() #clears progress state
+    db.session.commit()
     msg = {"message": "Could not find artist on lyrics genius. Please check or revise your spelling.",
     "type":"error"}
     print("Post Route Hit")

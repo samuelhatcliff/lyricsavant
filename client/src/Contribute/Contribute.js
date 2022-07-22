@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Search from "../Home/SearchModule/Search";
 import SWR from "./SWR/SWR"
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
-
-import { Circles } from 'react-loader-spinner';
 import './Contribute.css'
 
 

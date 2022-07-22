@@ -12,7 +12,7 @@ const fetcher = async () => {
 
 function SWR() {
 
-    const { data, error, isValidating } = useSWR('http://localhost:5000', fetcher, { refreshInterval: 1000 })
+    const { data } = useSWR('http://localhost:5000', fetcher, { refreshInterval: 1000 })
 
     let index = 0;
     let percentage;

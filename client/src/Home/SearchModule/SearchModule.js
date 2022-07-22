@@ -5,7 +5,6 @@ import Search from "./Search";
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
-import ClearButton from "./ClearButton";
 import './SearchModule.css'
 
 const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArtists }) => {
