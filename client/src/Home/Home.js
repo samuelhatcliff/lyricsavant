@@ -19,7 +19,6 @@ function Home({ allArtists }) {
                 setArtistId={setArtistId}
                 setArtistId2={setArtistId2}
                 submit={submit}
-
             />
             {submit ? (
                 <Results artistId={artistId}
