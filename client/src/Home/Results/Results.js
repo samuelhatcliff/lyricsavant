@@ -71,12 +71,12 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
             )
             Promise.all([artistPromise, artistPromise2, songsPromise, songsPromise2, wcPromise, wcPromise2]).then(() => {
                 setLoading(false)
-                setIsLoaded(true)
+                // setIsLoaded(true)
             })
         } else {
             Promise.all([artistPromise, songsPromise, wcPromise]).then(() => {
                 setLoading(false)
-                setIsLoaded(true)
+                // setIsLoaded(true)
                 setArtist2(null)
             }
             )
@@ -86,12 +86,6 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
 
     return (
         < >
-            <div>
-                {!isLoaded && isLoading ? (<hr></hr>
-                )
-                    :
-                    (<></>)}
-            </div>
             {!isLoading ? (
                 <div>
                     {!artist2 ? (

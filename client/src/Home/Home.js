@@ -10,7 +10,6 @@ function Home({ allArtists }) {
     const [artistId2, setArtistId2] = useState(null)
     const [submit, setSubmit] = useState(false);
     const [isLoading, setLoading] = useState(false);
-    const [isLoaded, setIsLoaded] = useState(false);
 
     return (
         <>
@@ -20,8 +19,6 @@ function Home({ allArtists }) {
                 setArtistId={setArtistId}
                 setArtistId2={setArtistId2}
                 submit={submit}
-                isLoaded={isLoaded}
-                setIsLoaded={setIsLoaded}
 
             />
             {submit ? (
@@ -29,16 +26,12 @@ function Home({ allArtists }) {
                     artistId2={artistId2}
                     setLoading={setLoading}
                     isLoading={isLoading}
-                    setIsLoaded={setIsLoaded}
-                    isLoaded={isLoaded}
-
                 />
             ) : (
                 <></>
             )}
             {!submit ? (
                 <div>
-                    <hr></hr>
                     <Explanation />
                 </div>) : <></>}
         </>
