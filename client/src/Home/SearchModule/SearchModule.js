@@ -32,8 +32,6 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
             setLoading(true)
         }
     }
-    console.log('checked?', checked)
-    console.log('selected2:', selected2)
 
     return (
         <div className="search-module-container">

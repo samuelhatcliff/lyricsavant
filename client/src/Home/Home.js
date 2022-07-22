@@ -12,8 +12,6 @@ function Home({ allArtists }) {
     const [isLoading, setLoading] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
 
-
-    console.log("artist id 1", artistId, "Artist 2 id:", artistId2)
     return (
         <>
             <SearchModule setSubmit={setSubmit}
@@ -38,7 +36,6 @@ function Home({ allArtists }) {
             ) : (
                 <></>
             )}
-
             {!submit ? (
                 <div>
                     <hr></hr>
