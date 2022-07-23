@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 //Our Components
-import Search from "./Search";
+import Search from "../../Utility/Search/Search.js";
 //MUI Components
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';

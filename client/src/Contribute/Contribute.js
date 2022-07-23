@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Search from "../Home/SearchModule/Search";
+import Search from "../Utility/Search/Search.js";
 import SWR from "./SWR/SWR"
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';

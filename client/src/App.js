@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 // Our own components 
 import Home from "./Home/Home";
 import NavBar from "./NavBar/NavBar";
-import Contribute from "./Contribute/Contribute";
+import Contribute from "./Contribute/Contribute.js";
 
 function App() {
   const [allArtists, setAllArtists] = useState([]);
