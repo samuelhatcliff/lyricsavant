@@ -27,19 +27,17 @@ function App() {
   }, [refresh]);
 
   return (
-    <main >
-      <BrowserRouter>
-        <Typography variant="body2" component="div" gutterBottom>
-          <NavBar />
-          <Route exact path="/">
-            <Home allArtists={allArtists} />
-          </Route>
-          <Route exact path="/contribute">
-            <Contribute allArtists={allArtists} setRefresh={setRefresh} refresh={refresh} />
-          </Route>
-        </Typography>
-      </BrowserRouter>
-    </main>
+    <BrowserRouter>
+      <Typography variant="body2" component="div" gutterBottom>
+        <NavBar />
+        <Route exact path="/">
+          <Home allArtists={allArtists} />
+        </Route>
+        <Route exact path="/contribute">
+          <Contribute allArtists={allArtists} setRefresh={setRefresh} refresh={refresh} />
+        </Route>
+      </Typography>
+    </BrowserRouter>
   );
 }
 

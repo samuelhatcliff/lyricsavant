@@ -3,14 +3,15 @@ import React, { useState } from 'react';
 import Search from "../../Utility/Search/Search.js";
 //MUI Components
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
+import InsightButton from './Buttons/InsightButton.js'
 import './SearchModule.css'
 
 const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArtists }) => {
     const [selected, setSelected] = useState(null)
     const [selected2, setSelected2] = useState(null)
     const [checked, setChecked] = useState(false);
+    console.log(selected)
     const handleChecked = () => {
         setChecked(!checked);
     };
@@ -81,21 +82,8 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                         <span>Compare two separate artists?</span>
                     </Typography>
                 </label>
-
             </div>
-            <div className="button-container">
-                <Button
-                    disabled={selected ? false : true}
-                    className={selected ? "ready" : "notready"}
-                    variant="contained"
-                    color="success"
-                    onClick={handleOnSearch}
-                    style={{ display: 'block', marginLeft: 10, marginTop: 32 }}>
-                    Get Insights
-                </Button>
-            </div>
-
-
+            <InsightButton selected={selected} handleOnSearch={() => handleOnSearch()}></InsightButton>
         </div>
     )
 }
