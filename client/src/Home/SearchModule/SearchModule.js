@@ -11,12 +11,11 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
     const [selected, setSelected] = useState(null)
     const [selected2, setSelected2] = useState(null)
     const [checked, setChecked] = useState(false);
-    console.log(selected)
     const handleChecked = () => {
         setChecked(!checked);
     };
 
-    if (!checked && selected2) {
+    if (!checked && selected2) { //acounts for edge-case of user unchecking prompt after selecting a 2nd artist
         setSelected2(null)
     }
 
@@ -36,18 +35,22 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
     return (
         <div className="search-module-container">
             <div className='col-container'>
+                <div className="search">
+                    <Typography variant="subtitle1" component="div" gutterBottom>
+                        <span>Selected Artist:
+                            {selected ? (
+                                <span className="selected">
+                                    {selected["name"]}
+                                </span>
+                            ) : (<></>)}
+                        </span>
+                        <Search allArtists={allArtists}
+                            setSelected={setSelected} />
+                    </Typography>
+                </div>
                 {checked ? (
-                    <div className="two-searches">
+                    <div className="search">
                         <Typography variant="subtitle1" component="div" gutterBottom>
-                            <span>Selected Artist:
-                                {selected ? (
-                                    <span className="selected">
-                                        {selected["name"]}
-                                    </span>
-                                ) : (<></>)}
-                            </span>
-                            <Search allArtists={allArtists}
-                                setSelected={setSelected} />
                             <span>Selected Artist:
                                 {selected2 ? (
                                     <span className="selected">{selected2["name"]}</span>
@@ -61,21 +64,8 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                     </div>
                 )
                     : (
-                        <div className="one-search">
-                            <Typography variant="subtitle1" component="div" gutterBottom>
-                                <span>Selected Artist:
-                                    {selected ? (
-                                        <span className="selected">
-                                            {selected["name"]}
-                                        </span>
-                                    ) : (<></>)}
-                                </span>
-                                <Search allArtists={allArtists}
-                                    setSelected={setSelected} />
-                            </Typography>
-                        </div>
+                        <></>
                     )}
-
                 <label className="prompt" >
                     <Typography variant="body2" component="div" gutterBottom style={{ display: 'inline', paddingTop: 12 }}>
                         <Checkbox placeholder="checkbox" onChange={handleChecked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} style={{ display: 'inline', zIndex: -1 }} />
@@ -84,7 +74,7 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                 </label>
             </div>
             <InsightButton selected={selected} handleOnSearch={() => handleOnSearch()}></InsightButton>
-        </div>
+        </div >
     )
 }
 

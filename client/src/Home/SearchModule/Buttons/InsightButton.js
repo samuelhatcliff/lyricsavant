@@ -2,7 +2,6 @@ import Button from '@mui/material/Button';
 import './InsightButton.css'
 
 const InsightButton = ({ selected, handleOnSearch }) => {
-    console.log(selected, "selected in button", handleOnSearch)
     return (
         <div className='button-container'>
             <Button

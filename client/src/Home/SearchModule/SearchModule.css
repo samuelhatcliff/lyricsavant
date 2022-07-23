@@ -23,16 +23,13 @@
         align-items:center;
 
     }
-    .one-search {
-        order:1;
-    }
-    .two-searches {
+    .search {
         order:1;
     }
   }
 
 
-  .prompt {
+.prompt {
       order:3;
       margin-right: 27.5%;
   }
