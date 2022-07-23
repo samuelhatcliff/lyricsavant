@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-//Our Components
 import Artist from "./Artist/Artist";
 import Compare from "./Compare/Compare";
-//Styling Components
 import { Circles } from 'react-loader-spinner';
 import './Results.css';
 
-const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLoaded }) => {
+const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
     const [artist, setArtist] = useState(null)
     const [artist2, setArtist2] = useState(null)
     const [wcRes, setWcRes] = useState(null)
@@ -71,12 +69,10 @@ const Results = ({ artistId, artistId2, setLoading, isLoading, setIsLoaded, isLo
             )
             Promise.all([artistPromise, artistPromise2, songsPromise, songsPromise2, wcPromise, wcPromise2]).then(() => {
                 setLoading(false)
-                // setIsLoaded(true)
             })
         } else {
             Promise.all([artistPromise, songsPromise, wcPromise]).then(() => {
                 setLoading(false)
-                // setIsLoaded(true)
                 setArtist2(null)
             }
             )

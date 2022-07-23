@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-import Search from "../../Utility/Search/Search.js";
-//MUI Components
-import Typography from '@mui/material/Typography';
-import Checkbox from '@mui/material/Checkbox';
-//Our Components
 import InsightButton from './Buttons/InsightButton.js'
-import SearchUnit from './SearchUnits/SearchUnit.js';
+import SearchUnit from './SearchUnit/SearchUnit.js';
+import Prompt from './Prompt/Prompt.js'
 import './SearchModule.css'
 
 const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArtists }) => {
@@ -16,9 +12,7 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
         setChecked(!checked);
     };
 
-    if (!checked && selected2) { //acounts for edge-case of user unchecking prompt after selecting a 2nd artist
-        setSelected2(null)
-    }
+    if (!checked && selected2) setSelected2(null) //acounts for edge-case of user unchecking prompt after selecting a 2nd artist
 
     const handleOnSearch = () => {
         if (selected) {
@@ -43,12 +37,7 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
                     : (
                         <></>
                     )}
-                <label className="prompt" >
-                    <Typography variant="body2" component="div" gutterBottom style={{ display: 'inline', paddingTop: 12 }}>
-                        <Checkbox placeholder="checkbox" onChange={handleChecked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} style={{ display: 'inline', zIndex: -1 }} />
-                        <span>Compare two separate artists?</span>
-                    </Typography>
-                </label>
+                <Prompt handleChecked={() => handleChecked()}></Prompt>
             </div>
             <InsightButton selected={selected} handleOnSearch={() => handleOnSearch()}></InsightButton>
         </div >

@@ -22,7 +22,6 @@ const style = {
     padding: 0
 }
 
-
 const Lyrics = ({ songs, openLyrics, handleCloseLyrics }) => {
     function fix(song) {
         const nameLength = song.title.length
@@ -35,7 +34,7 @@ const Lyrics = ({ songs, openLyrics, handleCloseLyrics }) => {
         if (lastChars === "Embed") {
             const beforeEmbed = song.lyrics.slice(-20, song.lyrics.length)
             console.log('before embed', beforeEmbed, song.title)
-            // TODO: Solve Embed mystery. Look at nickelback's satellite. Embed shows up in string by not in html text. similar to \n?
+            // TODO: Solve Embed mystery. Look at nickelback's satellite. Embed shows up in string but not in html text. similar to \n?
             const choppedLyrics = song.lyrics.slice(0, song.lyrics.length - 5)
             song.lyrics = choppedLyrics
         }
@@ -90,7 +89,6 @@ const Lyrics = ({ songs, openLyrics, handleCloseLyrics }) => {
                 </Accordion>
             </div>)
     });
-
 
     return (
         <Modal

@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
-//Our Components
+import React from 'react';
 import Search from "../../../Utility/Search/Search.js";
-//MUI Components
 import Typography from '@mui/material/Typography';
 
 const SearchUnit = ({ selected, setSelected, secondarySearch, allArtists }) => {
-
     return (
         <div className="search">
             <Typography variant="subtitle1" component="div" gutterBottom>

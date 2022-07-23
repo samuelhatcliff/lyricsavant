@@ -2,7 +2,7 @@ import PieChart from './Charts/PieChart';
 import Biography from './Biography'
 import Lyrics from './Lyrics';
 import Avatar from '@mui/material/Avatar';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Stack from '@mui/material/Stack';
 import './Artist.css'
 

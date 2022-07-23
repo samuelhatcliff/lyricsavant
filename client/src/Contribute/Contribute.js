@@ -6,9 +6,6 @@ import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 import './Contribute.css'
 
-
-//todo: fix bug where it displays last message.length before reseting to 0
-
 const Contribute = (({ allArtists, setRefresh, refresh }) => {
     const [searchQ1, setSearchQ1] = useState("");
     const [valid, setValid] = useState(false);
@@ -64,7 +61,6 @@ const Contribute = (({ allArtists, setRefresh, refresh }) => {
                     <Search allArtists={allArtists} setSearchQ={setSearchQ1} type="POST"
                     />
                 </div>
-
                 <div >
                     {!valid && searchQ1 !== "None" && searchQ1 ? (
                         <Alert severity="error">This artist already exists in our database!</Alert>) : (<></>)}

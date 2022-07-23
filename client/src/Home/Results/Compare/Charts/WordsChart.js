@@ -4,7 +4,6 @@ import { Chart as ChartJS } from 'chart.js/auto';
 import { Chart } from 'react-chartjs-2';
 
 const WordsChart = ({ artist1, artist2 }) => {
-    // UNIQUE WORDS
     function insightMsg() {
         let winner;
         let loser;

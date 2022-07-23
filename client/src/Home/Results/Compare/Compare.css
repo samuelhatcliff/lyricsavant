@@ -5,7 +5,6 @@
         height:100%;
         width:100%;
     }
-
     .vs-text {
         display:flex;
         flex-direction: column;
@@ -14,18 +13,12 @@
             flex-basis: 33%; 
             font-weight: bold;
             margin: auto;
-            /* margin-bottom: 10px;
-            margin-top:15px; */
             font-size:18px;
         }
-
     .text {
             font-weight: bold;
             margin-right:2px;
         }
-
-
-
     .artist1 {
         flex-basis:33%;
         display:flex;
