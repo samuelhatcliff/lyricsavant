@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-//Our Components
 import Search from "../../Utility/Search/Search.js";
 //MUI Components
 import Typography from '@mui/material/Typography';
 import Checkbox from '@mui/material/Checkbox';
+//Our Components
 import InsightButton from './Buttons/InsightButton.js'
+import SearchUnit from './SearchUnits/SearchUnit.js';
 import './SearchModule.css'
 
 const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArtists }) => {
@@ -35,33 +36,9 @@ const SearchModule = ({ setSubmit, setLoading, setArtistId, setArtistId2, allArt
     return (
         <div className="search-module-container">
             <div className='col-container'>
-                <div className="search">
-                    <Typography variant="subtitle1" component="div" gutterBottom>
-                        <span>Selected Artist:
-                            {selected ? (
-                                <span className="selected">
-                                    {selected["name"]}
-                                </span>
-                            ) : (<></>)}
-                        </span>
-                        <Search allArtists={allArtists}
-                            setSelected={setSelected} />
-                    </Typography>
-                </div>
+                <SearchUnit allArtists={allArtists} selected={selected} setSelected={setSelected} secondarySearch={false}></SearchUnit>
                 {checked ? (
-                    <div className="search">
-                        <Typography variant="subtitle1" component="div" gutterBottom>
-                            <span>Selected Artist:
-                                {selected2 ? (
-                                    <span className="selected">{selected2["name"]}</span>
-                                ) : (<></>)}
-                            </span>
-                            <Search allArtists={allArtists}
-                                placeholder="search2"
-                                secondarySearch={true}
-                                setSelected={setSelected2} />
-                        </Typography>
-                    </div>
+                    <SearchUnit allArtists={allArtists} selected={selected2} setSelected={setSelected2} secondarySearch={true}></SearchUnit>
                 )
                     : (
                         <></>
