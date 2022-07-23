@@ -68,13 +68,11 @@ const Contribute = (({ allArtists, setRefresh, refresh }) => {
                         {msg.message}
                     </Alert>) : (<></>)}
                 </div>
-                {
-                    loading ? <div className="App">
-                        Seeding Artist...
-                        <SWR />
-                    </div> :
-                        <></>
-                }
+                {loading ? <div className="App">
+                    Seeding Artist...
+                    <SWR />
+                </div> :
+                    <></>}
             </Typography >
         </div >
     )

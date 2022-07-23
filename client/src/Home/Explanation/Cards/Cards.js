@@ -1,8 +1,6 @@
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 
-
-
 const Card = ({ heading, paragraph }) => {
     return (
         <Grid item xs={12} sm={4}>
@@ -18,7 +16,6 @@ const Card = ({ heading, paragraph }) => {
                 <p style={{ textAlign: 'center', padding: 10, margin: 3 }}>{paragraph}</p>
             </Paper>
         </Grid>
-
     )
 }
 
