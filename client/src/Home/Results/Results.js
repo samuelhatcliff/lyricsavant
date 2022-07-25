@@ -12,7 +12,7 @@ const Results = ({ artistId, artistId2, setLoading, isLoading }) => {
     const [artistSongs, setArtistSongs] = useState([])
     const [artistSongs2, setArtistSongs2] = useState([])
 
-    //wordcloud promises are initialized outside of the useEffect block where they are defined 
+    //wordcloud promises are declared outside of the useEffect block where they are defined 
     //so that we can include them in Promise.all()
     let wcPromise;
     let wcPromise2;
