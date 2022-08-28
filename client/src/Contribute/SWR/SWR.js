@@ -6,8 +6,6 @@ const fetcher = async () => {
     return await axios.get(`/api/seed/status`);
 };
 
-console.log('test')
-
 function SWR() {
     const { data } = useSWR('http://localhost:5000', fetcher, { refreshInterval: 1000 })
     let index = 0;

@@ -22,6 +22,15 @@ def serialize_artist_names(artist):
     }
     return serialized
 
+def serialize_lyric(song):
+    serialize = {
+        "title": song.title,
+        "id": song.id,
+        "artist": song.artist,
+        "lyrics": song.lyrics
+    }
+    return serialize
+
 
 def serialize_song(song):
     """Serialize a song SQLAlchemy obj to dictionary"""

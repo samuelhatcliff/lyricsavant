@@ -1,12 +1,12 @@
 """General Imports"""
 import os
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, session
 from lyricsgenius import Genius
 from lyrics_api import download_artist
 
 """Imports from our own costum modules"""
 from models import connect_db, db, Song, Artist, Artist_Incomplete, Message
-from api import serialize_artist_data, serialize_artist_names, serialize_song
+from api import serialize_artist_data, serialize_artist_names, serialize_song, serialize_lyric
 from math_helpers import Math
 from python_data_visuals import Python_Data_Visuals
 from lyrics_api import download_artist
@@ -24,9 +24,6 @@ else:
     from creds import api_key
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///lyrics-db'
-
-
-
 
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -51,17 +48,17 @@ def index():
     test = Artist.query.all()
     artist = Artist.query.all()[0]
     # songs = Song.query.all()
-    print("@@@@@ HEY!", artist)
 
 
     return app.send_static_file('index.html')
 
 """RESTFUL API"""
 
+"""Artist Endpoint"""
+
 @app.route("/api/artists/")
 def get_all_artists():
     """Return JSON for all artists in database"""
-    print("route hit")
     artists = Artist.query.all()
     dix = [(a.__dict__) for a in artists]
     serialized = [serialize_artist_names(a) for a in dix]
@@ -90,7 +87,7 @@ def get_py_wc(id):
     return jsonify(data = wc_img)
 
 
-@app.route("/api/artists/add/<name>", methods = ["POST"])
+@app.route("/api/artists/<name>", methods = ["POST"])
 def post_artist(name):
     """Attempt to add a new Artist to our database"""
     Message.query.delete() #clears progress state
@@ -113,43 +110,49 @@ def post_artist(name):
 def get_progress():
     messages = Message.query.all()
     messages = [message.msg for message in messages]
-    print(messages, "MESSAGES")
     return jsonify(data = messages)
 
-
-@app.route("/api/artists/<int:id>/songs")
-def get_songs_by_artist(id):
+@app.route("/api/artists/<int:id>/songs", methods = ["GET"])
+def get_all_songs_by_artist(id):
     artist = Artist.query.get(id)
     serialized = [serialize_song(song) for song in artist.songs]
     return jsonify(songs=serialized)
 
-@app.route("/api/artists/<int:artist_id>/<int:song_id>")
+@app.route("/api/artists/<int:artist_id>/<int:song_id>", methods = ["GET"])
 def get_song_by_artist(artist_id, song_id):
-    artist = Artist.query.get(artist_id)
+    artist = Artist.query.get(artist_id) #add error handling for if song doesn't exist in artist
     song = Song.query.get(song_id)
     serialized = serialize_song(song)
     return jsonify(songs=serialized)
 
-@app.route("/api/artists/<int:artist_id>/<int:song_id>/lyrics")
+@app.route("/api/artists/<int:artist_id>/<int:song_id>/lyrics", methods = ["GET"])
 def get_lyric_by_artist(artist_id, song_id):
-    artist = Artist.query.get(artist_id)
+    artist = Artist.query.get(artist_id) #add error handling for if song doesn't exist in artist
     song = Song.query.get(song_id)
-    return song.lyrics
+    return jsonify(lyrics=song.lyrics)
+
+@app.route("/api/artists/<int:artist_id>/lyrics", methods = ["GET"])
+def get_all_lyrics_by_artist(artist_id):
+    artist = Artist.query.get(artist_id)
+    serialized = [serialize_lyric(song) for song in artist.songs]
+    return jsonify(lyrics=serialized)
 
 
+"""Songs Endpoint"""
+@app.route("/api/songs",  methods = ["GET"]) #add pagination
+def get_all_songs(id):
+    songs = Song.query.all()
+    serialized = [serialize_song(song) for song in songs]
+    return jsonify(songs=serialized)
 
-# @app.route("/api/artists/", methods=["POST"])
-# def add_artist():
-#     name = request.json["name"]
-#     quantity = request.json["quantity"]
-#     our_artist = download_artist(name, quantity)
-#     response = jsonify(serialize_artist_data(our_artist))
-#     return (response, 201)
+@app.route("/api/songs/<int:song_id>",  methods = ["GET"])
+def get_song_by_id(song_id):
+    song = Song.query.get(song_id)
+    serialized = serialize_song(song)
+    return jsonify(song=serialized)
 
-
-
-#https://lyricsgenius.readthedocs.io/en/master/reference/genius.html
-# https://lyricsgenius.readthedocs.io/en/master/reference/types.html
-
-
+@app.route("/api/songs/<int:song_id>/lyrics",  methods = ["GET"])
+def get_song_lyrics_by_id(song_id):
+    song = Song.query.get(song_id)
+    return jsonify(song=song.lyrics)
 

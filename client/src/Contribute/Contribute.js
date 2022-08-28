@@ -29,7 +29,7 @@ const Contribute = (({ allArtists, setRefresh, refresh }) => {
             return
         }
         setLoading(true)
-        fetch(`/api/artists/add/${searchQ1}`, {
+        fetch(`/api/artists/${searchQ1}`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
