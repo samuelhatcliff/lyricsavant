@@ -7,6 +7,7 @@ from lyrics_api import download_artist
 """Imports from our own costum modules"""
 from models import connect_db, db, Song, Artist, Artist_Incomplete, Message
 from api import serialize_artist_data, serialize_artist_names, serialize_song, serialize_lyric
+from sqlalchemy import exc
 from math_helpers import Math
 from python_data_visuals import Python_Data_Visuals
 from lyrics_api import download_artist
@@ -75,6 +76,22 @@ def get_artist(id):
     artist_dict['vocab_score'] = unique_words
     serialized = serialize_artist_data(artist_dict)
     return serialized
+
+@app.route("/api/artists/<int:id>", methods = ["DELETE"])
+def remove_artist(id):
+    """Removes an artist by id"""
+    try:
+        artist = Artist.query.get(id)
+        if not artist:
+            raise NameError(f"Artist with id of {id} was not found in our database and therefor can not be deleted. ")
+        Song.query.filter_by(artist_id = id).delete()
+        Artist.query.filter_by(id=id).delete()
+        db.session.commit()
+        return {"message":f"Success! Artist with id of {id} was deleted."}
+    except NameError:
+        response = {"Unable to delete artist with id": f"{id}"}
+        return response
+
 
 @app.route("/api/artists/<int:id>/wc", methods = ["GET"])
 def get_py_wc(id):
