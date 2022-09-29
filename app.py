@@ -20,7 +20,7 @@ if production:
     api_key = os.environ.get("API_KEY")
     app = Flask(__name__, static_folder="client/build", static_url_path="/")
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-        'DATABASE_URL', 'postgresql:///lyrics-db').replace("://", "ql://", 1)
+        'DATABASE_URL', 'postgresql:///lyrics-db')
 else:
     from creds import api_key
     app = Flask(__name__)
