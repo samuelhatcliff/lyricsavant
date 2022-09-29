@@ -2,6 +2,7 @@
 import nltk
 nltk.download('stopwords')
 nltk.download('punkt')
+nltk.download('vader_lexicon')
 from nltk.corpus import stopwords
 
 
