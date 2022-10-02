@@ -64,6 +64,8 @@ class Math:
         if dif == 0:
             return f"{item1} and {item2} score exactly the same. Weird."
 
+
+class Lyric:
     def generate_composite(self, artist_id, type = "string"):
         """Sums the entirety of an artist's lyrics to a single string or list (if specified) to be used to generate data"""
         # This functionality is neccesary because visual data libraries in python tend to accept a single input of text
@@ -177,9 +179,6 @@ class Math:
       "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", 
       "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", 
       "very", "s", "t", "can", "will", "just", "us", "don", "should", "now"] + nltk_sw_en + nltk_sw_es
-
-
-
 
 
 # class Lyrics:

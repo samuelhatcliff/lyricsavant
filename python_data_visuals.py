@@ -3,12 +3,13 @@ import json
 from types import SimpleNamespace
 from sent_analysis import polarize, tokenize
 from models import Artist
-from helpers import Math
+from helpers import Math, Lyric
 math = Math()
+lyric = Lyric()
 
 """Data Imports"""
 from wordcloud import WordCloud, STOPWORDS
-stopwords = list(STOPWORDS) + math.get_stopwords()
+stopwords = list(STOPWORDS) + lyric.get_stopwords()
 wc= WordCloud(collocations=False, stopwords=stopwords, background_color="#E5E5E5",  height=400, min_word_length=3, min_font_size=9)
 from matplotlib import pyplot as plt
 plt.switch_backend('Agg')
@@ -45,8 +46,8 @@ class Python_Data_Visuals:
         artist1 = Artist.query.get(artist_id1)
         artist2 = Artist.query.get(artist_id2)
     
-        lyrics1 = math.generate_composite(artist_id1)
-        lyrics2 = math.generate_composite(artist_id2)
+        lyrics1 = lyric.generate_composite(artist_id1)
+        lyrics2 = lyric.generate_composite(artist_id2)
 
         tokenized1 = tokenize(lyrics1, artist1.name)
         tokenized2 = tokenize(lyrics2, artist2.name)

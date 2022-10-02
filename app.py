@@ -22,12 +22,12 @@ genius.retries = 1
 
 """Imports from our own costum modules"""
 from api import serialize_artist_data, serialize_artist_names, serialize_song, serialize_lyric
-from helpers import Math
+from helpers import Math, Lyric
 from python_data_visuals import Python_Data_Visuals
 from maintenance.genius_api_calls import download_artist
-from maintenance.db_maintenance import check_songs, delete_artists
 pd = Python_Data_Visuals()
 math = Math()
+lyric = Lyric()
 
 """SQL set-up"""
 from sqlalchemy import exc
@@ -65,7 +65,7 @@ def get_artist(id):
     """Return JSON for a specific artist in database"""
     artist = Artist.query.get(id)
     pol_score = math.avg_pol(artist)
-    unique_words = math.get_num_unique_words(id)
+    unique_words = lyric.get_num_unique_words(id)
     artist_dict = artist.__dict__
     artist_dict['pol_score'] = pol_score
     artist_dict['vocab_score'] = unique_words
@@ -91,8 +91,8 @@ def remove_artist(id):
 @app.route("/api/artists/<int:id>/wc", methods = ["GET"])
 def get_py_wc(id):
     artist = Artist.query.get(id)
-    words = math.generate_composite(id, "list")
-    clean_list = math.clean_up_list(words, artist.name)
+    words = lyric.generate_composite(id, "list")
+    clean_list = lyric.clean_up_list(words, artist.name)
     sorted_list = sorted(clean_list)
     clean_str = ' '.join(sorted_list)
     wc_img = pd.get_wordcloud(clean_str)
