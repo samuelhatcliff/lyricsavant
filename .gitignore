@@ -12,3 +12,4 @@ ls.dump
 database_data/
 data/lyrics-backup.sql
 data.lyrics-backup.sql
+lyrics-backup.sql
