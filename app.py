@@ -22,10 +22,10 @@ genius.retries = 1
 
 """Imports from our own costum modules"""
 from api import serialize_artist_data, serialize_artist_names, serialize_song, serialize_lyric
-from math_helpers import Math
+from helpers import Math
 from python_data_visuals import Python_Data_Visuals
-from lyrics_api import download_artist
-from db_maintenance import check_songs, delete_artists
+from maintenance.genius_api_calls import download_artist
+from maintenance.db_maintenance import check_songs, delete_artists
 pd = Python_Data_Visuals()
 math = Math()
 
