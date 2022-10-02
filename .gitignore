@@ -7,3 +7,5 @@ __pycache__
 lyrics-db.dump
 src/
 .DS_Store
+.env
+ls.dump

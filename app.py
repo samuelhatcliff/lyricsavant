@@ -1,6 +1,21 @@
 """General Imports"""
 import os
-from flask import Flask, jsonify, session
+from flask import Flask, jsonify
+# flask, config, and env imports
+from dotenv import load_dotenv
+load_dotenv()
+app = Flask(__name__, static_folder="client/build", static_url_path="/")
+if app.config["ENV"] == "production":
+    app.config.from_object('config.ProductionConfig')
+elif app.config["ENV"] == "development":
+    app.config.from_object('config.DevelopmentConfig')
+else:
+    app.config.from_object('config.TestingConfig')
+api_key = os.getenv('API_KEY')
+
+
+
+
 from lyricsgenius import Genius
 from lyrics_api import download_artist
 
@@ -15,21 +30,21 @@ from db_maintenance import check_songs, delete_artists
 pd = Python_Data_Visuals()
 math = Math()
 
-production = True
-if production:
-    api_key = os.environ.get("API_KEY")
-    app = Flask(__name__, static_folder="client/build", static_url_path="/")
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-        'DATABASE_URL', 'postgresql:///lyrics-db')
-else:
-    from creds import api_key
-    app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///lyrics-db'
+# production = True
+# if production:
+    # api_key = os.environ.get("API_KEY")
+    # app = Flask(__name__, static_folder="client/build", static_url_path="/")
+    # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    #     'DATABASE_URL', 'postgresql:///lyrics-db')
+# else:
+    # from creds import api_key
+    # app = Flask(__name__)
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///lyrics-db'
 
 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = True
-app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", "topsecret1")
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SQLALCHEMY_ECHO'] = True
+# app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", "topsecret1")
 connect_db(app)
 
 db.create_all()
