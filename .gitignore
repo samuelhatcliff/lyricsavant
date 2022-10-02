@@ -9,3 +9,4 @@ src/
 .DS_Store
 .env
 ls.dump
+database_data/

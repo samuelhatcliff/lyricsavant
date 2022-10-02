@@ -1,8 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-
 db = SQLAlchemy()
-
-
 
 def connect_db(app):
     """Connect to database."""
@@ -10,14 +7,13 @@ def connect_db(app):
     db.app = app
     db.init_app(app)
 
-    
 class Artist(db.Model):
     __tablename__ = "artists"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     bio = db.Column(db.String)
     image = db.Column(db.Text)
-    pol_score = db.Column(db.String)     # average score of all songs associated with artist
+    pol_score = db.Column(db.String) # average score of all songs associated with artist
     vocab_score = db.Column(db.Integer)
 
     def __repr__(self):

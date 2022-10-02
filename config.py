@@ -11,7 +11,6 @@ class Config(object):
 class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'postgresql:///lyrics-db'
-    SECRET_KEY = 'hua897dhnjklsd984b4'
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")

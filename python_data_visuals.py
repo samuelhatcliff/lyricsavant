@@ -3,7 +3,7 @@ import json
 from types import SimpleNamespace
 from sent_analysis import polarize, tokenize
 from models import Artist
-from math_helpers import Math
+from helpers import Math
 math = Math()
 
 """Data Imports"""
