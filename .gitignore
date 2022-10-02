@@ -9,7 +9,4 @@ src/
 .DS_Store
 .env
 ls.dump
-database_data/
-data/lyrics-backup.sql
-data.lyrics-backup.sql
-lyrics-backup.sql
+data/database_backups
