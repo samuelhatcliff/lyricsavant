@@ -28,6 +28,7 @@ from maintenance.genius_api_calls import download_artist
 pd = Python_Data_Visuals()
 math = Math()
 lyric = Lyric()
+serialize = Serialize()
 
 """SQL set-up"""
 from sqlalchemy import exc
@@ -57,7 +58,7 @@ def get_all_artists():
     """Return JSON for all artists in database"""
     artists = Artist.query.all()
     dix = [(a.__dict__) for a in artists]
-    serialized = [serialize_artist_names(a) for a in dix]
+    serialized = [serialize.artist_names(a) for a in dix]
     return jsonify(artists=serialized)
 
 @app.route("/api/artists/<int:id>", methods = ["GET"])
@@ -69,7 +70,7 @@ def get_artist(id):
     artist_dict = artist.__dict__
     artist_dict['pol_score'] = pol_score
     artist_dict['vocab_score'] = unique_words
-    serialized = serialize_artist_data(artist_dict)
+    serialized = serialize.artist_data(artist_dict)
     return serialized
 
 @app.route("/api/artists/<int:id>", methods = ["DELETE"])
@@ -127,14 +128,14 @@ def get_progress():
 @app.route("/api/artists/<int:id>/songs", methods = ["GET"])
 def get_all_songs_by_artist(id):
     artist = Artist.query.get(id)
-    serialized = [serialize_song(song) for song in artist.songs]
+    serialized = [serialize.song(song) for song in artist.songs]
     return jsonify(songs=serialized)
 
 @app.route("/api/artists/<int:artist_id>/<int:song_id>", methods = ["GET"])
 def get_song_by_artist(artist_id, song_id):
     artist = Artist.query.get(artist_id) #add error handling for if song doesn't exist in artist
     song = Song.query.get(song_id)
-    serialized = serialize_song(song)
+    serialized = serialize.song(song)
     return jsonify(songs=serialized)
 
 @app.route("/api/artists/<int:artist_id>/<int:song_id>/lyrics", methods = ["GET"])
@@ -146,7 +147,7 @@ def get_lyric_by_artist(artist_id, song_id):
 @app.route("/api/artists/<int:artist_id>/lyrics", methods = ["GET"])
 def get_all_lyrics_by_artist(artist_id):
     artist = Artist.query.get(artist_id)
-    serialized = [serialize_lyric(song) for song in artist.songs]
+    serialized = [serialize.lyric(song) for song in artist.songs]
     return jsonify(lyrics=serialized)
 
 
@@ -154,13 +155,13 @@ def get_all_lyrics_by_artist(artist_id):
 @app.route("/api/songs",  methods = ["GET"]) #add pagination
 def get_all_songs(id):
     songs = Song.query.all()
-    serialized = [serialize_song(song) for song in songs]
+    serialized = [serialize.song(song) for song in songs]
     return jsonify(songs=serialized)
 
 @app.route("/api/songs/<int:song_id>",  methods = ["GET"])
 def get_song_by_id(song_id):
     song = Song.query.get(song_id)
-    serialized = serialize_song(song)
+    serialized = serialize.song(song)
     return jsonify(song=serialized)
 
 @app.route("/api/songs/<int:song_id>/lyrics",  methods = ["GET"])
