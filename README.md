@@ -1,4 +1,4 @@
-# Lyrics Savant
+# Lyric Savant
 
 ## `Tech Stack`
 Python, Flask, Sqlalchemy, Postgres, Javascript, React, CSS, HTML.
@@ -10,7 +10,7 @@ SWR, Axios, React Router, Material UI, Chart.js, React-Search-Autocomplete, Reac
 
 ## `Summary`
 
-Lyrics Savant is a data-driven User Interface that leverages the Lyrics Genius API to webscrape an artist's lyrics to display a module that includes their biographical information, a sample of their lyrics, and statistical insights regarding their vocabulary and polarity scores of their lyrics. Artists can be compared side-by-side to help users visualize such data insights. If an artist is not already present in our database, users have the option to contribute to the project by submitting an http request to our API to seed said artist to our database. Learn more about our RESTFUL API below. 
+Lyric Savant is a data-driven User Interface that leverages the Lyrics Genius API to webscrape an artist's lyrics to display a module that includes their biographical information, a sample of their lyrics, and statistical insights regarding their vocabulary and polarity scores of their lyrics. Artists can be compared side-by-side to help users visualize such data insights. If an artist is not already present in our database, users have the option to contribute to the project by submitting an http request to our API to seed said artist to our database. Learn more about our RESTFUL API below. 
 
 ## `Lyrics Savant API`
 
