@@ -10,3 +10,4 @@ src/
 .env
 ls.dump
 database_data/
+data/lyrics-backup.sql
