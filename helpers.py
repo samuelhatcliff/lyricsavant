@@ -181,7 +181,7 @@ class Lyric:
       "very", "s", "t", "can", "will", "just", "us", "don", "should", "now"] + nltk_sw_en + nltk_sw_es
 
 class Serialize:
-    def artist_data(artist):
+    def artist_data(self, artist):
         """Serialize an artist SQLAlchemy obj to dictionary"""
         #This is done so that it can be converted to JSON for our API using the jsonify method
         serialized = {
@@ -194,7 +194,7 @@ class Serialize:
         }
         return serialized
 
-    def artist_names(artist):
+    def artist_names(self, artist):
         """Serialize an artist SQLAlchemy obj to dictionary"""
         #This is done so that it can be converted to JSON for our API using the jsonify method
         serialized = {
@@ -203,7 +203,7 @@ class Serialize:
         }
         return serialized
 
-    def lyric(song):
+    def lyric(self, song):
         serialize = {
             "title": song.title,
             "id": song.id,
@@ -212,7 +212,7 @@ class Serialize:
         }
         return serialize
 
-    def song(song):
+    def song(self, song):
         """Serialize a song SQLAlchemy obj to dictionary"""
         return {
             "id": song.id,

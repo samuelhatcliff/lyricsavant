@@ -21,7 +21,6 @@ genius.remove_section_headers = True
 genius.retries = 1
 
 """Imports from our own costum modules"""
-from api import serialize_artist_data, serialize_artist_names, serialize_song, serialize_lyric
 from helpers import Math, Lyric, Serialize
 from python_data_visuals import Python_Data_Visuals
 from maintenance.genius_api_calls import download_artist
