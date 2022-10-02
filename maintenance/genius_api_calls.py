@@ -10,11 +10,11 @@ genius.retries = 1
 
 """Imports from our own costum modules"""
 from models import db, Song, Artist, Message
-from math_helpers import Math
+from helpers import Math
 from python_data_visuals import Python_Data_Visuals
 pd = Python_Data_Visuals()
 math = Math()
-
+print('test change')
 def download_artist(name, quantity = 40):
     #deletes data from last artist
     Message.query.delete()
