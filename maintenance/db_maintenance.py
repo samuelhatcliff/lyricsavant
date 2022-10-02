@@ -20,8 +20,8 @@ genius.remove_section_headers = True
 genius.retries = 1
 
 from models import Artist, Artist_Incomplete, Song, db
-from lyrics_api import download_artist
-
+from maintenance.genius_api_calls import download_artist
+print("test change")
 def check_songs(mark_in_db = False):
     artists = Artist.query.all()
     artist_ids = []
