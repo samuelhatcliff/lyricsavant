@@ -1,5 +1,6 @@
 from models import Artist
 from sent_analysis import polarize
+from data.stopwords import my_stopwords
 import re
 import nltk
 nltk.download('omw-1.4')
@@ -142,43 +143,8 @@ class Lyric:
         return filtered
 
     def get_stopwords(self):
-        #todo: add stopword list from wordcloud. once all external stopword lists are added (including in various languages, convert
-        # to set and then back to list)
-        return ["take", "di", "'s", "ay"," ", "uh", "trs" "e", "'em", "em", "i'll", "let's", "and", "be", "yet", "so", "~", "-", "_", "/", ".", ",", "[", "]", "*", "lyrics", "na", "say", "want", "need", "naa", "nah", "ha", "yes", "Hey", "u", "make", "mi", "ooh", "around", "oh", "still", "see", "after", "afterwards", "ag", "again", "well", "one", "em", "let", "go",
-"ah", "ain", "ain't", "aj", "al", "all","almost",  "already", "also", "although", 
-"am","an", "and","another", "any", "are", "aren", "arent", "as", "a's", "right", "wanna", "ya ya", "I'ma", "ya", "til",
-"did", "didn", "didn't", "do", "does", "doesn", "doesn't","either", "else", "for", 
-"gave", "ge", "get", "gets", "getting", "gi", "give", "given", "gives", "giving", "gj", "gl",
- "go", "goes", "going", "got", "gotten", "has", "hasn", "hasnt", "hasn't", "have", "haven", "haven't",
- "he", "hed", "he'd", "he'll", "he's", "here", "hereafter", "hereby", "herein", "heres",
- "him", "himself", "his", "i'd", "ie", "if", "ig", "ih", "ii", "ij", "il", "im", "i'm",
- "it'd", "it'll","ill", "its", "it's", "itself", "iv", "i've", "ive" "just", "like", "my", "no", "not",
- "she'd", "she'll", "shes", "she's", "should", "shouldn", "shouldn't", "should've", "since",
- "them", "then", "there", "that", "that'll", "thats", "that's", "that've", "the", "their", "theirs", "them", "themselves",
- "these", "they", "theyd", "they'd", "they'll", "theyre", "they're", "they've",
- "this", "thorough", "thoroughly", "those", "thou", "though", "um", 
- "you", "youd", "you'd", "you'll", "your", "youre", "you're", "yours", "yourself", "yourselves", "you've",
- "want", "wants", "was", "wasn", "wasnt", "wasn't", "way", "we", "wed", "we'd",
- "well", "we'll", "well-b", "went", "were", "we're", "weren", "werent", "weren't", "we've", "what",
- "what'll", "whats", "what's", "when", "whence", "whenever", "when's", "where", "whereafter", "whereas", 
- "whereby", "wherein", "wheres", "where's", "whereupon", "wherever", "whether", "which", "while", 
- "who", "whod", "whoever", "whole", "who'll", "whom", "whomever", "whos", "who's", "whose",
- "with", "won't", "would", "wouldn", "wouldnt", "wouldn't",
-"came", "can", "cannot", "cant", "can't","comes", "could", "couldn", "couldnt", "couldn't"
-"say", "said", "gonna", "give", "even", "ohh", "yeah", "know", "cause", "ain't", "tell",
-"now", "got", "back", "come", "i", "me", "my", "myself", "we", "our", "ours",
-"ourselves", "you", "your", "yours", "yourself", "yourselves", "he", "him", "his",
-    "himself", "she", "her", "hers", "herself", "it", "its", "itself", "they", "them",
-     "their", "theirs", "themselves", "what", "which", "who", "whom", "this", "that", 
-     "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", 
-     "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but",
-      "if", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with", 
-      "about", "against", "between", "into", "through", "during", "before", "after", 
-      "above", "below", "to", "from", "up", "down", "in", "out", "on", "off", "over", 
-      "under", "again", "further", "then", "once", "here", "there", "when", "where", 
-      "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", 
-      "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", 
-      "very", "s", "t", "can", "will", "just", "us", "don", "should", "now"] + nltk_sw_en + nltk_sw_es
+        #todo: add stopword list from wordcloud. once all external stopword lists are added (including in various languages, convert to set and then back to list)
+        return my_stopwords + nltk_sw_en + nltk_sw_es
 
 class Serialize:
     def artist_data(self, artist):
