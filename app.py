@@ -1,9 +1,8 @@
-"""General Imports"""
+"""Flask, config, and env imports and config"""
 import os
-from flask import Flask, jsonify
-# flask, config, and env imports
 from dotenv import load_dotenv
 load_dotenv()
+from flask import Flask, jsonify
 app = Flask(__name__, static_folder="client/build", static_url_path="/")
 if app.config["ENV"] == "production":
     app.config.from_object('config.ProductionConfig')
@@ -11,18 +10,18 @@ elif app.config["ENV"] == "development":
     app.config.from_object('config.DevelopmentConfig')
 else:
     app.config.from_object('config.TestingConfig')
-api_key = os.getenv('API_KEY')
 
-
-
-
+"""Lyrics genius API imports and config"""
 from lyricsgenius import Genius
-from lyrics_api import download_artist
+api_key = os.getenv('API_KEY')
+genius = Genius(api_key) #the following configuration modifies our genius object with params to narrow down search results
+genius.excluded_terms = ["(Remix)", "(Live)"]
+genius.skip_non_songs = True
+genius.remove_section_headers = True
+genius.retries = 1
 
 """Imports from our own costum modules"""
-from models import connect_db, db, Song, Artist, Artist_Incomplete, Message
 from api import serialize_artist_data, serialize_artist_names, serialize_song, serialize_lyric
-from sqlalchemy import exc
 from math_helpers import Math
 from python_data_visuals import Python_Data_Visuals
 from lyrics_api import download_artist
@@ -30,32 +29,13 @@ from db_maintenance import check_songs, delete_artists
 pd = Python_Data_Visuals()
 math = Math()
 
-# production = True
-# if production:
-    # api_key = os.environ.get("API_KEY")
-    # app = Flask(__name__, static_folder="client/build", static_url_path="/")
-    # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-    #     'DATABASE_URL', 'postgresql:///lyrics-db')
-# else:
-    # from creds import api_key
-    # app = Flask(__name__)
-    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///lyrics-db'
-
-
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# app.config['SQLALCHEMY_ECHO'] = True
-# app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", "topsecret1")
+"""SQL set-up"""
+from sqlalchemy import exc
+from models import connect_db, db, Song, Artist, Artist_Incomplete, Message
 connect_db(app)
-
 db.create_all()
 
-genius = Genius(api_key)
-#modifies our genius object with params to narrow down search results
-genius.excluded_terms = ["(Remix)", "(Live)"]
-genius.skip_non_songs = True
-genius.remove_section_headers = True
-genius.retries = 1
-application = app
+
 completed = []
 failed = []
 

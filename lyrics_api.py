@@ -1,9 +1,8 @@
-"""General Imports"""
-from flask import Flask, jsonify, request, render_template
+"""Lyrics genius API imports and config"""
+import os
 from lyricsgenius import Genius
-
-genius = Genius('aPt0Y03tHHx7XAVyDWcJUzgaR7qBN5_D1-Dg_s-BBgTO8ifIJUB0toLzQ0P2YKCF')
-#modifies our genius object with params to narrow down search results
+api_key = os.getenv('API_KEY')
+genius = Genius(api_key) #the following configuration modifies our genius object with params to narrow down search results
 genius.excluded_terms = ["(Remix)", "(Live)", "(Demo)"]
 genius.skip_non_songs = True
 genius.remove_section_headers = True
